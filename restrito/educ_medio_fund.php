@@ -1,0 +1,126 @@
+<?php
+
+
+//ini_set('display_errors', 1);
+//ini_set('display_startup_erros', 1);
+//error_reporting(E_ALL);
+
+require_once('valida.php');
+
+
+$query = "SELECT *
+                       from Candidatos WHERE candidado = '102'";
+$smtp = $con->prepare($query);
+$smtp->execute();
+$linha = $smtp->fetch(PDO::FETCH_OBJ);
+
+// Aqui pega os dados
+$inscricao = $linha->candidado;
+$nome = $linha->nome;
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+</head>
+
+<body>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="lead text-center">AVALIAÇÃO DA ANÁLISE DE CURRÍCULO DA SECRETARIA DA EDUCAÇÃO ANEXO VIII DO EDITAL – CARGO DE NÍVEL FUNDAMENTAL E MÉDIO</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-monospace">Identificação do Candidato</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 border">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fa text-primary mr-2 fa-share">&nbsp;Nº DE INSCRIÇÃO:</i> <?= $inscricao ?></li>
+            <li class="list-group-item"><i class="fa text-primary mr-2 fa-share">&nbsp; NOME DO CANDIDATO:</i> <?= $nome ?></li>
+            <li class="list-group-item" contenteditable="true"><i class="fa text-primary mr-2 fa-share">&nbsp;CARGO:</i> </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class="text-monospace"><br>Pontuação aferida na Análise Curricular</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered ">
+              <thead class="thead-dark">
+                <tr>
+                  <th>INDICADORES</th>
+                  <th>PONTUAÇÃO UNITÁRIA</th>
+                  <th>PONTUAÇÃO MÁXIMA</th>
+                  <th>PONTUAÇÃO ALCANÇADA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Comprovação de experiência
+                    profissional na especialidade para a
+                    qual concorre.</td>
+                  <td>10 PONTOS
+                    (POR ANO)</td>
+                  <td>20 PONTOS
+                    (ATÉ 02 ANOS)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Certificado ou declaração de
+                    conclusão de curso técnico, na área,
+                    com carga horária entre 80h a 120h.</td>
+                  <td>05 PONTOS
+                    (POR CURSO)</td>
+                  <td>10 PONTOS</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Comprovação de experiência
+                    profissional aperfeiçoamento ou
+                    especialização na área para a qual
+                    concorre, com carga horária entre
+                    80h a 120h.</td>
+                  <td>05 PONTOS
+                    (POR CURSO)</td>
+                  <td>10 PONTOS</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>TOTAL:</td>
+                  <td>40 PONTOS</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p class=""><br>Avaliador(a):</p>
+          <p class="text-center">Palmares,<?= date('d') ?> de <?= date('M') ?> de <?= date('Y') ?></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

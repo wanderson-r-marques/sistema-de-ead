@@ -1,0 +1,44 @@
+#uploader_files {
+	font-family:'Lucida Sans Unicode','Lucida Sans','Trebuchet MS'; font-size:10pt;
+	border:1px dotted #DDD;
+	background-color:#FAFAFA;
+	padding: 5px;
+}
+
+.c30p { width:36%; float:left; margin-left:15px; }
+.c100 { width:100px; float:left; }
+.bold { font-weight:700; }
+.ac { text-align:center; }
+.sep { background-color:#DDD; height:1px; line-height:1px; font-size:1px; clear:both; margin-bottom:6px; }
+
+.progress div {
+	background-color:#007700;
+	line-height:14px;
+	height:14px;
+	width:0%;
+	font-size:10px;
+	
+	color:#fff;
+	text-align:center;
+	border-radius: 4px;
+}
+
+pre {
+	float:none;
+	font-weight:normal;
+	width:auto;
+	-moz-background-clip:border !important;
+	-moz-background-inline-policy:continuous !important;
+	-moz-background-origin:padding !important;
+	-moz-border-radius-bottomleft:3px;
+	-moz-border-radius-bottomright:3px;
+	-moz-border-radius-topleft:3px;
+	-moz-border-radius-topright:3px;
+	background:#F5F4EE none repeat scroll 0 0 !important;
+	border:1px dotted #DDDDDD !important;
+	color:#06263C !important;
+	font-size:11px !important;
+	line-height:1.6 !important;
+	margin:0.8em 0 1.2em !important;
+	padding:5px !important;
+}

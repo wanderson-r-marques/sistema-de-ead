@@ -1,0 +1,9 @@
+A pasta cms é onde teremos os arquivos
+do administrador de conteúdo. 
+
+Nela temos:
+
+(includes) Arquivos de includes
+(phpscripts) Arquivos de funções e configuraçãos do sistema
+(uploads) Destino dos arquivos enviados
+(img) Arquivos de imagem da interface

@@ -1,0 +1,2 @@
+[18-Aug-2020 23:38:35 America/Fortaleza] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home2/infor407/isolucoes.inf.br/online/restrito1/index.php:1) in /home2/infor407/isolucoes.inf.br/online/restrito1/index.php on line 32
+[18-Aug-2020 23:38:35 America/Fortaleza] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/infor407/isolucoes.inf.br/online/restrito1/index.php:1) in /home2/infor407/isolucoes.inf.br/online/restrito1/index.php on line 37

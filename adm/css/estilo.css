@@ -1,0 +1,121 @@
+
+body{
+	margin:0px;
+}
+
+#top{
+
+
+}
+
+#topo{
+	background:url(../images/bg_top.png) repeat-x ;
+}
+
+.both{
+	clear:both;
+}
+
+
+#topo #centro{
+	width:980px;
+	padding:20px 0;
+}
+#topo #cont1{
+	float: left;
+}
+#topo #cont2{
+	float:left;
+	margin-left:50px;
+}
+#topo #cont3{
+	float:right;	
+}
+#menu{
+	margin-top:40px;
+}
+#logo{
+	width:160px;
+	float:left;
+	/*background:url(../images/bg_logo.png) no-repeat;*/
+	height:155px;	
+	margin:4px;
+	background:url(../images/bg_top.png) repeat-x;	
+	border-radius: 6px;
+	border: #6699FF 1px solid;
+	padding:5px 0px 0px 0px;
+	text-align:center;
+	color:#08C;
+		
+}
+#opcoes{
+	width:800px;
+	float:right;	
+}
+#nav{
+	float:left;
+	width:104px;
+	margin:4px;
+	padding-top:5px;
+	background:url(../images/bg_top.png) repeat-x;	
+	border-radius: 2px;
+	border: #6699FF 1px solid;
+	
+	
+	
+}
+
+#corpo #conteudo{
+	width:1010px;
+	text-align:left;
+	margin-top:30px;
+	
+}
+
+.bord{
+	border-radius: 4px;
+	border: #DBDBDB 1px solid;
+}
+.form{
+	border-radius: 4px;
+	border: #DBDBDB 1px solid;
+	padding-top:20px;
+}
+
+.descricao{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color: #999999;
+}
+
+.textarea{
+	margin: 0 auto 20px auto;
+	width: 830px;
+}
+textarea{
+	width: 100%;
+	height: 600px;
+}
+
+.notifica{
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px; 
+	border-radius: 3px; 
+	background: #fa4600;
+	margin: -4px 0 0 65px;
+	text-align: center;
+	color: #fff;
+}
+
+
+#fotos { width:210px; height:145px; float:left; margin:7px;  font-size:11px;  }
+#fotos #sera-mostrada{display:none}
+#fotos:hover #sera-mostrada{display:block; margin:104px 0 0 0; padding:5px 7px; width:196px; height:30px; background:url(../img/bg_fotos.png) top  repeat-x; }
+
+#footer{
+	clear:both;
+}
+
