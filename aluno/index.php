@@ -1,69 +1,56 @@
 <?php
-if(session_status()!=PHP_SESSION_ACTIVE) session_start();
+error_reporting(0);
+ini_set("display_errors", 0 );
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
 if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg') {
-  require_once("../restrito/conexao.php");
-  $con = conectar();
+    require_once "../restrito/conexao.php";
+    $con = conectar();
 
-  $cpf = $_POST['cpf'];
-  $senha = $_POST['senha'];
-  $ipPc = $_SERVER["REMOTE_ADDR"];
-  
-  $query = "SELECT A.ENTIDADE,
-       A.NOME,
-       A.SENHA,
-       A.INSCRICAO_FEDERAL,
-       C.DESCRICAO AS CURSO,
-       C.ANO_LETIVO,
-       D.AC_CADASTRO_TURMA,
-       E.DESCRICAO AS TURMA_DESC,
-       D.AC_MATRICULA
-FROM AC_CADASTRO_ALUNOS    A
-     JOIN AC_CADASTRO_ALUNO_PSS B ON A.ENTIDADE           = B.ENTIDADE
-     JOIN AC_CADASTRO_CURSOS    C ON B.AC_CADASTRO_CURSO  = C.AC_CADASTRO_CURSO
-LEFT JOIN AC_MATRICULAS         D ON A.ENTIDADE           = D.ENTIDADE 
-LEFT JOIN AC_CADASTRO_TURMAS    E ON D.AC_CADASTRO_TURMA  = E.AC_CADASTRO_TURMA
+    $cpf = $_POST['cpf'];
+    $cpf = str_replace('.','',$cpf);
+    $cpf = str_replace('-','',$cpf);
+    $senha = $_POST['senha'];
+    $ipPc = $_SERVER["REMOTE_ADDR"];
 
- WHERE A.ENTIDADE = '$cpf' AND A.SENHA = '$senha'";
- 
-  $smtp = $con->prepare($query);
-  $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);
-  $smtp->bindParam(':senha', $senha, PDO::PARAM_STR);
+    $query = "SELECT
+    `NOME`,
+    `NOME_FANTASIA`,
+    `CPF`,
+    `RG`,
+    `DATA_NASCIMENTO`,
+    `TELEFONE1`,
+    `TELEFONE2`,
+    `EMAIL`,
+    `PK_TIPO_CADASTRO`,
+    `MATRICULA`,
+    `SENHA`,
+    `COD_INEP`
+  FROM
+    `entidades`
+  WHERE
+     `PK_TIPO_CADASTRO` = 1 AND CPF = :cpf AND SENHA = :senha";
 
-  if ($smtp->execute()) {
-    if ($smtp->rowCount() > 0) {
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);
+    $smtp->bindParam(':senha', $senha, PDO::PARAM_STR);
 
-      $atributo = $smtp->fetch(PDO::FETCH_OBJ);
-
-      
-      $_SESSION['Matricula'] = $atributo->ENTIDADE;
-      $_SESSION['cpf'] = $cpf;
-      $_SESSION['senha'] = $senha;
-      $_SESSION['nome'] = $atributo->NOME;
-      $_SESSION['curso'] = $atributo->CURSO;
-      $_SESSION['turma'] = $atributo->TURMA_DESC;
-      $_SESSION['cod_turma'] = $atributo->AC_CADASTRO_TURMA;
-      $_SESSION['cod_matricula_aca'] = $atributo->AC_MATRICULA;
-      $_SESSION['ano_letivo'] = $atributo->ANO_LETIVO;
-      
-      $query1="INSERT INTO `infor407_jn`.`AC_ACESSO_WEB`
-                (
-                  `ENTIDADE`,
-                  `DATA_HORA`,
-                  `IP`) 
-                VALUES ('$atributo->ENTIDADE', NOW( ), '$ipPc')";
-      $smtp = $con->prepare($query1);
-      $smtp->execute();
-
-      header('Location: dados.php');
-      exit;
-    } else {
-      $msg = '<div class="alert alert-danger" role="alert" >
+    if ($smtp->execute()) {
+        if ($smtp->rowCount() > 0) {                      
+            $_SESSION['cpf'] = $cpf; 
+            
+            header('Location: dados.php');
+            exit;
+        } else {
+            $msg = '<div class="alert alert-danger" role="alert" >
               <button type="button" class="close" data-dismiss="alert">×</button>
               <h4 class="alert-heading">Aluno não encontrado !</h4>
               <p class="mb-0" contenteditable="true">Verifique sua Matrícula e sua senha foram digitados corretamente.</p>
               </div>';
+        }
     }
-  }
 }
 
 ?>
@@ -101,17 +88,17 @@ LEFT JOIN AC_CADASTRO_TURMAS    E ON D.AC_CADASTRO_TURMA  = E.AC_CADASTRO_TURMA
                   <form method="post">
                     <input type="hidden" value="8s0dfg7s6grogpsfgsgs-*sgsfg" name="token">
                     <div class="form-group text-left">
-                      <label>Matrícula</label>
+                      <label>CPF</label>
                       <input type="text" id="cpf" name="cpf" class="form-control">
                     </div>
                     <div class="form-group text-left">
-                      <label>Senha - mesma matrícula</label>
+                      <label>Senha</label>
                       <input type="password" id="senha" name="senha" class="form-control">
                     </div>
                     <button type="submit" name="acessar" value="s" class="btn btn-primary">Acessar</button>
                   </form>
                 </div>
-              <!--  <div class="card-footer text-muted"> <?= date('d/m/Y'); ?> </div>-->
+              <!--  <div class="card-footer text-muted"> <?=date('d/m/Y');?> </div>-->
               </div>
 
             </div>
@@ -126,7 +113,7 @@ LEFT JOIN AC_CADASTRO_TURMAS    E ON D.AC_CADASTRO_TURMA  = E.AC_CADASTRO_TURMA
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/jquery.mask.min.js"></script>
   <script>
-    $('#cpf').mask('9999');
+    $('#cpf').mask('999.999.999-99');
    // $('#senha').mask('***');
   </script>
 </body>

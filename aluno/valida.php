@@ -1,44 +1,40 @@
 <?php
 session_start();
 
-if (isset($_SESSION['senha']) && isset($_SESSION['cpf'])) {
+if (isset($_SESSION['cpf'])) {
     require_once("../restrito/conexao.php");
     $con = conectar();
 
     $cpf = $_SESSION['cpf'];
-    $senha = $_SESSION['senha'];    
-    $query = "SELECT A.ENTIDADE,
-       A.NOME,
-       A.SENHA,
-       A.INSCRICAO_FEDERAL,
-       C.DESCRICAO AS CURSO,
-       C.ANO_LETIVO,
-       D.AC_CADASTRO_TURMA,
-       E.DESCRICAO AS TURMA_DESC,
-       D.AC_MATRICULA
-FROM AC_CADASTRO_ALUNOS    A
-     JOIN AC_CADASTRO_ALUNO_PSS B ON A.ENTIDADE           = B.ENTIDADE
-     JOIN AC_CADASTRO_CURSOS    C ON B.AC_CADASTRO_CURSO  = C.AC_CADASTRO_CURSO
-LEFT JOIN AC_MATRICULAS         D ON A.ENTIDADE           = D.ENTIDADE 
-LEFT JOIN AC_CADASTRO_TURMAS    E ON D.AC_CADASTRO_TURMA  = E.AC_CADASTRO_TURMA
-
- WHERE A.ENTIDADE = '$cpf' AND A.SENHA = $senha
-        
-    ";
+      
+    $query = "SELECT
+    `NOME`,
+    `NOME_FANTASIA`,
+    `CPF`,
+    `RG`,
+    `DATA_NASCIMENTO`,
+    `TELEFONE1`,
+    `TELEFONE2`,
+    `EMAIL`,
+    `PK_TIPO_CADASTRO`,
+    `MATRICULA`,
+    `SENHA`,
+    `COD_INEP`
+  FROM
+    `entidades`
+  WHERE
+     `PK_TIPO_CADASTRO` = 1 AND CPF = :cpf";
     $smtp = $con->prepare($query);
-    $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);
-    $smtp->bindParam(':senha', $senha, PDO::PARAM_STR);
+    $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);   
 
     if ($smtp->execute()) {
-        if ($smtp->rowCount() <= 0) {
-            unset($_SESSION['senha']);
+        if ($smtp->rowCount() <= 0) {            
             unset($_SESSION['cpf']);
             header('Location: index.php');
         }else{
             $atributo = $smtp->fetch(PDO::FETCH_OBJ);
         }
-    } else {
-        unset($_SESSION['senha']);
+    } else {       
         unset($_SESSION['cpf']);
         header('Location: index.php');
     }
