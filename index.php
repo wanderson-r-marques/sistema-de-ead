@@ -1,34 +1,37 @@
 
+<?php require_once 'config.php';?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	<head>
+        <title><?=SITE?> - Aulas EAD </title>
+        <link rel="icon" href="<?=FAVICON?>" />
 		<meta charset="utf-8" />
-		<meta name="author" content="www.frebsite.nl" />
+		<meta name="author" content="Wanderson R Marques" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		
-        <title>LearnUp - Online Course & Education HTML Template</title>
-		 
+
+
+
         <!-- Custom CSS -->
         <link href="assets/css/styles.css" rel="stylesheet">
-		
+
 		<!-- Custom Color Option -->
 		<link href="assets/css/colors.css" rel="stylesheet">
-		
+
     </head>
-	
+
     <body class="red-skin">
-	
+
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->
         <div id="preloader"><div class="preloader"><span></span><span></span></div></div>
-		
-		
+
+
         <!-- ============================================================== -->
         <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <div id="main-wrapper">
-		
+
             <!-- ============================================================== -->
             <!-- Top header  -->
             <!-- ============================================================== -->
@@ -37,12 +40,12 @@
 				<div class="container">
 					<nav id="navigation" class="navigation navigation-landscape">
 						<div class="nav-header">
-							<a class="nav-brand" href="#"><img src="assets/img/logo.png" class="logo" alt="" /></a>
+							<a class="nav-brand" href="#"><img src="<?=LOGO?>" class="logo" alt="" /></a>
 							<div class="nav-toggle"></div>
 						</div>
 						<div class="nav-menus-wrapper" style="transition-property: none;">
 							<ul class="nav-menu">
-							
+
 								<li class="active"><a href="#">Home<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li><a href="index.html">Home 1</a></li>
@@ -57,7 +60,7 @@
 										<li><a href="home-10.html">Home 10</a></li>
 									</ul>
 								</li>
-								
+
 								<li><a href="#">Courses<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li><a href="#">Courses Grid Sidebar<span class="submenu-indicator"></span></a>
@@ -89,7 +92,7 @@
 										<li><a href="instructor-detail.html">Instructor Detail</a></li>
 									</ul>
 								</li>
-								
+
 								<li><a href="#">Pages<span class="submenu-indicator"></span></a>
 									<ul class="nav-dropdown nav-submenu">
 										<li class=""><a href="#">User Dashboard<span class="submenu-indicator"></span></a>
@@ -126,13 +129,13 @@
 										<li><a href="faq.html">FAQs</a></li>
 									</ul>
 								</li>
-								
+
 								<li><a href="contact.html">Contact</a></li>
-								
+
 							</ul>
-							
+
 							<ul class="nav-menu nav-menu-social align-to-right">
-								
+
 								<li class="login_click light">
 									<a href="#" data-toggle="modal" data-target="#login">Sign in</a>
 								</li>
@@ -149,7 +152,7 @@
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
-			
+
 			<!-- ============================ Hero Banner  Start================================== -->
 			<div class="image-cover hero_banner hero-inner-2" style="background:#152974 url(assets/img/e.jpg) no-repeat;" data-overlay="0">
 				<div class="container">
@@ -161,7 +164,7 @@
 							<div class="banner-search shadow_high mt-4">
 								<div class="search_hero_wrapping">
 									<div class="row">
-									
+
 										<div class="col-lg-10 col-md-10 col-sm-12">
 											<div class="form-group">
 												<div class="input-with-icon">
@@ -170,13 +173,13 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="col-lg-2 col-md-2 col-sm-12 pl-0">
 											<div class="form-group none">
 												<a href="#" class="btn search-btn full-width btn-black">Go</a>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
@@ -185,7 +188,7 @@
 				</div>
 			</div>
 			<!-- ============================ Hero Banner End ================================== -->
-			
+
 			<!-- ============================ Trips Facts Start ================================== -->
 			<div class="brands_up">
 				<div class="container">
@@ -193,52 +196,52 @@
 						<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="_partner_brands large op-1 shadow_upper">
 								<div class="single_brand" id="brand-slide">
-								
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-1.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-2.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-3.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-4.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-5.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-6.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-7.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-8.png" class="img-fluid" alt="" />
 									</div>
-									
+
 									<!-- single -->
 									<div class="single_brands">
 										<img src="assets/img/lg-9.png" class="img-fluid" alt="" />
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
@@ -246,11 +249,11 @@
 				</div>
 			</div>
 			<!-- ============================ Trips Facts Start ================================== -->
-			
+
 			<!-- ========================== Featured Category Section =============================== -->
 			<section>
 				<div class="container">
-				
+
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
@@ -259,7 +262,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-1">
@@ -272,9 +275,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>23 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-2">
 								<div class="edu_cat_icons">
@@ -286,9 +289,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>58 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-3">
 								<div class="edu_cat_icons">
@@ -300,9 +303,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>74 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-4">
 								<div class="edu_cat_icons">
@@ -314,9 +317,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>65 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-10">
 								<div class="edu_cat_icons">
@@ -328,9 +331,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>43 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-6">
 								<div class="edu_cat_icons">
@@ -342,9 +345,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>82 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-7">
 								<div class="edu_cat_icons">
@@ -356,9 +359,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>25 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-8">
 								<div class="edu_cat_icons">
@@ -370,9 +373,9 @@
 										<li class="video"><i class="ti-video-clapper"></i>43 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
-						
+
 						<div class="col-lg-4 col-md-4 col-sm-6">
 							<div class="edu_cat_2 cat-9">
 								<div class="edu_cat_icons">
@@ -384,18 +387,18 @@
 										<li class="video"><i class="ti-video-clapper"></i>38 Classes</li>
 									</ul>
 								</div>
-							</div>							
+							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</section>
 			<!-- ========================== Featured Category Section =============================== -->
-			
+
 			<!-- ============================ Featured Courses Start ================================== -->
 			<section class="light-2">
 				<div class="container">
-				
+
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
@@ -404,30 +407,30 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-2.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Learn Full Photoshop Course CS6</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>11 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -439,7 +442,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.9</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-7">Banking</span></div>
 										</div>
@@ -451,33 +454,33 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-3.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Full Web Designing Course</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>13 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -489,7 +492,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.6</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-9">Accounting</span></div>
 										</div>
@@ -501,33 +504,33 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-4.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Adobe Dreamwear Flash Coded</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>15 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -539,7 +542,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.7</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-4">Business</span></div>
 										</div>
@@ -551,33 +554,33 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-5.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Learn Full Photoshop Course CS6</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>16 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -589,7 +592,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.9</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-3">Instructor</span></div>
 										</div>
@@ -601,33 +604,33 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-6.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Business Analysis Full Courses</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>10 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -639,7 +642,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.8</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-2">Animation</span></div>
 										</div>
@@ -651,33 +654,33 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
+
 						<!-- Cource Grid 1 -->
 						<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 							<div class="education_block_list_layout style-2">
-								
+
 								<div class="education_block_thumb n-shadow">
 									<a href="course-detail.html"><img src="assets/img/co-7.jpg" class="img-fluid" alt=""></a>
 								</div>
-								
+
 								<div class="list_layout_ecucation_caption">
-								
+
 									<div class="education_block_body">
 										<h4 class="bl-title"><a href="course-detail.html">Learn To Create WP Theme</a></h4>
 										<div class="_course_admin_ol12">By: <strong>Andrew S. Thomas</strong></div>
-										
+
 										<div class="_course_less_infor">
 											<ul>
 												<li><i class="ti-desktop mr-1"></i>12 Lesson</li>
 												<li><span class="class online"></span>Online Class</li>
 											</ul>
 										</div>
-										
+
 										<div class="course_rate_system_wrap">
 											<div class="course_rate_system">
 												<div class="course_ratting">
@@ -689,7 +692,7 @@
 												</div>
 												<div class="course_reviews_info">
 													<strong class="mid">4.7</strong>
-												</div>											
+												</div>
 											</div>
 											<div class="_course_category_01"><span class="cat-1">Design</span></div>
 										</div>
@@ -701,25 +704,25 @@
 											<a href="course-detail.html" class="_cr_detail_arrow"><i class="fa fa-arrow-right"></i></a>
 										</div>
 									</div>
-								
+
 								</div>
-								
-							</div>	
+
+							</div>
 						</div>
-						
-						
+
+
 					</div>
-					
+
 				</div>
 			</section>
 			<!-- ============================ Featured Courses End ================================== -->
-			
+
 			<!-- ========================== About Facts List Section =============================== -->
 			<section>
 				<div class="container">
-					
+
 					<div class="row align-items-center">
-					
+
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="about-short">
 								<div class="sec-heading mb-3">
@@ -737,25 +740,25 @@
 								<a href="#" class="btn btn-modern">Know More<span><i class="ti-arrow-right"></i></span></a>
 							</div>
 						</div>
-						
+
 						<div class="col-lg-6 col-md-6 col-sm-12">
 							<div class="list_facts_wrap_img">
-							
+
 								<img src="assets/img/edu_2.png" class="img-fluid" alt="">
-								
+
 							</div>
 						</div>
 
 					</div>
-					
+
 				</div>
 			</section>
 			<!-- ========================== About Facts List Section =============================== -->
-			
+
 			<!-- ============================ Featured Instructor Start ================================== -->
 			<section class="pt-0">
 				<div class="container">
-				
+
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
@@ -764,12 +767,12 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12">
-						
+
 							<div class="four_slide-dots articles arrow_middle">
-								
+
 								<!-- Single Slide -->
 								<div class="singles_items">
 									<div class="instructor_wrap">
@@ -787,7 +790,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Single Slide -->
 								<div class="singles_items">
 									<div class="instructor_wrap">
@@ -805,7 +808,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Single Slide -->
 								<div class="singles_items">
 									<div class="instructor_wrap">
@@ -823,7 +826,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Single Slide -->
 								<div class="singles_items">
 									<div class="instructor_wrap">
@@ -841,7 +844,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Single Slide -->
 								<div class="singles_items">
 									<div class="instructor_wrap">
@@ -859,20 +862,20 @@
 										</div>
 									</div>
 								</div>
-							
+
 							</div>
-						
+
 						</div>
 					</div>
-					
+
 				</div>
 			</section>
 			<!-- ============================ Featured Instructor End ================================== -->
-			
+
 			<!-- ========================== Articles Section =============================== -->
 			<section class="bg-light">
 				<div class="container">
-				
+
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
@@ -881,16 +884,16 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
-								
+
 						<!-- Single Article -->
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="articles_grid_style">
 								<div class="articles_grid_thumb">
 									<a href="blog-detail.html"><img src="assets/img/b-1.jpg" class="img-fluid" alt="" /></a>
 								</div>
-								
+
 								<div class="articles_grid_caption">
 									<h4>The National Minimum wage is an important part</h4>
 									<div class="articles_grid_author">
@@ -900,14 +903,14 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Single Article -->
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="articles_grid_style">
 								<div class="articles_grid_thumb">
 									<a href="blog-detail.html"><img src="assets/img/b-2.jpg" class="img-fluid" alt="" /></a>
 								</div>
-								
+
 								<div class="articles_grid_caption">
 									<h4>The National Minimum wage is an important part</h4>
 									<div class="articles_grid_author">
@@ -917,14 +920,14 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<!-- Single Article -->
 						<div class="col-lg-4 col-md-4 col-sm-12">
 							<div class="articles_grid_style">
 								<div class="articles_grid_thumb">
 									<a href="blog-detail.html"><img src="assets/img/b-3.jpg" class="img-fluid" alt="" /></a>
 								</div>
-								
+
 								<div class="articles_grid_caption">
 									<h4>The National Minimum wage is an important part</h4>
 									<div class="articles_grid_author">
@@ -934,16 +937,16 @@
 								</div>
 							</div>
 						</div>
-					
+
 					</div>
 				</div>
 			</section>
 			<!-- ========================== Articles Section =============================== -->
-			
+
 			<!-- ========================== Brand Section =============================== -->
 			<section>
 				<div class="container">
-					
+
 					<div class="row justify-content-center">
 						<div class="col-lg-5 col-md-6 col-sm-12">
 							<div class="sec-heading center">
@@ -952,11 +955,11 @@
 							</div>
 						</div>
 					</div>
-				
+
 					<div class="row">
 						<div class="col-lg-12 col-md-12">
 							<div class="reviews_third" id="reviews-slide">
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -975,7 +978,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -994,7 +997,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -1013,7 +1016,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -1032,7 +1035,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -1051,7 +1054,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -1070,7 +1073,7 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 								<!-- single -->
 								<div class="testimonial-wraps">
 									<div class="testimonial-icon">
@@ -1089,14 +1092,14 @@
 										<p>Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi.</p>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 			<!-- ========================== Brand Section =============================== -->
-			
+
 			<!-- ============================== Start Newsletter ================================== -->
 			<section class="newsletter theme-bg inverse-theme">
 				<div class="container">
@@ -1115,13 +1118,13 @@
 				</div>
 			</section>
 			<!-- ================================= End Newsletter =============================== -->
-			
+
 			<!-- ============================ Footer Start ================================== -->
 			<footer class="dark-footer skin-dark-footer">
 				<div>
 					<div class="container">
 						<div class="row">
-							
+
 							<div class="col-lg-3 col-md-3">
 								<div class="footer-widget">
 									<img src="assets/img/logo-light.png" class="img-footer" alt="" />
@@ -1130,9 +1133,9 @@
 										<p>+1 246-345-0695</p>
 										<p>info@learnup.com</p>
 									</div>
-									
+
 								</div>
-							</div>		
+							</div>
 							<div class="col-lg-2 col-md-3">
 								<div class="footer-widget">
 									<h4 class="widget-title">Navigations</h4>
@@ -1145,7 +1148,7 @@
 									</ul>
 								</div>
 							</div>
-									
+
 							<div class="col-lg-2 col-md-3">
 								<div class="footer-widget">
 									<h4 class="widget-title">New Categories</h4>
@@ -1158,7 +1161,7 @@
 									</ul>
 								</div>
 							</div>
-							
+
 							<div class="col-lg-2 col-md-3">
 								<div class="footer-widget">
 									<h4 class="widget-title">Help & Support</h4>
@@ -1171,7 +1174,7 @@
 									</ul>
 								</div>
 							</div>
-							
+
 							<div class="col-lg-3 col-md-12">
 								<div class="footer-widget">
 									<h4 class="widget-title">Download Apps</h4>
@@ -1199,19 +1202,19 @@
 									</a>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="footer-bottom">
 					<div class="container">
 						<div class="row align-items-center">
-							
+
 							<div class="col-lg-6 col-md-6">
 								<p class="mb-0">© 2020 LearnUp. Designd By <a href="https://themezhub.com">Themezhub</a>.</p>
 							</div>
-							
+
 							<div class="col-lg-6 col-md-6 text-right">
 								<ul class="footer-bottom-social">
 									<li><a href="#"><i class="ti-facebook"></i></a></li>
@@ -1220,13 +1223,13 @@
 									<li><a href="#"><i class="ti-linkedin"></i></a></li>
 								</ul>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
 			</footer>
 			<!-- ============================ Footer End ================================== -->
-			
+
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
@@ -1236,24 +1239,24 @@
 							<h4 class="modal-header-title">Log In</h4>
 							<div class="login-form">
 								<form>
-								
+
 									<div class="form-group">
 										<label>User Name</label>
 										<input type="text" class="form-control" placeholder="Username">
 									</div>
-									
+
 									<div class="form-group">
 										<label>Password</label>
 										<input type="password" class="form-control" placeholder="*******">
 									</div>
-									
+
 									<div class="form-group">
 										<button type="submit" class="btn btn-md full-width pop-login">Login</button>
 									</div>
-								
+
 								</form>
 							</div>
-							
+
 							<div class="social-login mb-3">
 								<ul>
 									<li>
@@ -1263,7 +1266,7 @@
 									<li class="right"><a href="#" class="theme-cl">Forget Password?</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="modal-divider"><span>Or login via</span></div>
 							<div class="social-login ntr mb-3">
 								<ul>
@@ -1271,7 +1274,7 @@
 									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="text-center">
 								<p class="mt-2">Haven't Any Account? <a href="register.html" class="link">Click here</a></p>
 							</div>
@@ -1280,7 +1283,7 @@
 				</div>
 			</div>
 			<!-- End Modal -->
-			
+
 			<!-- Sign Up Modal -->
 			<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
@@ -1290,31 +1293,31 @@
 							<h4 class="modal-header-title">Sign Up</h4>
 							<div class="login-form">
 								<form>
-								
+
 									<div class="form-group">
 										<input type="text" class="form-control" placeholder="Full Name">
 									</div>
-									
+
 									<div class="form-group">
 										<input type="email" class="form-control" placeholder="Email">
 									</div>
-									
+
 									<div class="form-group">
 										<input type="text" class="form-control" placeholder="Username">
 									</div>
-									
+
 									<div class="form-group">
 										<input type="password" class="form-control" placeholder="*******">
 									</div>
 
-									
+
 									<div class="form-group">
 										<button type="submit" class="btn btn-md full-width pop-login">Sign Up</button>
 									</div>
-								
+
 								</form>
 							</div>
-							
+
 							<div class="modal-divider"><span>Or Signup via</span></div>
 							<div class="social-login ntr mb-3">
 								<ul>
@@ -1322,7 +1325,7 @@
 									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
 								</ul>
 							</div>
-							
+
 							<div class="text-center">
 								<p class="mt-3"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
 							</div>
@@ -1331,9 +1334,9 @@
 				</div>
 			</div>
 			<!-- End Modal -->
-			
+
 			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
-			
+
 
 		</div>
 		<!-- ============================================================== -->
