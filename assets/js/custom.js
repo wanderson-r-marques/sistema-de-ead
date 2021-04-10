@@ -1,5 +1,6 @@
 $(function() {
     "use strict";
+	$('.cpf').mask('999.999.999-99');
 
 	//Loader	
 	$(function preloaderLoad() {
