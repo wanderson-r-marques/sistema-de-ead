@@ -30,7 +30,7 @@
 										<input id="reg" class="checkbox-custom" name="reg" type="checkbox">
 										<label for="reg" class="checkbox-custom-label">Lembrar senha</label>
 									</li>
-									<li class="right"><a href="#" class="theme-cl">Esqueceu a senha?</a></li>
+									<li class="right"><a href="recuperar-senha.php" class="theme-cl">Esqueceu a senha?</a></li>
 								</ul>
 							</div>
 

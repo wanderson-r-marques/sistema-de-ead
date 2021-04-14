@@ -43,6 +43,7 @@
 .red-skin .radio-custom:checked + .radio-custom-label:before,
 .red-skin .btn.pop-login,
 .red-skin .single-widgets.widget_search form button,
+.red-skin,
 .red-skin .single-widgets.widget_tags ul li a:hover, .red-skin .single-widgets.widget_tags ul li a:focus,
 .red-skin .pagination>.active>a, .red-skin .pagination>.active>a:focus, .red-skin .pagination>.active>a:hover, .red-skin .pagination>.active>span, .red-skin .pagination>.active>span:focus, .red-skin .pagination>.active>span:hover, .red-skin .pagination>li>a:focus, .red-skin .pagination>li>a:hover{
 	background-color:#da0b4e;
