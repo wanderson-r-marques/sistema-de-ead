@@ -40,7 +40,7 @@
 			<!-- ============================================================== -->
 
 			<!-- ============================ Hero Banner  Start================================== -->
-			<div class="image-cover hero_banner hero-inner-2" style="background:#152974 url(assets/img/e.jpg) no-repeat;" data-overlay="0">
+			<div class="image-cover hero_banner hero-inner-2" style="background:#152974 url(assets/img/b-1.jpg) no-repeat;" data-overlay="0">
 				<div class="container">
 					<!-- Type -->
 					<div class="row align-items-center">
