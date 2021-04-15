@@ -101,9 +101,9 @@
 								<li class="login_click light">
 									<a href="#" data-toggle="modal" data-target="#login">Entrar</a>
 								</li>
-								<li class="login_click">
+								<!-- <li class="login_click">
 									<a href="#" data-toggle="modal" data-target="#signup">Cadastrar-se</a>
-								</li>
+								</li> -->
 							</ul>
 						</div>
 					</nav>
