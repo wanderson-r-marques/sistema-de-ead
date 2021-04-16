@@ -14,9 +14,10 @@
         <link href="assets/css/styles.css" rel="stylesheet">
 		<!-- Custom Color Option -->
 		<link href="assets/css/colors.css" rel="stylesheet">
+		
     </head>
 
-    <body class="red-skin">	
+    <body>	
         <!-- ============================================================== -->
         <!-- Preloader - style you can find in spinners.css -->
         <!-- ============================================================== -->

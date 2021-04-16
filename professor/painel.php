@@ -50,31 +50,31 @@
 							<div class="dashboard-navbar">
 								
 								<div class="d-user-avater">
-									<img src="../assets/img/user-3.jpg" class="img-fluid avater" alt="">
+									<img src="../assets/img/user.png" class="img-fluid avater" alt="">
 									<h4>Adam Harshvardhan</h4>
 									<span>Canada USA</span>
 								</div>
 								
 								<div class="d-navigation">
 									<ul id="side-menu">
-										<li class="active"><a href="dashboard.html"><i class="ti-user"></i>Dashboard</a></li>
-										<li><a href="my-profile.html"><i class="ti-heart"></i>My Profile</a></li>
-										<li><a href="add-listing.html"><i class="ti-plus"></i>Add Course</a></li>
-										<li><a href="saved-courses.html"><i class="ti-heart"></i>Saved Courses</a></li>
+										<li class="active"><a href="../template/dashboard.html"><i class="ti-user"></i>Dashboard</a></li>
+										<li><a href="../template/my-profile.html"><i class="ti-heart"></i>My Profile</a></li>
+										<li><a href="../template/add-listing.html"><i class="ti-plus"></i>Add Course</a></li>
+										<li><a href="../template/saved-courses.html"><i class="ti-heart"></i>Saved Courses</a></li>
 										<li class="dropdown">
-											<a href="all-courses.html"><i class="ti-layers"></i>All Courses<span class="ti-angle-left"></span></a>
+											<a href="../template/all-courses.html"><i class="ti-layers"></i>All Courses<span class="ti-angle-left"></span></a>
 											<ul class="nav nav-second-level">
-												<li><a href="all-courses.html">All</a></li>
-												<li><a href="javascript:void(0);">Published</a></li>
-												<li><a href="javascript:void(0);">Pending</a></li>
-												<li><a href="javascript:void(0);">Expired</a></li>
-												<li><a href="javascript:void(0);">In Draft</a></li>
+												<li><a href="../template/all-courses.html">All</a></li>
+												<li><a href="../template/javascript:void(0);">Published</a></li>
+												<li><a href="../template/javascript:void(0);">Pending</a></li>
+												<li><a href="../template/javascript:void(0);">Expired</a></li>
+												<li><a href="../template/javascript:void(0);">In Draft</a></li>
 											</ul>
 										</li>
-										<li><a href="my-order.html"><i class="ti-shopping-cart"></i>My Order</a></li>
-										<li><a href="settings.html"><i class="ti-settings"></i>Settings</a></li>
-										<li><a href="reviews.html"><i class="ti-comment-alt"></i>Reviews</a></li>
-										<li><a href="#"><i class="ti-power-off"></i>Log Out</a></li>
+										<li><a href="../template/my-order.html"><i class="ti-shopping-cart"></i>My Order</a></li>
+										<li><a href="../template/settings.html"><i class="ti-settings"></i>Settings</a></li>
+										<li><a href="../template/reviews.html"><i class="ti-comment-alt"></i>Reviews</a></li>
+										<li><a href="../template/#"><i class="ti-power-off"></i>Log Out</a></li>
 									</ul>
 								</div>
 								
@@ -90,7 +90,7 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
-											<li class="breadcrumb-item"><a href="#">Home</a></li>
+											<li class="breadcrumb-item"><a href="../template/#">Home</a></li>
 											<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 										</ol>
 									</nav>
@@ -134,11 +134,11 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="course_overlay_cat">
 												<div class="course_overlay_cat_thumb">
-													<a href="#" tabindex="0"><img src="../assets/img/course-1.jpg" class="img-fluid" alt=""></a>
+													<a href="../template/#" tabindex="0"><img src="../assets/img/course-1.jpg" class="img-fluid" alt=""></a>
 												</div>
 												<div class="course_overlay_cat_caption">
 													<div class="llp-left">
-														<h4><a href="#">Web Designing</a></h4>
+														<h4><a href="../template/#">Web Designing</a></h4>
 														<span>17 Classes</span>
 													</div>
 												</div>
@@ -148,11 +148,11 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="course_overlay_cat">
 												<div class="course_overlay_cat_thumb">
-													<a href="#" tabindex="0"><img src="../assets/img/course-2.jpg" class="img-fluid" alt=""></a>
+													<a href="../template/#" tabindex="0"><img src="../assets/img/course-2.jpg" class="img-fluid" alt=""></a>
 												</div>
 												<div class="course_overlay_cat_caption">
 													<div class="llp-left">
-														<h4><a href="#">Digital Marketing</a></h4>
+														<h4><a href="../template/#">Digital Marketing</a></h4>
 														<span>20 Classes</span>
 													</div>
 												</div>
@@ -162,11 +162,11 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="course_overlay_cat">
 												<div class="course_overlay_cat_thumb">
-													<a href="#" tabindex="0"><img src="../assets/img/course-3.jpg" class="img-fluid" alt=""></a>
+													<a href="../template/#" tabindex="0"><img src="../assets/img/course-3.jpg" class="img-fluid" alt=""></a>
 												</div>
 												<div class="course_overlay_cat_caption">
 													<div class="llp-left">
-														<h4><a href="#">Account & Chart</a></h4>
+														<h4><a href="../template/#">Account & Chart</a></h4>
 														<span>22 Classes</span>
 													</div>
 												</div>
@@ -175,11 +175,11 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="course_overlay_cat">
 												<div class="course_overlay_cat_thumb">
-													<a href="#" tabindex="0"><img src="../assets/img/course-5.jpg" class="img-fluid" alt=""></a>
+													<a href="../template/#" tabindex="0"><img src="../assets/img/course-5.jpg" class="img-fluid" alt=""></a>
 												</div>
 												<div class="course_overlay_cat_caption">
 													<div class="llp-left">
-														<h4><a href="#">Business Development</a></h4>
+														<h4><a href="../template/#">Business Development</a></h4>
 														<span>10 Classes</span>
 													</div>
 												</div>
@@ -196,48 +196,48 @@
 										</div>
 										<div class="ground-list ground-hover-list">
 											<div class="ground ground-list-single">
-												<a href="#">
+												<a href="../template/#">
 													<div class="btn-circle-40 btn-success"><i class="ti-calendar"></i></div>
 												</a>
 
 												<div class="ground-content">
-													<h6><a href="#">Maryam Amiri</a></h6>
+													<h6><a href="../template/#">Maryam Amiri</a></h6>
 													<small class="text-fade">Check New Admin Dashboard..</small>
 													<span class="small">Just Now</span>
 												</div>
 											</div>
 											
 											<div class="ground ground-list-single">
-												<a href="#">
+												<a href="../template/#">
 													<div class="btn-circle-40 btn-danger"><i class="ti-calendar"></i></div>
 												</a>
 
 												<div class="ground-content">
-													<h6><a href="#">Maryam Amiri</a></h6>
+													<h6><a href="../template/#">Maryam Amiri</a></h6>
 													<small class="text-fade">You can Customize..</small>
 													<span class="small">02 Min Ago</span>
 												</div>
 											</div>
 											
 											<div class="ground ground-list-single">
-												<a href="#">
+												<a href="../template/#">
 													<div class="btn-circle-40 btn-info"><i class="ti-calendar"></i></div>
 												</a>
 
 												<div class="ground-content">
-													<h6><a href="#">Maryam Amiri</a></h6>
+													<h6><a href="../template/#">Maryam Amiri</a></h6>
 													<small class="text-fade">Need Responsive Business Tem...</small>
 													<span class="small">10 Min Ago</span>
 												</div>
 											</div>
 											
 											<div class="ground ground-list-single">
-												<a href="#">
+												<a href="../template/#">
 													<div class="btn-circle-40 btn-warning"><i class="ti-calendar"></i></div>
 												</a>
 
 												<div class="ground-content">
-													<h6><a href="#">Maryam Amiri</a></h6>
+													<h6><a href="../template/#">Maryam Amiri</a></h6>
 													<small class="text-fade">Next Meeting on Tuesday..</small>
 													<span class="small">15 Min Ago</span>
 												</div>
@@ -280,8 +280,8 @@
 															<td>$110.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
+																	<a href="../template/#" class="view">View</a>
+																	<a href="../template/#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -292,8 +292,8 @@
 															<td>$119.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
+																	<a href="../template/#" class="view">View</a>
+																	<a href="../template/#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -304,8 +304,8 @@
 															<td>$149.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
+																	<a href="../template/#" class="view">View</a>
+																	<a href="../template/#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -316,8 +316,8 @@
 															<td>$199.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
+																	<a href="../template/#" class="view">View</a>
+																	<a href="../template/#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -380,11 +380,11 @@
 								<div class="footer-widget">
 									<h4 class="widget-title">Navigations</h4>
 									<ul class="footer-menu">
-										<li><a href="about-us.html">About Us</a></li>
-										<li><a href="faq.html">FAQs Page</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="blog.html">Blog</a></li>
+										<li><a href="../template/about-us.html">About Us</a></li>
+										<li><a href="../template/faq.html">FAQs Page</a></li>
+										<li><a href="../template/checkout.html">Checkout</a></li>
+										<li><a href="../template/contact.html">Contact</a></li>
+										<li><a href="../template/blog.html">Blog</a></li>
 									</ul>
 								</div>
 							</div>
@@ -393,11 +393,11 @@
 								<div class="footer-widget">
 									<h4 class="widget-title">New Categories</h4>
 									<ul class="footer-menu">
-										<li><a href="#">Designing</a></li>
-										<li><a href="#">Nusiness</a></li>
-										<li><a href="#">Software</a></li>
-										<li><a href="#">WordPress</a></li>
-										<li><a href="#">PHP</a></li>
+										<li><a href="../template/#">Designing</a></li>
+										<li><a href="../template/#">Nusiness</a></li>
+										<li><a href="../template/#">Software</a></li>
+										<li><a href="../template/#">WordPress</a></li>
+										<li><a href="../template/#">PHP</a></li>
 									</ul>
 								</div>
 							</div>
@@ -406,11 +406,11 @@
 								<div class="footer-widget">
 									<h4 class="widget-title">Help & Support</h4>
 									<ul class="footer-menu">
-										<li><a href="#">Documentation</a></li>
-										<li><a href="#">Live Chat</a></li>
-										<li><a href="#">Mail Us</a></li>
-										<li><a href="#">Privacy</a></li>
-										<li><a href="#">Faqs</a></li>
+										<li><a href="../template/#">Documentation</a></li>
+										<li><a href="../template/#">Live Chat</a></li>
+										<li><a href="../template/#">Mail Us</a></li>
+										<li><a href="../template/#">Privacy</a></li>
+										<li><a href="../template/#">Faqs</a></li>
 									</ul>
 								</div>
 							</div>
@@ -418,7 +418,7 @@
 							<div class="col-lg-3 col-md-12">
 								<div class="footer-widget">
 									<h4 class="widget-title">Download Apps</h4>
-									<a href="#" class="other-store-link">
+									<a href="../template/#" class="other-store-link">
 										<div class="other-store-app">
 											<div class="os-app-icon">
 												<i class="lni-playstore theme-cl"></i>
@@ -429,7 +429,7 @@
 											</div>
 										</div>
 									</a>
-									<a href="#" class="other-store-link">
+									<a href="../template/#" class="other-store-link">
 										<div class="other-store-app">
 											<div class="os-app-icon">
 												<i class="lni-apple theme-cl"></i>
@@ -452,15 +452,15 @@
 						<div class="row align-items-center">
 							
 							<div class="col-lg-6 col-md-6">
-								<p class="mb-0">© 2020 LearnUp. Designd By <a href="https://themezhub.com/">Themezhub</a>.</p>
+								<p class="mb-0">© 2020 LearnUp. Designd By <a href="../template/https://themezhub.com/">Themezhub</a>.</p>
 							</div>
 							
 							<div class="col-lg-6 col-md-6 text-right">
 								<ul class="footer-bottom-social">
-									<li><a href="#"><i class="ti-facebook"></i></a></li>
-									<li><a href="#"><i class="ti-twitter"></i></a></li>
-									<li><a href="#"><i class="ti-instagram"></i></a></li>
-									<li><a href="#"><i class="ti-linkedin"></i></a></li>
+									<li><a href="../template/#"><i class="ti-facebook"></i></a></li>
+									<li><a href="../template/#"><i class="ti-twitter"></i></a></li>
+									<li><a href="../template/#"><i class="ti-instagram"></i></a></li>
+									<li><a href="../template/#"><i class="ti-linkedin"></i></a></li>
 								</ul>
 							</div>
 							
@@ -503,20 +503,20 @@
 										<input id="reg" class="checkbox-custom" name="reg" type="checkbox">
 										<label for="reg" class="checkbox-custom-label">Save Password</label>
 									</li>
-									<li class="right"><a href="#" class="theme-cl">Forget Password?</a></li>
+									<li class="right"><a href="../template/#" class="theme-cl">Forget Password?</a></li>
 								</ul>
 							</div>
 							
 							<div class="modal-divider"><span>Or login via</span></div>
 							<div class="social-login ntr mb-3">
 								<ul>
-									<li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
+									<li><a href="../template/#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+									<li><a href="../template/#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
 								</ul>
 							</div>
 							
 							<div class="text-center">
-								<p class="mt-2">Haven't Any Account? <a href="register.html" class="link">Click here</a></p>
+								<p class="mt-2">Haven't Any Account? <a href="../template/register.html" class="link">Click here</a></p>
 							</div>
 						</div>
 					</div>
@@ -561,13 +561,13 @@
 							<div class="modal-divider"><span>Or Signup via</span></div>
 							<div class="social-login ntr mb-3">
 								<ul>
-									<li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
-									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
+									<li><a href="../template/#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+									<li><a href="../template/#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
 								</ul>
 							</div>
 							
 							<div class="text-center">
-								<p class="mt-3"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
+								<p class="mt-3"><i class="ti-user mr-1"></i>Already Have An Account? <a href="../template/#" class="link">Go For LogIn</a></p>
 							</div>
 						</div>
 					</div>

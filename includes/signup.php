@@ -18,7 +18,7 @@
 									</div>
 
 									<div class="form-group">
-										<button type="submit" name="acessar" value="s" class="btn btn-md full-width pop-login">Acessar</button>
+										<button type="submit" name="acessar" value="s" class="btn btn-md full-width pop-login red-skin">Acessar</button>
 									</div>
 
 								</form>
@@ -34,7 +34,7 @@
 								</ul>
 							</div>
 
-							<div class="modal-divider"><span>Acessar via</span></div>
+							<!-- <div class="modal-divider"><span>Acessar via</span></div>
 							<div class="social-login ntr mb-3">
 								<ul>
 									<li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
@@ -44,7 +44,7 @@
 
 							<div class="text-center">
 								<p class="mt-2">Ainda não possui conta? <a href="register.html" class="link">Clique aqui</a></p>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
