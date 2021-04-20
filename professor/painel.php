@@ -1,13 +1,15 @@
+<?php require_once 'valida.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	
-<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:20 GMT -->
 <head>
+<title><?=SITE?> - Aulas EAD </title>
+        <link rel="icon" href="<?=FAVICON?>" />
 		<meta charset="utf-8" />
 		<meta name="author" content="www.frebsite.nl" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
-        <title>LearnUp - Online Course & Education HTML Template</title>
+        
 		 
         <!-- Custom CSS -->
         <link href="../assets/css/styles.css" rel="stylesheet">
@@ -51,7 +53,7 @@
 								
 								<div class="d-user-avater">
 									<img src="../assets/img/user.png" class="img-fluid avater" alt="">
-									<h4>Adam Harshvardhan</h4>
+									<h4><?= $entidade->NOME ?></h4>
 									<span>Canada USA</span>
 								</div>
 								
@@ -250,87 +252,7 @@
 							</div>
 							<!-- /Row -->
 							
-							<!-- Row -->
-							<div class="row">
-						
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Recent Order</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body">
-											<div class="table-responsive">
-												<table class="table">
-													<thead class="thead-dark">
-														<tr>
-															<th scope="col">Order</th>
-															<th scope="col">Date</th>
-															<th scope="col">Status</th>
-															<th scope="col">Total</th>
-															<th scope="col">Action</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<th scope="row">#0000149</th>
-															<td>02 July 2020</td>
-															<td><span class="payment_status inprogress">In Progress</span></td>
-															<td>$110.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000150</th>
-															<td>04 July 2020</td>
-															<td><span class="payment_status complete">Completed</span></td>
-															<td>$119.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000151</th>
-															<td>07 July 2020</td>
-															<td><span class="payment_status complete">Completed</span></td>
-															<td>$149.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000152</th>
-															<td>10 July 2020</td>
-															<td><span class="payment_status pending">Pending Payment</span></td>
-															<td>$199.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										
-									</div>
-								</div>
-								
-							</div>
-							<!-- /Row -->
+							
 							
 						</div>
 					

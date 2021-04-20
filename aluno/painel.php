@@ -1,15 +1,15 @@
 <?php require_once 'valida.php'; ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 	
-<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:20 GMT -->
 <head>
+		<title><?=SITE?> - Aulas EAD </title>
+        <link rel="icon" href="<?=FAVICON?>" />
 		<meta charset="utf-8" />
 		<meta name="author" content="www.frebsite.nl" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
-        <title>LearnUp - Online Course & Education HTML Template</title>
-		 
+        		 
         <!-- Custom CSS -->
         <link href="../assets/css/styles.css" rel="stylesheet">
 		
