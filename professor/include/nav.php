@@ -6,7 +6,7 @@
 									<div class="linkFoto">
 
 									<form action="helpers/upload-imagem.php" method="post" name="dateForm" enctype="multipart/form-data">
-										<img src="../assets/img/user.png" class="img-fluid avater" alt="Perfil">
+										<img src="../<?= $entidade->FOTO ?>" class="img-fluid avater" alt="Perfil">
 										<div class="input-group mb-3 alterarFoto">
 											
 											<div class="custom-file">

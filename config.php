@@ -4,7 +4,7 @@
  * Web Developer
  * https://github.com/wanderson-r-marques
  */
-
+date_default_timezone_set('America/Recife');
 $localDev = ($_SERVER['SERVER_NAME'] == 'localhost') ? '/iseducacao' : '';
 $url = 'http://' . $_SERVER['SERVER_NAME'] . $localDev;
 $logo = 'http://' . $_SERVER['SERVER_NAME'] . $localDev . '/assets/img/logo.png';
