@@ -1,0 +1,8 @@
+.alterarFoto{
+    color: white; 
+    text-shadow: black 0.1em 0.1em 0.2em; 
+    width:280px; 
+    top:155px; 
+    float: left; 
+    position:absolute;
+}

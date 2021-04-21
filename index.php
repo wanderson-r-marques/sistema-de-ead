@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 	<head>
-        <title><?=SITE?> - Aulas EAD 3 </title>
+        <title><?=SITE?> - Aulas EAD</title>
         <link rel="icon" href="<?=FAVICON?>" />
 		<meta charset="utf-8" />
 		<meta name="author" content="Wanderson R Marques" />

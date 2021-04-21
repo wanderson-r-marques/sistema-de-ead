@@ -156,7 +156,87 @@
                         
                     </div>
                     <!-- /Row -->
-
+<!-- Row -->
+							<div class="row">
+						
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<div class="dashboard_container">
+										<div class="dashboard_container_header">
+											<div class="dashboard_fl_1">
+												<h4>Recent Order</h4>
+											</div>
+										</div>
+										<div class="dashboard_container_body">
+											<div class="table-responsive">
+												<table class="table">
+													<thead class="thead-dark">
+														<tr>
+															<th scope="col">Order</th>
+															<th scope="col">Date</th>
+															<th scope="col">Status</th>
+															<th scope="col">Total</th>
+															<th scope="col">Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">#0000149</th>
+															<td>02 July 2020</td>
+															<td><span class="payment_status inprogress">In Progress</span></td>
+															<td>$110.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000150</th>
+															<td>04 July 2020</td>
+															<td><span class="payment_status complete">Completed</span></td>
+															<td>$119.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000151</th>
+															<td>07 July 2020</td>
+															<td><span class="payment_status complete">Completed</span></td>
+															<td>$149.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000152</th>
+															<td>10 July 2020</td>
+															<td><span class="payment_status pending">Pending Payment</span></td>
+															<td>$199.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+							</div>
+							<!-- /Row -->
 										</div>
 									</div>
 

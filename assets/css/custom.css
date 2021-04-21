@@ -1,0 +1,28 @@
+
+.alterarFoto{ 
+    background:url(../img/btn-alterar.png);  
+    width: 75px;
+    height: 40px;
+    top:110px;     
+    position:absolute;
+    left: calc(50% - 38px);
+    display: none;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+
+.linkFoto:active{
+    background: none;
+    border: none;
+}
+.linkFoto:hover .alterarFoto{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;     
+}
+.custom-file{
+    position:absolute; 
+    float: left;
+    z-index: 99999;
+}
