@@ -5,7 +5,7 @@
     height: 40px;
     top:110px;     
     position:absolute;
-    left: calc(50% - 38px);
+    left: calc(50% - 40px);
     display: none;
     cursor: pointer;
     border: none;

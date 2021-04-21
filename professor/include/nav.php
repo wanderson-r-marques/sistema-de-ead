@@ -5,13 +5,13 @@
 
 									<div class="linkFoto">
 
-									<form action="helpers/upload-imagem.php" method="post" enctype="multipart/form-data">
+									<form action="helpers/upload-imagem.php" method="post" name="dateForm" enctype="multipart/form-data">
 										<img src="../assets/img/user.png" class="img-fluid avater" alt="Perfil">
 										<div class="input-group mb-3 alterarFoto">
 											
 											<div class="custom-file">
 													
-												<input type="file" class="custom-file-input" id="inputGroupFile01">
+												<input type="file" name="foto" onchange="document.forms['dateForm'].submit();" class="custom-file-input" id="inputGroupFile01">
 												
 											</div>
 										</div>
