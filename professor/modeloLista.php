@@ -14,7 +14,7 @@
 
 		<!-- Custom Color Option -->
 		<link href="../assets/css/colors.css" rel="stylesheet">
-
+		<link href="../assets/css/custom.css" rel="stylesheet">
     </head>
 
     <body class="red-skin">
@@ -56,7 +56,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Modelo</li>
+											<li class="breadcrumb-item active" aria-current="page">Modelo Lista</li>
 										</ol>
 									</nav>
 								</div>
@@ -388,8 +388,5 @@
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
-
 	</body>
-
-<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/saved-courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:21 GMT -->
 </html>

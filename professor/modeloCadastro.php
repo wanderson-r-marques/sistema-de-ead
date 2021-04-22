@@ -1,3 +1,4 @@
+<?php require_once 'valida.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 	
@@ -13,7 +14,7 @@
 
 		<!-- Custom Color Option -->
 		<link href="../assets/css/colors.css" rel="stylesheet">
-
+		<link href="../assets/css/custom.css" rel="stylesheet">
     </head>
 	
     <body class="red-skin">
@@ -55,8 +56,8 @@
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
-											<li class="breadcrumb-item"><a href="#">Home</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Add Listing</li>
+											<li class="breadcrumb-item"><a href="#">Painel</a></li>
+											<li class="breadcrumb-item active" aria-current="page">Modelo Cadastro</li>
 										</ol>
 									</nav>
 								</div>
@@ -69,7 +70,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Submit your Course</h4>
+												<h4>Cadastrar Material</h4>
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
@@ -78,41 +79,32 @@
 												<div class="form-row">
 												
 													<div class="form-group col-md-6">
-														<label>Course Title</label>
-														<input type="text" class="form-control" placeholder="Course Title">
+														<label>Descrição</label>
+														<input type="text" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-6">
-														<label>Course Price</label>
-														<input type="email" class="form-control" placeholder="Ex. 199.10">
+														<label>Categoria</label>
+														<input type="email" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-6">
-														<label>Course Start</label>
-														<input type="text" name="edu-start" class="form-control" value="10/24/2020" />
+														<label>Data início</label>
+														<input type="text" name="edu-start" class="form-control" />
 													</div>
 													
 													<div class="form-group col-md-6">
-														<label>Course Expire</label>
-														<input type="text" name="edu-expire" class="form-control" value="10/24/2021" />
-													</div>
+														<label>Data fim</label>
+														<input type="text" name="edu-expire" class="form-control" />
+													</div>												
 													
-													<div class="form-group col-md-6">
-														<label>Course Tag</label>
-														<input type="text" class="form-control" value="Ex. design, PHP, CSS">
-													</div>
-													
-													<div class="form-group col-md-6">
-														<label>Instructor Name</label>
-														<input type="text" class="form-control" placeholder="Anshu Majavi">
-													</div>
 													
 													<div class="form-group col-md-12">
-														<label>Course Image</label>
-														<form action="https://themezhub.net/upload-target" class="dropzone dz-clickable primary-dropzone">
+														<label>Material</label>
+														<form action="#" class="dropzone dz-clickable primary-dropzone">
 															<div class="dz-default dz-message">
 																<i class="ti-gallery"></i>
-																<span>Drag & Drop To Change Logo</span>
+																<span>Selecione o arquivo</span>
 															</div>
 														</form>
 													</div>
@@ -128,40 +120,7 @@
 							</div>
 							<!-- /Row -->
 							
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Course Description</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-												<div class="form-row">
-
-													<div class="form-group col-md-12">
-														<label>About Course</label>
-														<textarea class="form-control" placeholder="Description"></textarea>
-													</div>
-													
-													<div class="form-group col-md-12">
-														<label>Category</label>
-														<input type="text" class="form-control" placeholder="Ex. Science, Physics, Math..">
-													</div>
-													
-												</div>
-											</div>
-											<!-- Basic info -->
-											
-										</div>
-										
-									</div>
-								</div>
-							</div>
-							<!-- /Row -->
+							
 							
 							<!-- Row -->
 							<div class="row">
@@ -169,7 +128,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Course Videos</h4>
+												<h4>Link de vídeos</h4>
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
@@ -180,22 +139,22 @@
 												<div class="form-row">
 												
 													<div class="form-group col-md-4">
-														<label>Title</label>
-														<input type="text" class="form-control" placeholder="Video Title">
+														<label>Título</label>
+														<input type="text" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-4">
-														<label>Category</label>
-														<input type="email" class="form-control" placeholder="Video Category">
+														<label>Categoria</label>
+														<input type="email" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-4">
-														<label>URL</label>
-														<input type="text" class="form-control" placeholder="Video URL">
+														<label>Link</label>
+														<input type="text" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-12">
-														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Add Item</a>
+														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar item</a>
 													</div>
 												</div>
 												
@@ -212,7 +171,7 @@
 							
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Save Course</button>
+									<button class="btn btn-theme" type="submit">Salvar material</button>
 								</div>
 							</div>
 							
@@ -225,135 +184,9 @@
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 			
-			<!-- ============================== Start Newsletter ================================== -->
-			<section class="newsletter theme-bg inverse-theme">
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-7 col-md-8 col-sm-12">
-							<div class="text-center">
-								<h2>Join Thousand of Happy Students!</h2>
-								<p>Subscribe our newsletter & get latest news and updation!</p>
-								<form class="sup-form">
-									<input type="email" class="form-control sigmup-me" placeholder="Your Email Address" required="required">
-									<input type="submit" class="btn btn-theme" value="Get Started">
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- ================================= End Newsletter =============================== -->
 			
-			<!-- ============================ Footer Start ================================== -->
-			<footer class="dark-footer skin-dark-footer">
-				<div>
-					<div class="container">
-						<div class="row">
-							
-							<div class="col-lg-3 col-md-3">
-								<div class="footer-widget">
-									<img src="assets/img/logo-light.png" class="img-footer" alt="" />
-									<div class="footer-add">
-										<p>4967  Sardis Sta, Victoria 8007, Montreal.</p>
-										<p>+1 246-345-0695</p>
-										<p>info@learnup.com</p>
-									</div>
-									
-								</div>
-							</div>		
-							<div class="col-lg-2 col-md-3">
-								<div class="footer-widget">
-									<h4 class="widget-title">Navigations</h4>
-									<ul class="footer-menu">
-										<li><a href="about-us.html">About Us</a></li>
-										<li><a href="faq.html">FAQs Page</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="blog.html">Blog</a></li>
-									</ul>
-								</div>
-							</div>
-									
-							<div class="col-lg-2 col-md-3">
-								<div class="footer-widget">
-									<h4 class="widget-title">New Categories</h4>
-									<ul class="footer-menu">
-										<li><a href="#">Designing</a></li>
-										<li><a href="#">Nusiness</a></li>
-										<li><a href="#">Software</a></li>
-										<li><a href="#">WordPress</a></li>
-										<li><a href="#">PHP</a></li>
-									</ul>
-								</div>
-							</div>
-							
-							<div class="col-lg-2 col-md-3">
-								<div class="footer-widget">
-									<h4 class="widget-title">Help & Support</h4>
-									<ul class="footer-menu">
-										<li><a href="#">Documentation</a></li>
-										<li><a href="#">Live Chat</a></li>
-										<li><a href="#">Mail Us</a></li>
-										<li><a href="#">Privacy</a></li>
-										<li><a href="#">Faqs</a></li>
-									</ul>
-								</div>
-							</div>
-							
-							<div class="col-lg-3 col-md-12">
-								<div class="footer-widget">
-									<h4 class="widget-title">Download Apps</h4>
-									<a href="#" class="other-store-link">
-										<div class="other-store-app">
-											<div class="os-app-icon">
-												<i class="lni-playstore theme-cl"></i>
-											</div>
-											<div class="os-app-caps">
-												Google Play
-												<span>Get It Now</span>
-											</div>
-										</div>
-									</a>
-									<a href="#" class="other-store-link">
-										<div class="other-store-app">
-											<div class="os-app-icon">
-												<i class="lni-apple theme-cl"></i>
-											</div>
-											<div class="os-app-caps">
-												App Store
-												<span>Now it Available</span>
-											</div>
-										</div>
-									</a>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				
-				<div class="footer-bottom">
-					<div class="container">
-						<div class="row align-items-center">
-							
-							<div class="col-lg-6 col-md-6">
-								<p class="mb-0">© 2020 LearnUp. Designd By <a href="https://themezhub.com/">Themezhub</a>.</p>
-							</div>
-							
-							<div class="col-lg-6 col-md-6 text-right">
-								<ul class="footer-bottom-social">
-									<li><a href="#"><i class="ti-facebook"></i></a></li>
-									<li><a href="#"><i class="ti-twitter"></i></a></li>
-									<li><a href="#"><i class="ti-instagram"></i></a></li>
-									<li><a href="#"><i class="ti-linkedin"></i></a></li>
-								</ul>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</footer>
-			<!-- ============================ Footer End ================================== -->
+			
+			<?php require_once 'include/footer.php' ?>
 			
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
@@ -471,24 +304,25 @@
 		<!-- ============================================================== -->
 		<!-- All Jquery -->
 		<!-- ============================================================== -->
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-		<script src="assets/js/select2.min.js"></script>
-		<script src="assets/js/slick.js"></script>
-		<script src="assets/js/jquery.counterup.min.js"></script>
-		<script src="assets/js/counterup.min.js"></script>
-		<script src="assets/js/custom.js"></script>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/popper.min.js"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/select2.min.js"></script>
+		<script src="../assets/js/slick.js"></script>
+		<script src="../assets/js/jquery.counterup.min.js"></script>
+		<script src="../assets/js/counterup.min.js"></script>
+		<script src="../assets/js/jquery.mask.min.js"></script>
+		<script src="../assets/js/custom.js"></script>
 		
-		<script src="assets/js/dropzone.js"></script>
+		<script src="../assets/js/dropzone.js"></script>
 		
 		<!-- Date Booking Script -->
-		<script src="assets/js/moment.min.js"></script>
-		<script src="assets/js/daterangepicker.js"></script>
+		<script src="../assets/js/moment.min.js"></script>
+		<script src="../assets/js/daterangepicker.js"></script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
-		<script src="assets/js/metisMenu.min.js"></script>	
+		<script src="../assets/js/metisMenu.min.js"></script>	
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
