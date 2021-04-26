@@ -102,7 +102,7 @@
                                                 <tr>
                                                    
                                                     <th scope="col">Escola</th>
-                                                    <th scope="col">Ação</th>
+                                                   
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -122,12 +122,7 @@
                                                 <tr>
                                                                                                      
                                                     <td><?= $linha->DESCRICAO ?></td>
-                                                    <td>
-                                                        <div class="dash_action_link">
-                                                            <a href="../template/#" class="view">Editar</a>
-                                                            <a href="../template/#" class="cancel">Deletar</a>
-                                                        </div>	
-                                                    </td>
+                                                    
                                                 </tr>                                               
                                                <?php 
                                                         }
