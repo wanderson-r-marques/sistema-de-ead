@@ -1,3 +1,9 @@
+
+<?php 
+	function pgActive($pg){
+	 	return	(strpos($_SERVER['REQUEST_URI'],$pg)) ? 'class="active"' : '';
+	}
+?>
 <div class="col-lg-3 col-md-3 p-0">
 							<div class="dashboard-navbar">
 
@@ -6,7 +12,7 @@
 									<div class="linkFoto">
 
 									<form action="helpers/upload-imagem.php" method="post" name="dateForm" enctype="multipart/form-data">
-										<img src="<?php echo (file_exists('../'.$entidade->FOTO)) ? '../'.$entidade->FOTO : '../assets/fotos/user.png'  ?>" class="img-fluid avater" alt="Perfil">
+										<img src="<?php echo (file_exists('../'.$foto)) ? '../'.$foto : '../assets/fotos/user.png'  ?>" class="img-fluid avater" alt="Perfil">
 										<div class="input-group mb-3 alterarFoto">
 											
 											<div class="custom-file">
@@ -24,8 +30,8 @@
 
 								<div class="d-navigation">
 									<ul id="side-menu">
-										<li class="active"><a href="../template/dashboard.html"><i class="ti-user"></i>Dashboard</a></li>
-										<li><a href="../template/my-profile.html"><i class="ti-heart"></i>My Profile</a></li>
+										<li <?= pgActive('painel.php') ?>><a href="painel.php"><i class="ti-user"></i>Principal</a></li>
+										<li <?= pgActive('escolas.php') ?>><a href="escolas.php"><i class="ti-home"></i>Escolas</a></li>
 										<li><a href="../template/add-listing.html"><i class="ti-plus"></i>Add Course</a></li>
 										<li><a href="../template/saved-courses.html"><i class="ti-heart"></i>Saved Courses</a></li>
 										<li class="dropdown">
@@ -41,7 +47,7 @@
 										<li><a href="../template/my-order.html"><i class="ti-shopping-cart"></i>My Order</a></li>
 										<li><a href="../template/settings.html"><i class="ti-settings"></i>Settings</a></li>
 										<li><a href="../template/reviews.html"><i class="ti-comment-alt"></i>Reviews</a></li>
-										<li><a href="../template/#"><i class="ti-power-off"></i>Log Out</a></li>
+										<li><a href="../template/#"><i class="ti-power-off"></i>Sair</a></li>
 									</ul>
 								</div>
 

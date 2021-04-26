@@ -10,6 +10,10 @@ if (isset($_SESSION['cpf']) && $_SESSION['cpf'] != '') {
 
     if ($smtp->execute()) {  
         $entidade = $smtp->fetch(PDO::FETCH_OBJ);    
+        $foto = $entidade->FOTO;
+        if($foto == '')
+            $foto = 'semFoto.jpg';
+            
         if ($smtp->rowCount() <= 0) {
             $_SESSION['msg'] = "Sua sessão expirou!#danger";
             header('Location: ' . $url);

@@ -71,7 +71,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Título Modelo</h4>
+											<h4>Escolas</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
