@@ -3,6 +3,15 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
 
     if ($_POST['cpf'] != '' && $_POST['senha'] != '') {
 
+        // Guardar senha no Coock
+        if($_POST['lembrar'] == 1){
+            setcookie("loginEAD",$_POST['cpf']);
+            setcookie("senhaEAD",$_POST['senha']);
+        }else{
+            setcookie("loginEAD", "", time() - 3600);
+            setcookie("senhaEAD", "", time() - 3600);
+        }
+
         require_once "config.php";
         $con = conectar();
 
