@@ -47,7 +47,7 @@
 										<li><a href="../template/my-order.html"><i class="ti-shopping-cart"></i>My Order</a></li>
 										<li><a href="../template/settings.html"><i class="ti-settings"></i>Settings</a></li>
 										<li><a href="../template/reviews.html"><i class="ti-comment-alt"></i>Reviews</a></li>
-										<li><a href="../template/#"><i class="ti-power-off"></i>Sair</a></li>
+										<li><a href="logout.php"><i class="ti-power-off"></i>Sair</a></li>
 									</ul>
 								</div>
 

@@ -101,7 +101,7 @@
 							
 							<ul class="nav-menu nav-menu-social align-to-right">
 								<li class="login_click theme-bg">
-									<a href="register.html">Sair</a>
+									<a href="logout.php">Sair</a>
 								</li>
 							</ul>
 						</div>
