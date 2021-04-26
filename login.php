@@ -60,9 +60,12 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
                 if (password_verify($senha, $linha->SENHA) || password_verify($senha, $senhaHash)) {
                     session_start();
                     $_SESSION['cpf'] = $cpf;
+                
                     if ($linha->PK_TIPO_CADASTRO == 2) {
                         header('Location: professor/painel.php');
-                    } else {
+                    } else if ($linha->PK_TIPO_CADASTRO == 4) {
+                        header('Location: restrito/painel.php');
+                    } else if ($linha->PK_TIPO_CADASTRO == 1) {
                         header('Location: aluno/painel.php');
                     }
                 } else {
