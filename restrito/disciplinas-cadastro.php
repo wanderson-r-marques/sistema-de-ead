@@ -50,165 +50,56 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
-									<nav aria-label="breadcrumb">
-										<ol class="breadcrumb">
-											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas Cadastro</li>
-										</ol>
-									</nav>
-								</div>
-							</div>
-							<!-- /Row -->
-
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Cadastrar Escola</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-												<div class="form-row">
-													<div class="form-group col-md-6">
-														<label>Nome</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-6">
-														<label>Código INEP</label>
-														<input type="email" class="form-control">
-													</div>
-
-													<div class="form-group col-md-12">
-														<label>CEP</label>
-														<input type="text" class="form-control col-md-5 cep">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Logradouro</label>
-														<input type="text" wm-logradouro class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Número</label>
-														<input type="number" class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Complemento</label>
-														<input type="text" class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Bairro</label>
-														<input type="text" wm-bairro class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Cidade</label>
-														<input type="text" wm-cidade class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Estado</label>
-														<select name="estados-brasil" wm-estado class="form-control">
-															<option value="AC">Acre</option>
-															<option value="AL">Alagoas</option>
-															<option value="AP">Amapá</option>
-															<option value="AM">Amazonas</option>
-															<option value="BA">Bahia</option>
-															<option value="CE">Ceará</option>
-															<option value="DF">Distrito Federal</option>
-															<option value="ES">Espírito Santo</option>
-															<option value="GO">Goiás</option>
-															<option value="MA">Maranhão</option>
-															<option value="MT">Mato Grosso</option>
-															<option value="MS">Mato Grosso do Sul</option>
-															<option value="MG">Minas Gerais</option>
-															<option value="PA">Pará</option>
-															<option value="PB">Paraíba</option>
-															<option value="PR">Paraná</option>
-															<option value="PE">Pernambuco</option>
-															<option value="PI">Piauí</option>
-															<option value="RJ">Rio de Janeiro</option>
-															<option value="RN">Rio Grande do Norte</option>
-															<option value="RS">Rio Grande do Sul</option>
-															<option value="RO">Rondônia</option>
-															<option value="RR">Roraima</option>
-															<option value="SC">Santa Catarina</option>
-															<option value="SP">São Paulo</option>
-															<option value="SE">Sergipe</option>
-															<option value="TO">Tocantins</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<!-- Basic info -->
-
-										</div>
-
+							<form action="disciplinas-funcao.php" method="post">
+								<!-- Row -->
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+										<nav aria-label="breadcrumb">
+											<ol class="breadcrumb">
+												<li class="breadcrumb-item"><a href="#">Painel</a></li>
+												<li class="breadcrumb-item active" aria-current="page">Disciplinas Cadastro</li>
+											</ol>
+										</nav>
 									</div>
 								</div>
-							</div>
-							<!-- /Row -->
+								<!-- /Row -->
 
-
-
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Link de vídeos</h4>
+								<!-- Row -->
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="dashboard_container">
+											<div class="dashboard_container_header">
+												<div class="dashboard_fl_1">
+													<h4>Cadastrar Disciplina</h4>
+												</div>
 											</div>
-										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
+											<div class="dashboard_container_body p-4">
+												<!-- Basic info -->
+												<div class="submit-section">
+													<div class="form-row">
 
-												<h6 class="ml-2">Item</h6>
-												<div class="form-row">
+														<div class="form-group col-md-12">
+															<label>Descrição</label>
+															<input name="disciplina" type="text" class="form-control">
+														</div>
 
-													<div class="form-group col-md-4">
-														<label>Título</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Categoria</label>
-														<input type="email" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Link</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-12">
-														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar item</a>
 													</div>
 												</div>
-
+												<!-- Basic info -->
 
 											</div>
-											<!-- Basic info -->
 
 										</div>
-
 									</div>
 								</div>
-							</div>
-							<!-- /Row -->
+								<!-- /Row -->
 
-							<div class="row">
-								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Salvar material</button>
+								<div class="row">
+									<div class="form-group col-lg-12 col-md-12">
+										<button class="btn btn-theme" type="submit">Salvar disciplina</button>
+									</div>
 								</div>
-							</div>
-
+							</form>
 						</div>
 
 					</div>

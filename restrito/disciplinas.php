@@ -1,4 +1,4 @@
-<?php require_once 'valida.php';?>
+<?php require_once 'valida.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -32,13 +32,12 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-            <!-- ============================================================== -->
-            <?php include_once 'include/header.php'?>
+			<?php include_once 'include/header.php' ?>	
+            <!-- ============================================================== -->            
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
-
 
 			<!-- ============================ Dashboard: My Order Start ================================== -->
 			<section class="gray pt-0">
@@ -47,7 +46,7 @@
 					<!-- Row -->
 					<div class="row">
 
-					<?php include_once 'include/nav.php'?>
+						<?php include_once 'include/nav.php' ?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -57,7 +56,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas Cadastro</li>
+											<li class="breadcrumb-item active" aria-current="page">Disciplinas</li>
 										</ol>
 									</nav>
 								</div>
@@ -67,147 +66,168 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
+
+									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Cadastrar Escola</h4>
+											<h4>Disciplinas</h4>
+											</div>
+											<div class="dashboard_fl_2">
+												<ul class="mb0">
+													<li class="list-inline-item">
+
+													</li>
+													<li class="list-inline-item">
+														<form class="form-inline my-2 my-lg-0">
+															<input class="form-control" type="search" placeholder="Procurar" aria-label="Search">
+															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
+														</form>
+													</li>
+												</ul>
 											</div>
 										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-												<div class="form-row">
-													<div class="form-group col-md-6">
-														<label>Nome</label>
-														<input type="text" class="form-control">
-													</div>
+										<div class="dashboard_container_body">
 
-													<div class="form-group col-md-6">
-														<label>Código INEP</label>
-														<input type="email" class="form-control">
-													</div>
-
-													<div class="form-group col-md-12">
-														<label>CEP</label>
-														<input type="text" class="form-control col-md-5 cep">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Logradouro</label>
-														<input type="text" wm-logradouro class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Número</label>
-														<input type="number" class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Complemento</label>
-														<input type="text" class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Bairro</label>
-														<input type="text" wm-bairro class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Cidade</label>
-														<input type="text" wm-cidade class="form-control">
-													</div>
-													<div class="form-group col-md-6">
-														<label>Estado</label>
-														<select name="estados-brasil" wm-estado class="form-control">
-															<option value="AC">Acre</option>
-															<option value="AL">Alagoas</option>
-															<option value="AP">Amapá</option>
-															<option value="AM">Amazonas</option>
-															<option value="BA">Bahia</option>
-															<option value="CE">Ceará</option>
-															<option value="DF">Distrito Federal</option>
-															<option value="ES">Espírito Santo</option>
-															<option value="GO">Goiás</option>
-															<option value="MA">Maranhão</option>
-															<option value="MT">Mato Grosso</option>
-															<option value="MS">Mato Grosso do Sul</option>
-															<option value="MG">Minas Gerais</option>
-															<option value="PA">Pará</option>
-															<option value="PB">Paraíba</option>
-															<option value="PR">Paraná</option>
-															<option value="PE">Pernambuco</option>
-															<option value="PI">Piauí</option>
-															<option value="RJ">Rio de Janeiro</option>
-															<option value="RN">Rio Grande do Norte</option>
-															<option value="RS">Rio Grande do Sul</option>
-															<option value="RO">Rondônia</option>
-															<option value="RR">Roraima</option>
-															<option value="SC">Santa Catarina</option>
-															<option value="SP">São Paulo</option>
-															<option value="SE">Sergipe</option>
-															<option value="TO">Tocantins</option>
-														</select>
-													</div>
-												</div>
-											</div>
-											<!-- Basic info -->
-
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<!-- /Row -->
-
-
-
-							<!-- Row -->
+											<!-- Row -->
 							<div class="row">
+						
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="dashboard_container">
+                                
+                                <div class="dashboard_container_body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th scope="col">Descrição</th>                                                    
+                                                    <th scope="col">Ação</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php                                                     
+                                                    $query = "SELECT
+                                                                        DESCRICAO,
+                                                                        PK_DISCIPLINAS
+                                                                    FROM
+                                                                        disciplinas";
+                                                
+                                                    $smtp = $con->prepare($query);                                                    
+                                                
+                                                    if ($smtp->execute()) { 
+                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                        foreach($linhas as $linha){ 
+                                                ?>
+                                                <tr>
+                                                    <th scope="row"><?= $linha->DESCRICAO ?></th>                                                   
+                                                    <td>
+                                                        <div class="dash_action_link">
+                                                            <a href="#" class="view">Editar</a>
+                                                            <a href="#" class="cancel">Deletar</a>
+                                                        </div>	
+                                                    </td>
+                                                </tr>                                               
+                                               <?php 
+                                                        }
+                                                    } 
+                                               ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <!-- /Row -->
+<!-- Row -->
+							<div class="row">
+						
 								<div class="col-lg-12 col-md-12 col-sm-12">
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Link de vídeos</h4>
+												<h4>Recent Order</h4>
 											</div>
 										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-
-												<h6 class="ml-2">Item</h6>
-												<div class="form-row">
-
-													<div class="form-group col-md-4">
-														<label>Título</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Categoria</label>
-														<input type="email" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Link</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-12">
-														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar item</a>
-													</div>
-												</div>
-
-
+										<div class="dashboard_container_body">
+											<div class="table-responsive">
+												<table class="table">
+													<thead class="thead-dark">
+														<tr>
+															<th scope="col">Order</th>
+															<th scope="col">Date</th>
+															<th scope="col">Status</th>
+															<th scope="col">Total</th>
+															<th scope="col">Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<th scope="row">#0000149</th>
+															<td>02 July 2020</td>
+															<td><span class="payment_status inprogress">In Progress</span></td>
+															<td>$110.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000150</th>
+															<td>04 July 2020</td>
+															<td><span class="payment_status complete">Completed</span></td>
+															<td>$119.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000151</th>
+															<td>07 July 2020</td>
+															<td><span class="payment_status complete">Completed</span></td>
+															<td>$149.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+														<tr>
+															<th scope="row">#0000152</th>
+															<td>10 July 2020</td>
+															<td><span class="payment_status pending">Pending Payment</span></td>
+															<td>$199.00</td>
+															<td>
+																<div class="dash_action_link">
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
+																</div>	
+															</td>
+														</tr>
+													</tbody>
+												</table>
 											</div>
-											<!-- Basic info -->
-
 										</div>
-
+										
 									</div>
+								</div>
+								
+							</div>
+							<!-- /Row -->
+										</div>
+									</div>
+
 								</div>
 							</div>
 							<!-- /Row -->
-
-							<div class="row">
-								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Salvar material</button>
-								</div>
-							</div>
 
 						</div>
 
@@ -218,9 +238,7 @@
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-
-
-			<?php require_once 'include/footer.php'?>
+			<?php include_once 'include/footer.php'; ?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
@@ -345,14 +363,8 @@
 		<script src="../assets/js/slick.js"></script>
 		<script src="../assets/js/jquery.counterup.min.js"></script>
 		<script src="../assets/js/counterup.min.js"></script>
-		<script src="../assets/js/jquery.mask.min.js"></script>
+        <script src="../assets/js/jquery.mask.min.js"></script>
 		<script src="../assets/js/custom.js"></script>
-
-		<script src="../assets/js/dropzone.js"></script>
-
-		<!-- Date Booking Script -->
-		<script src="../assets/js/moment.min.js"></script>
-		<script src="../assets/js/daterangepicker.js"></script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
@@ -360,27 +372,5 @@
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
-
-		<script>
-				// Course Expire and Start Daterange Script
-			$(function() {
-			  $('input[name="edu-expire"]').daterangepicker({
-				singleDatePicker: true,
-			  });
-				$('input[name="edu-expire"]').val('');
-				$('input[name="edu-expire"]').attr("placeholder","Course Expire");
-			});
-			$(function() {
-			  $('input[name="edu-start"]').daterangepicker({
-				singleDatePicker: true,
-
-			  });
-				$('input[name="start"]').val('');
-				$('input[name="start"]').attr("placeholder","Course Start");
-			});
-		</script>
-
 	</body>
-
-<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->
 </html>

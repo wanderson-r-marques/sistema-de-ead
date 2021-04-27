@@ -1,5 +1,4 @@
 <?php
-session_start(); 
 function alert()
 { 
     if(isset($_SESSION['msg']) && $_SESSION['msg'] != ''){       

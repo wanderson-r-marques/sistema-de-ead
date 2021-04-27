@@ -47,6 +47,13 @@
 												<li><a href="escolas.php">Listar</a></li>
 											</ul>
 										</li>
+										<li class="dropdown <?= pgActive('disciplinas') ?>">
+											<a href="disciplinas.php"><i class="ti-user"></i>Disciplinas<span class="ti-angle-left"></span></a>
+											<ul class="nav nav-second-level <?= (pgActive('disciplinas') == 'active') ? 'show' : '' ?>">
+												<li><a href="disciplinas-cadastro.php">Cadastrar</a></li>
+												<li><a href="disciplinas.php">Listar</a></li>
+											</ul>
+										</li>
 										<li><a href="logout.php"><i class="ti-power-off"></i>Sair</a></li>
 									</ul>
 								</div>
