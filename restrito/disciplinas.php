@@ -1,4 +1,4 @@
-<?php require_once 'valida.php'; ?>
+<?php require_once 'valida.php';?>
 <?php require_once '../helpers/alert.php';?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,8 +33,8 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-			<?php include_once 'include/header.php' ?>	
-            <!-- ============================================================== -->            
+			<?php include_once 'include/header.php'?>
+            <!-- ============================================================== -->
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
@@ -47,7 +47,7 @@
 					<!-- Row -->
 					<div class="row">
 
-						<?php include_once 'include/nav.php' ?>
+						<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -67,7 +67,7 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-                                <?= alert() ?>
+                                <?=alert()?>
 									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
@@ -92,54 +92,56 @@
 
 											<!-- Row -->
 							<div class="row">
-						
+
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
-                                
+								<div class="form-group col-md-12" style="margin-top:1rem;">
+									<a href="disciplinas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar disciplina</a>
+								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Descrição</th>                                                    
+                                                    <th scope="col">Descrição</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php                                                     
-                                                    $query = "SELECT
+                                                <?php
+$query = "SELECT
                                                                         DESCRICAO,
                                                                         PK_DISCIPLINAS
                                                                     FROM
                                                                         disciplinas";
-                                                
-                                                    $smtp = $con->prepare($query);                                                    
-                                                
-                                                    if ($smtp->execute()) { 
-                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-                                                        foreach($linhas as $linha){ 
-                                                ?>
+
+$smtp = $con->prepare($query);
+
+if ($smtp->execute()) {
+    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+    foreach ($linhas as $linha) {
+        ?>
                                                 <tr>
-                                                    <th scope="row"><?= $linha->DESCRICAO ?></th>                                                   
+                                                    <th scope="row"><?=$linha->DESCRICAO?></th>
                                                     <td>
                                                         <div class="dash_action_link">
-                                                            <a href="disciplinas-editar.php?pk=<?= $linha->PK_DISCIPLINAS ?>" class="view">Editar</a>
-                                                            <a href="disciplinas-funcao.php?funcao=deletar&pk=<?= $linha->PK_DISCIPLINAS ?>" class="cancel">Deletar</a>
-                                                        </div>	
+                                                            <a href="disciplinas-editar.php?pk=<?=$linha->PK_DISCIPLINAS?>" class="view">Editar</a>
+                                                            <a href="disciplinas-funcao.php?funcao=deletar&pk=<?=$linha->PK_DISCIPLINAS?>" class="cancel">Deletar</a>
+                                                        </div>
                                                     </td>
-                                                </tr>                                               
-                                               <?php 
-                                                        }
-                                                    } 
-                                               ?>
+                                                </tr>
+                                               <?php
+}
+}
+?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                     <!-- /Row -->
 
@@ -159,7 +161,7 @@
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-			<?php include_once 'include/footer.php'; ?>
+			<?php include_once 'include/footer.php';?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">

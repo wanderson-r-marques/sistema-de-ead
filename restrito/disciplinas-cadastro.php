@@ -70,7 +70,7 @@
 										<div class="dashboard_container">
 											<div class="dashboard_container_header">
 												<div class="dashboard_fl_1">
-													<h4>Cadastrar Disciplina</h4>
+													<h4>Adicionar Disciplina</h4>
 												</div>
 											</div>
 											<div class="dashboard_container_body p-4">
