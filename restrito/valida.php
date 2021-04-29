@@ -4,7 +4,9 @@ require_once '../config.php';
 if (isset($_SESSION['cpf']) && $_SESSION['cpf'] != '') {
     $cpf = $_SESSION['cpf'];
     $con = conectar();
-    $query = "SELECT * FROM `entidades` WHERE CPF = :cpf AND PK_TIPO_CADASTRO = 4";
+    $query = "SELECT * FROM `entidades` e 
+    JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+    WHERE e.CPF = :cpf AND e.PK_TIPO_CADASTRO = 4";
     $smtp = $con->prepare($query);
     $smtp->bindParam(':cpf', $cpf);
 

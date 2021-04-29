@@ -26,7 +26,7 @@ function pgActive($pg)
 									</div>
 
 									<h4><?=$entidade->NOME?></h4>
-									<span>Canada USA</span>
+									<span><?=$entidade->DESCRICAO?></span>
 								</div>
 
 								<div class="d-navigation">
