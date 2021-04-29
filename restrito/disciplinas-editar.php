@@ -1,4 +1,18 @@
 <?php require_once 'valida.php';?>
+<?php
+
+if(isset($_GET['pk']) &&  is_numeric($_GET['pk'])){
+	$pk = $_GET['pk'];
+	$query = "SELECT DESCRICAO FROM disciplinas WHERE PK_DISCIPLINAS = :pk";
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+    $smtp->execute();
+	$linha = $smtp->fetch(PDO::FETCH_OBJ);
+}else{
+	header('Location: disciplinas.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -50,14 +64,14 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-							<form action="ensino-funcao.php" method="post">
+							<form action="disciplinas-funcao.php?funcao=editar&pk=<?= $pk ?>" method="post">
 								<!-- Row -->
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 										<nav aria-label="breadcrumb">
 											<ol class="breadcrumb">
 												<li class="breadcrumb-item"><a href="#">Painel</a></li>
-												<li class="breadcrumb-item active" aria-current="page">Ensino Cadastro</li>
+												<li class="breadcrumb-item active" aria-current="page">Disciplinas Cadastro</li>
 											</ol>
 										</nav>
 									</div>
@@ -70,7 +84,7 @@
 										<div class="dashboard_container">
 											<div class="dashboard_container_header">
 												<div class="dashboard_fl_1">
-													<h4>Cadastrar Tipos Ensino</h4>
+													<h4>Editar Disciplina</h4>
 												</div>
 											</div>
 											<div class="dashboard_container_body p-4">
@@ -80,7 +94,7 @@
 
 														<div class="form-group col-md-12">
 															<label>Descrição</label>
-															<input name="descricao" type="text" class="form-control">
+															<input value="<?= $linha->DESCRICAO ?>" required name="disciplina" type="text" class="form-control">
 														</div>
 
 													</div>
@@ -96,7 +110,7 @@
 
 								<div class="row">
 									<div class="form-group col-lg-12 col-md-12">
-										<button class="btn btn-theme" type="submit">Salvar Cadastro</button>
+										<button class="btn btn-theme" type="submit">Salvar disciplina</button>
 									</div>
 								</div>
 							</form>

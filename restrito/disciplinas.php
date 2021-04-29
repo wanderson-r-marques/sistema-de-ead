@@ -123,8 +123,8 @@
                                                     <th scope="row"><?= $linha->DESCRICAO ?></th>                                                   
                                                     <td>
                                                         <div class="dash_action_link">
-                                                            <a href="#" class="view">Editar</a>
-                                                            <a href="#" class="cancel">Deletar</a>
+                                                            <a href="disciplinas-editar.php?pk=<?= $linha->PK_DISCIPLINAS ?>" class="view">Editar</a>
+                                                            <a href="disciplinas-funcao.php?funcao=deletar&pk=<?= $linha->PK_DISCIPLINAS ?>" class="cancel">Deletar</a>
                                                         </div>	
                                                     </td>
                                                 </tr>                                               

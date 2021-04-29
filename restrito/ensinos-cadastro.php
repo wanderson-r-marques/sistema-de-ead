@@ -50,14 +50,14 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-							<form action="disciplinas-funcao.php?funcao=cadastrar" method="post">
+							<form action="ensinos-funcao.php" method="post">
 								<!-- Row -->
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 										<nav aria-label="breadcrumb">
 											<ol class="breadcrumb">
 												<li class="breadcrumb-item"><a href="#">Painel</a></li>
-												<li class="breadcrumb-item active" aria-current="page">Disciplinas Cadastro</li>
+												<li class="breadcrumb-item active" aria-current="page">Ensino Cadastro</li>
 											</ol>
 										</nav>
 									</div>
@@ -70,7 +70,7 @@
 										<div class="dashboard_container">
 											<div class="dashboard_container_header">
 												<div class="dashboard_fl_1">
-													<h4>Cadastrar Disciplina</h4>
+													<h4>Cadastrar Tipos Ensino</h4>
 												</div>
 											</div>
 											<div class="dashboard_container_body p-4">
@@ -80,7 +80,7 @@
 
 														<div class="form-group col-md-12">
 															<label>Descrição</label>
-															<input required name="disciplina" type="text" class="form-control">
+															<input name="descricao" type="text" class="form-control">
 														</div>
 
 													</div>
@@ -96,7 +96,7 @@
 
 								<div class="row">
 									<div class="form-group col-lg-12 col-md-12">
-										<button class="btn btn-theme" type="submit">Salvar disciplina</button>
+										<button class="btn btn-theme" type="submit">Salvar Cadastro</button>
 									</div>
 								</div>
 							</form>
