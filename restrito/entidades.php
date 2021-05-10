@@ -1,4 +1,4 @@
-<?php require_once 'valida.php'; ?>
+<?php require_once 'valida.php';?>
 <?php require_once '../helpers/alert.php';?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -33,8 +33,8 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-			<?php include_once 'include/header.php' ?>	
-            <!-- ============================================================== -->            
+			<?php include_once 'include/header.php'?>
+            <!-- ============================================================== -->
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
@@ -47,7 +47,7 @@
 					<!-- Row -->
 					<div class="row">
 
-						<?php include_once 'include/nav.php' ?>
+						<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -69,7 +69,7 @@
 								<div class="col-lg-12 col-md-12 col-sm-12">
 								<?=alert()?>
 									<!-- Course Style 1 For Student -->
-									<div class="dashboard_container">										
+									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
 											<h4>Entidades</h4>
@@ -92,7 +92,7 @@
 
 											<!-- Row -->
 							<div class="row">
-						
+
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
@@ -110,8 +110,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php                                                     
-                                                    $query = "SELECT
+                                                <?php
+$query = "SELECT
                                                                         e.`PK_ENTIDADE`,
                                                                         e.`NOME`,
                                                                         e.`NOME_FANTASIA`,
@@ -131,38 +131,153 @@
 																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
 																		ORDER BY NOME ASC
 																		";
-                                                
-                                                    $smtp = $con->prepare($query);                                                    
-                                                
-                                                    if ($smtp->execute()) { 
-                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-                                                        foreach($linhas as $linha){ 
-                                                ?>
+
+$smtp = $con->prepare($query);
+
+if ($smtp->execute()) {
+    // Pega o total de registros
+    $total = $smtp->rowCount();
+    //determina o numero de registros que serão mostrados na tela
+    $maximo = 5;
+    //pega o valor da pagina atual
+    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
+
+    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
+    $inicio = $pagina - 1;
+    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
+    $inicio = $maximo * $inicio;
+    // Nova query com as limitações
+    $query = "SELECT
+                                                                        e.`PK_ENTIDADE`,
+                                                                        e.`NOME`,
+                                                                        e.`NOME_FANTASIA`,
+                                                                        e.`CPF`,
+                                                                        e.`RG`,
+                                                                        e.`DATA_NASCIMENTO`,
+                                                                        e.`TELEFONE1`,
+                                                                        e.`TELEFONE2`,
+                                                                        e.`EMAIL`,
+                                                                        e.`PK_TIPO_CADASTRO`,
+                                                                        e.`MATRICULA`,
+                                                                        e.`SENHA`,
+                                                                        e.`COD_INEP`,
+																		tc.DESCRICAO as TIPO
+                                                                    FROM
+                                                                        `entidades` e
+																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		ORDER BY NOME ASC
+																		LIMIT $inicio,$maximo";
+    $smtp = $con->prepare($query);
+    $smtp->execute();
+
+    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+    foreach ($linhas as $linha) {
+        ?>
                                                 <tr>
-                                                    <th scope="row"><?= $linha->TIPO ?></th>
-                                                    <td><?= $linha->NOME ?></td>                                                    
-                                                    <td><?= $linha->TELEFONE1 ?></td>
+                                                    <th scope="row"><?=$linha->TIPO?></th>
+                                                    <td><?=$linha->NOME?></td>
+                                                    <td><?=$linha->TELEFONE1?></td>
                                                     <td>
                                                         <div class="dash_action_link">
 														<a href="entidades-editar.php?pk=<?=$linha->PK_ENTIDADE?>" class="view">Editar</a>
                                                             <a href="entidades-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENTIDADE?>" class="cancel">Deletar</a>
-                                                        </div>	
+                                                        </div>
                                                     </td>
-                                                </tr>                                               
-                                               <?php 
-                                                        }
-                                                    } 
-                                               ?>
+                                                </tr>
+                                               <?php
+}
+}
+?>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
-                        
                     </div>
-                    <!-- /Row -->
+
+
+
+
+					
+<!-- /Row Início da paginação -->
+<?php
+//determina de quantos em quantos links serão adicionados e removidos
+$max_links = 6;
+//dados para os botões
+$previous = $pagina - 1;
+$next = $pagina + 1;
+//usa uma funcção "ceil" para arrendondar o numero pra cima, ex 1,01 será 2
+$pgs = ceil($total / $maximo);
+//se a tabela não for vazia, adiciona os botões
+if ($pgs > 1) {?>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<!-- Pagination -->
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+				<ul class="pagination p-center">
+				<?php if ($previous > 0) {?>
+					<li class="page-item">
+						<a class="page-link"href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . $previous?> ">
+							<span class="ti-arrow-left"></span>
+							<span class="sr-only">Anterior</span>
+						</a>
+					</li>
+				<?php }?>
+	<?php if ($pagina > 5) {?>
+		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . "?pagina=" . (1)?> ">1</a></li>
+		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . ($pagina-5)?>">...</a></li>
+	<?php }?>
+<?php
+	$paginaInicio = ($pagina >= 2) ? $pagina - 2 : 0;
+    $ult_pg_loop = 0;
+    for ($i = $paginaInicio; $i <= $paginaInicio + 4; $i++) {
+        if ($i > 0 && $i <= $pgs) {?>
+<?php
+//senão adiciona os links para outra pagina
+	if ($i != $pagina) {?>
+	<li class="page-item">
+		<a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . $i?> "><?=$i?></a>
+	</li>
+<?php } else {?>
+	<li class="page-item active">
+		<a class="page-link " href="#"><?=$i?></a>
+	</li>
+<?php }?>
+<?php
+}
+$ult_pg_loop = $i + 3;
+}
+?>
+<?php if ($pagina + 2 < $pgs) {?>
+		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . ($ult_pg_loop)?>">...</a></li>
+		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . "?pagina=" . ($pgs)?> "><?=$pgs?></a></li>
+<?php }?>
+
+<?php if ($next <= $pgs) {?>
+	<li class="page-item">
+		<a class="page-link" href="<?=$_SERVER['PHP_SELF'] . '?pagina=' . $next ?>" aria-label='Next'>
+			<span class="ti-arrow-right"></span>
+			<span class="sr-only"></span>
+		</a>
+	</li>
+<?php } ?>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<?php }?>
+<!-- /Row Final da paginação -->
+
+
+
+
+
+							<br>
+	
 
 										</div>
 									</div>
@@ -180,7 +295,7 @@
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-			<?php include_once 'include/footer.php'; ?>
+			<?php include_once 'include/footer.php';?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
