@@ -1,4 +1,5 @@
 <?php require_once 'valida.php'; ?>
+<?php require_once '../helpers/alert.php';?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -56,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Modelo Lista</li>
+											<li class="breadcrumb-item active" aria-current="page">Entidades</li>
 										</ol>
 									</nav>
 								</div>
@@ -66,12 +67,12 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-
+								<?=alert()?>
 									<!-- Course Style 1 For Student -->
-									<div class="dashboard_container">
+									<div class="dashboard_container">										
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Título Modelo</h4>
+											<h4>Entidades</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -94,13 +95,15 @@
 						
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
-                                
+								<div class="form-group col-md-12" style="margin-top:1rem;">
+									<a href="entidades-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar entidades</a>
+								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Matrícula</th>
+                                                    <th scope="col">Tipo</th>
                                                     <th scope="col">Nome</th>
                                                     <th scope="col">Telefone</th>
                                                     <th scope="col">Ação</th>
@@ -109,22 +112,25 @@
                                             <tbody>
                                                 <?php                                                     
                                                     $query = "SELECT
-                                                                        `NOME`,
-                                                                        `NOME_FANTASIA`,
-                                                                        `CPF`,
-                                                                        `RG`,
-                                                                        `DATA_NASCIMENTO`,
-                                                                        `TELEFONE1`,
-                                                                        `TELEFONE2`,
-                                                                        `EMAIL`,
-                                                                        `PK_TIPO_CADASTRO`,
-                                                                        `MATRICULA`,
-                                                                        `SENHA`,
-                                                                        `COD_INEP`
+                                                                        e.`PK_ENTIDADE`,
+                                                                        e.`NOME`,
+                                                                        e.`NOME_FANTASIA`,
+                                                                        e.`CPF`,
+                                                                        e.`RG`,
+                                                                        e.`DATA_NASCIMENTO`,
+                                                                        e.`TELEFONE1`,
+                                                                        e.`TELEFONE2`,
+                                                                        e.`EMAIL`,
+                                                                        e.`PK_TIPO_CADASTRO`,
+                                                                        e.`MATRICULA`,
+                                                                        e.`SENHA`,
+                                                                        e.`COD_INEP`,
+																		tc.DESCRICAO as TIPO
                                                                     FROM
-                                                                        `entidades`
-                                                                    WHERE
-                                                                        PK_TIPO_CADASTRO = 1";
+                                                                        `entidades` e
+																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		ORDER BY NOME ASC
+																		";
                                                 
                                                     $smtp = $con->prepare($query);                                                    
                                                 
@@ -133,13 +139,13 @@
                                                         foreach($linhas as $linha){ 
                                                 ?>
                                                 <tr>
-                                                    <th scope="row"><?= $linha->MATRICULA ?></th>
+                                                    <th scope="row"><?= $linha->TIPO ?></th>
                                                     <td><?= $linha->NOME ?></td>                                                    
                                                     <td><?= $linha->TELEFONE1 ?></td>
                                                     <td>
                                                         <div class="dash_action_link">
-                                                            <a href="../template/#" class="view">Editar</a>
-                                                            <a href="../template/#" class="cancel">Deletar</a>
+														<a href="entidades-editar.php?pk=<?=$linha->PK_ENTIDADE?>" class="view">Editar</a>
+                                                            <a href="entidades-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENTIDADE?>" class="cancel">Deletar</a>
                                                         </div>	
                                                     </td>
                                                 </tr>                                               
@@ -157,87 +163,7 @@
                         
                     </div>
                     <!-- /Row -->
-<!-- Row -->
-							<div class="row">
-						
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Recent Order</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body">
-											<div class="table-responsive">
-												<table class="table">
-													<thead class="thead-dark">
-														<tr>
-															<th scope="col">Order</th>
-															<th scope="col">Date</th>
-															<th scope="col">Status</th>
-															<th scope="col">Total</th>
-															<th scope="col">Action</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<th scope="row">#0000149</th>
-															<td>02 July 2020</td>
-															<td><span class="payment_status inprogress">In Progress</span></td>
-															<td>$110.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000150</th>
-															<td>04 July 2020</td>
-															<td><span class="payment_status complete">Completed</span></td>
-															<td>$119.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000151</th>
-															<td>07 July 2020</td>
-															<td><span class="payment_status complete">Completed</span></td>
-															<td>$149.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-														<tr>
-															<th scope="row">#0000152</th>
-															<td>10 July 2020</td>
-															<td><span class="payment_status pending">Pending Payment</span></td>
-															<td>$199.00</td>
-															<td>
-																<div class="dash_action_link">
-																	<a href="#" class="view">View</a>
-																	<a href="#" class="cancel">Cancel</a>
-																</div>	
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										
-									</div>
-								</div>
-								
-							</div>
-							<!-- /Row -->
+
 										</div>
 									</div>
 

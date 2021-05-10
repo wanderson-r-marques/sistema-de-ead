@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Tipos de Ensino</li>
+											<li class="breadcrumb-item active" aria-current="page">Ensinos</li>
 										</ol>
 									</nav>
 								</div>

@@ -50,14 +50,14 @@
 					<?php include_once 'include/nav.php' ?>	
 						
 						<div class="col-lg-9 col-md-9 col-sm-12">
-							
+							<form  action="entidades-funcao.php?funcao=cadastrar" method="post">
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Modelo Cadastro</li>
+											<li class="breadcrumb-item active" aria-current="page">Entidades Cadastro</li>
 										</ol>
 									</nav>
 								</div>
@@ -70,7 +70,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Cadastrar Material</h4>
+												<h4>Cadastrar entidade</h4>
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
@@ -79,36 +79,59 @@
 												<div class="form-row">
 												
 													<div class="form-group col-md-6">
-														<label>Descrição</label>
-														<input type="text" class="form-control">
+														<label>Nome</label>
+														<input type="text" required name="nome" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-6">
-														<label>Categoria</label>
-														<input type="email" class="form-control">
+														<label>Apelido</label>
+														<input type="text" name="apelido" class="form-control">
+													</div>
+
+													<div class="form-group col-md-6">
+														<label>CPF</label>
+														<input type="text" required name="cpf" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-6">
-														<label>Data início</label>
-														<input type="text" name="edu-start" class="form-control" />
+														<label>RG</label>
+														<input type="text" required name="rg" class="form-control">
 													</div>
 													
-													<div class="form-group col-md-6">
-														<label>Data fim</label>
-														<input type="text" name="edu-expire" class="form-control" />
-													</div>												
-													
-													
-													<div class="form-group col-md-12">
-														<label>Material</label>
-														<form action="#" class="dropzone dz-clickable primary-dropzone">
-															<div class="dz-default dz-message">
-																<i class="ti-gallery"></i>
-																<span>Selecione o arquivo</span>
-															</div>
-														</form>
+													<div class="form-group col-md-4">
+														<label>Data de nascimento</label>
+														<input type="text" required name="edu-start" class="form-control" />
 													</div>
-													
+
+													<div class="form-group col-md-4">
+														<label>Telefone 1</label>
+														<input type="text" required name="telefone-1" class="form-control" />
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>Telefone 2</label>
+														<input type="text" name="telefone-2" class="form-control" />
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>E-mail</label>
+														<input type="email" required name="email" class="form-control" />
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>Tipo</label>
+														<select name="tipo" required class="form-control">
+															<option value="1">Aluno</option>
+															<option value="2">Professor</option>
+															<option value="3">Coordenador</option>
+															<option value="4">Diretor</option>
+														</select>
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>Senha</label>
+														<input type="password" required name="senha" class="form-control" />
+													</div>
 												</div>
 											</div>
 											<!-- Basic info -->
@@ -120,61 +143,14 @@
 							</div>
 							<!-- /Row -->
 							
-							
-							
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Link de vídeos</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-												
-												<h6 class="ml-2">Item</h6>
-												<div class="form-row">
-												
-													<div class="form-group col-md-4">
-														<label>Título</label>
-														<input type="text" class="form-control">
-													</div>
-													
-													<div class="form-group col-md-4">
-														<label>Categoria</label>
-														<input type="email" class="form-control">
-													</div>
-													
-													<div class="form-group col-md-4">
-														<label>Link</label>
-														<input type="text" class="form-control">
-													</div>
-													
-													<div class="form-group col-md-12">
-														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar item</a>
-													</div>
-												</div>
-												
-												
-											</div>
-											<!-- Basic info -->
-											
-										</div>
-										
-									</div>
-								</div>
-							</div>
 							<!-- /Row -->
 							
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Salvar material</button>
+									<button class="btn btn-theme" type="submit">Salvar entidade</button>
 								</div>
 							</div>
-							
+							</form>
 						</div>
 					
 					</div>

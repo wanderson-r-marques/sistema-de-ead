@@ -2,55 +2,122 @@
 require_once 'valida.php';
 // Função para cadastrar
 if ($_GET['funcao'] == 'cadastrar') {
-    if (isset($_POST['disciplina']) && $_POST['disciplina'] != null) {
-        $disciplina = addslashes($_POST['disciplina']);
-        $query = "INSERT INTO disciplinas (descricao) VALUES (:disciplina)";
+    if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
+        $nome = addslashes($_POST['nome']);
+        $apelido = addslashes($_POST['apelido']);
+        $cpf = addslashes($_POST['cpf']);
+        $rg = addslashes($_POST['rg']);
+        $dataNascimento = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['edu-start'])));
+        $telefone1 = addslashes($_POST['telefone-1']);
+        $telefone2 = addslashes($_POST['telefone-2']);
+        $email = addslashes($_POST['email']);
+        $tipo = addslashes($_POST['tipo']);
+        $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+        $query = "INSERT INTO entidades (
+
+            `NOME`,
+            `NOME_FANTASIA`,
+            `CPF`,
+            `RG`,
+            `DATA_NASCIMENTO`,
+            `TELEFONE1`,
+            `TELEFONE2`,
+            `EMAIL`,
+            `PK_TIPO_CADASTRO`,
+            `SENHA`
+          )
+          VALUES
+            (
+              :nome,
+              :apelido,
+              :cpf,
+              :rg,
+              :dataNascimento,
+              :telefone1,
+              :telefone2,
+              :email,
+              :tipo,
+              :senha
+            );";
         $smtp = $con->prepare($query);
-        $smtp->bindParam(':disciplina', $disciplina, PDO::PARAM_STR);
+        $smtp->bindParam(':nome', $nome, PDO::PARAM_STR);
+        $smtp->bindParam(':apelido', $apelido, PDO::PARAM_STR);
+        $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);
+        $smtp->bindParam(':rg', $rg, PDO::PARAM_STR);
+        $smtp->bindParam(':dataNascimento', $dataNascimento, PDO::PARAM_STR);
+        $smtp->bindParam(':telefone1', $telefone1, PDO::PARAM_STR);
+        $smtp->bindParam(':telefone2', $telefone2, PDO::PARAM_STR);
+        $smtp->bindParam(':email', $email, PDO::PARAM_STR);
+        $smtp->bindParam(':tipo', $tipo, PDO::PARAM_STR);
+        $smtp->bindParam(':senha', $senha, PDO::PARAM_STR);
         if ($smtp->execute()) {
             session_start();
-            $_SESSION['msg'] = "Disciplina cadastrada com sucesso!#success";
-            header('Location: disciplinas.php');
+            $_SESSION['msg'] = "Entidade cadastrada com sucesso!#success";
+            header('Location: entidades.php');
         } else {
             session_start();
-            $_SESSION['msg'] = "Ocorreu um erro ao cadastrar a disciplina!#danger";
-            header('Location: disciplinas.php');
+            $_SESSION['msg'] = "Ocorreu um erro ao cadastrar a Entidade!#danger";
+            header('Location: entidades.php');
         }
     }
 }
 // Função para editar
 if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
-    if (isset($_POST['disciplina']) && $_POST['disciplina'] != null) {
-        $disciplina = addslashes($_POST['disciplina']);
+   
+    if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
+        $nome = addslashes($_POST['nome']);
+        $apelido = addslashes($_POST['apelido']);
+        $cpf = addslashes($_POST['cpf']);
+        $rg = addslashes($_POST['rg']);
+        $dataNascimento = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['edu-start'])));
+        $telefone1 = addslashes($_POST['telefone-1']);
+        $telefone2 = addslashes($_POST['telefone-2']);
+        $email = addslashes($_POST['email']);
+        $tipo = addslashes($_POST['tipo']);
+        $senha = ($_POST['senha'] != '') ? password_hash($_POST['senha'], PASSWORD_DEFAULT) : $_POST['senhaOld'];
         $pk = addslashes($_GET['pk']);
-        $query = "UPDATE disciplinas SET DESCRICAO = :disciplina WHERE PK_DISCIPLINAS = :pk";
-        $smtp = $con->prepare($query);
-        $smtp->bindParam(':disciplina', $disciplina, PDO::PARAM_STR);
+        $query = "UPDATE
+        `entidades`
+        SET        
+        `NOME` = '$nome',
+        `NOME_FANTASIA` = '$apelido',
+        `CPF` = '$cpf',
+        `RG` = '$rg',
+        `DATA_NASCIMENTO` = '$dataNascimento',
+        `TELEFONE1` = '$telefone1',
+        `TELEFONE2` = '$telefone2',
+        `EMAIL` = '$email',
+        `PK_TIPO_CADASTRO` = '$tipo',        
+        `SENHA` = '$senha'
+        WHERE `PK_ENTIDADE` = $pk;
+      
+      ";
+        $smtp = $con->prepare($query);       
         $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
         if ($smtp->execute()) {
             session_start();
-            $_SESSION['msg'] = "Disciplina editada com sucesso!#success";
-            header('Location: disciplinas.php');
+            $_SESSION['msg'] = "Entidade editada com sucesso!#success";
+            header('Location: entidades.php');
         } else {
             session_start();
-            $_SESSION['msg'] = "Ocorreu um erro ao editar a disciplina!#danger";
-            header('Location: disciplinas.php');
+            $_SESSION['msg'] = "Ocorreu um erro ao editar a Entidade!#danger";
+            header('Location: entidades.php');
         }
     }
 }
 // Função para deletar
 if ($_GET['funcao'] == 'deletar' && is_numeric($_GET['pk'])) {
     $pk = addslashes($_GET['pk']);
-    $query = "DELETE FROM disciplinas WHERE PK_DISCIPLINAS = :pk";
-    $smtp = $con->prepare($query);    
+    $query = "DELETE FROM entidades WHERE PK_ENTIDADE = :pk";
+    $smtp = $con->prepare($query);
     $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
     if ($smtp->execute()) {
         session_start();
-        $_SESSION['msg'] = "Disciplina deletada com sucesso!#success";
-        header('Location: disciplinas.php');
+        $_SESSION['msg'] = "Entidade deletada com sucesso!#success";
+        header('Location: entidades.php');
     } else {
         session_start();
-        $_SESSION['msg'] = "Ocorreu um erro ao deletar a disciplina!#danger";
-        header('Location: disciplinas.php');
+        $_SESSION['msg'] = "Ocorreu um erro ao deletar a Entidade!#danger";
+        header('Location: entidades.php');
     }
 }
