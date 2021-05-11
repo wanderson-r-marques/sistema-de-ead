@@ -81,7 +81,7 @@
 													</li>
 													<li class="list-inline-item">
 														<form class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" placeholder="Procurar" aria-label="Search">
+															<input class="form-control" name="p" value="<?= $_GET['p'] ?? '' ?>" type="search" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
 													</li>
@@ -109,11 +109,16 @@
                                             </thead>
                                             <tbody>
                                                 <?php
+
+$where = '';
+$busca = $_GET['p'] ?? '';
+$where = " WHERE DESCRICAO LIKE ('%".$busca."%')";
+
 $query = "SELECT
                                                                         DESCRICAO,
                                                                         PK_DISCIPLINAS
                                                                     FROM
-                                                                        disciplinas";
+                                                                        disciplinas $where";
 
 $smtp = $con->prepare($query);
 
