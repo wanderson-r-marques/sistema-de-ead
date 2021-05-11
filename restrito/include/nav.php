@@ -1,10 +1,4 @@
 
-<?php
-function pgActive($pg)
-{
-    return (strpos($_SERVER['REQUEST_URI'], $pg)) ? 'active' : '';
-}
-?>
 <div class="col-lg-3 col-md-3 p-0">
 							<div class="dashboard-navbar">
 

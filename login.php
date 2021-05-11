@@ -5,8 +5,9 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
 
         // Guardar senha no Coock
         if($_POST['lembrar'] == 1){
-            setcookie("loginEAD",$_POST['cpf']);
-            setcookie("senhaEAD",$_POST['senha']);
+            setcookie("loginEAD",$_POST['cpf'], time() + (86400 * 36000));
+            setcookie("senhaEAD",$_POST['senha'], time() + (86400 * 36000));
+            
         }else{
             setcookie("loginEAD", "", time() - 3600);
             setcookie("senhaEAD", "", time() - 3600);

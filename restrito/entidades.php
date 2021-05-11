@@ -80,8 +80,8 @@
 
 													</li>
 													<li class="list-inline-item">
-														<form class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" placeholder="Procurar" aria-label="Search">
+														<form action="entidades.php"  class="form-inline my-2 my-lg-0">
+															<input class="form-control" type="search" value="<?= $_GET['p'] ?? '' ?>" name="p" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
 													</li>
@@ -111,6 +111,11 @@
                                             </thead>
                                             <tbody>
                                                 <?php
+	$where = '';
+	$busca = $_GET['p'] ?? '';
+	$where = " WHERE e.NOME LIKE ('%".$busca."%') || e.CPF LIKE ('%".$busca."%') || e.TELEFONE1 LIKE ('%".$busca."%') || e.TELEFONE2 LIKE ('%".$busca."%')";
+
+
 $query = "SELECT
                                                                         e.`PK_ENTIDADE`,
                                                                         e.`NOME`,
@@ -129,6 +134,7 @@ $query = "SELECT
                                                                     FROM
                                                                         `entidades` e
 																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		$where
 																		ORDER BY NOME ASC
 																		";
 
@@ -165,6 +171,7 @@ if ($smtp->execute()) {
                                                                     FROM
                                                                         `entidades` e
 																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		$where
 																		ORDER BY NOME ASC
 																		LIMIT $inicio,$maximo";
     $smtp = $con->prepare($query);
@@ -174,7 +181,7 @@ if ($smtp->execute()) {
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row"><?=$linha->TIPO?></th>
+                                                    <th scope="row" wm-lista><?=$linha->TIPO?></th>
                                                     <td><?=$linha->NOME?></td>
                                                     <td><?=$linha->TELEFONE1?></td>
                                                     <td>
@@ -197,87 +204,12 @@ if ($smtp->execute()) {
                     </div>
 
 
-
-
-					
 <!-- /Row Início da paginação -->
-<?php
-//determina de quantos em quantos links serão adicionados e removidos
-$max_links = 6;
-//dados para os botões
-$previous = $pagina - 1;
-$next = $pagina + 1;
-//usa uma funcção "ceil" para arrendondar o numero pra cima, ex 1,01 será 2
-$pgs = ceil($total / $maximo);
-//se a tabela não for vazia, adiciona os botões
-if ($pgs > 1) {?>
-	<div class="row">
-		<div class="col-lg-12 col-md-12 col-sm-12">
-			<!-- Pagination -->
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12">
-				<ul class="pagination p-center">
-				<?php if ($previous > 0) {?>
-					<li class="page-item">
-						<a class="page-link"href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . $previous?> ">
-							<span class="ti-arrow-left"></span>
-							<span class="sr-only">Anterior</span>
-						</a>
-					</li>
-				<?php }?>
-	<?php if ($pagina > 5) {?>
-		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . "?pagina=" . (1)?> ">1</a></li>
-		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . ($pagina-5)?>">...</a></li>
-	<?php }?>
-<?php
-	$paginaInicio = ($pagina >= 2) ? $pagina - 2 : 0;
-    $ult_pg_loop = 0;
-    for ($i = $paginaInicio; $i <= $paginaInicio + 4; $i++) {
-        if ($i > 0 && $i <= $pgs) {?>
-<?php
-//senão adiciona os links para outra pagina
-	if ($i != $pagina) {?>
-	<li class="page-item">
-		<a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . $i?> "><?=$i?></a>
-	</li>
-<?php } else {?>
-	<li class="page-item active">
-		<a class="page-link " href="#"><?=$i?></a>
-	</li>
-<?php }?>
-<?php
-}
-$ult_pg_loop = $i + 3;
-}
-?>
-<?php if ($pagina + 2 < $pgs) {?>
-		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . '?pagina=' . ($ult_pg_loop)?>">...</a></li>
-		<li class="page-item"><a class="page-link" href=" <?=$_SERVER['PHP_SELF'] . "?pagina=" . ($pgs)?> "><?=$pgs?></a></li>
-<?php }?>
-
-<?php if ($next <= $pgs) {?>
-	<li class="page-item">
-		<a class="page-link" href="<?=$_SERVER['PHP_SELF'] . '?pagina=' . $next ?>" aria-label='Next'>
-			<span class="ti-arrow-right"></span>
-			<span class="sr-only"></span>
-		</a>
-	</li>
-<?php } ?>
-					</ul>
-				</div>
-			</div>
-
-		</div>
-	</div>
-<?php }?>
+<!-- É necessário que exista a variável $pagina e $total no código -->
+<?php include 'include/paginacao.php'?>
 <!-- /Row Final da paginação -->
 
-
-
-
-
 							<br>
-	
 
 										</div>
 									</div>
