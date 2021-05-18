@@ -99,7 +99,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 
 													<div class="form-group col-md-6">
 														<label>Código INEP</label>
-														<input type="number" value="<?= $linha->COD_INEP ?? '' ?>" name="cod" required class="form-control">
+														<input type="number" value="<?= $linha->COD_INEP ?? '' ?>" name="cod"  class="form-control">
 													</div>
 
 													<div class="form-group col-md-12">
@@ -112,7 +112,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 													</div>
 													<div class="form-group col-md-6">
 														<label>Número</label>
-														<input type="number" value="<?= $linha->NUMERO ?? '' ?>" name="numero" required class="form-control">
+														<input type="number" value="<?= $linha->NUMERO ?? '' ?>" name="numero"  class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Complemento</label>
@@ -323,6 +323,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
 		<script src="../assets/js/metisMenu.min.js"></script>
+		<script src="../assets/js/cep.js"></script>
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
@@ -344,6 +345,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 				$('input[name="start"]').val('');
 				$('input[name="start"]').attr("placeholder","Course Start");
 			});
+			cep()
 		</script>
 
 	</body>

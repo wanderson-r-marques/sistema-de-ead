@@ -127,7 +127,7 @@
                                                     <td>
                                                         <div class="dash_action_link">
                                                             <a href="#" class="view">Editar</a>
-                                                            <a href="#" class="cancel">Deletar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="#" class="cancel">Deletar</a>
                                                         </div>	
                                                     </td>
                                                 </tr>                                               

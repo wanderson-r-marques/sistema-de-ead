@@ -185,8 +185,8 @@ if ($smtp->execute()) {
                                                     <td><?=$linha->TELEFONE1?></td>
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="entidades-editar.php?pk=<?=$linha->PK_ENTIDADE?>" class="view">Editar</a>
-                                                            <a href="entidades-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENTIDADE?>" class="cancel">Deletar</a>
+															<a href="entidades-editar.php?pk=<?=$linha->PK_ENTIDADE?>" class="view">Editar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="entidades-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENTIDADE?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>
