@@ -1,6 +1,6 @@
 <?php
 //determina de quantos em quantos links serão adicionados e removidos
-$max_links = 6;
+$max_links = 10;
 //dados para os botões
 $previous = $pagina - 1;
 $next = $pagina + 1;

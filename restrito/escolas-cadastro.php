@@ -50,7 +50,7 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-
+						<form action="escolas-funcao.php?funcao=cadastrar" method="post">
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
@@ -74,46 +74,47 @@
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
+										
 											<!-- Basic info -->
 											<div class="submit-section">
 												<div class="form-row">
 													<div class="form-group col-md-6">
-														<label>Nome</label>
-														<input type="text" class="form-control">
+														<label>Escola</label>
+														<input type="text" name="escola" required class="form-control">
 													</div>
 
 													<div class="form-group col-md-6">
 														<label>Código INEP</label>
-														<input type="email" class="form-control">
+														<input type="number" name="cod" required class="form-control">
 													</div>
 
 													<div class="form-group col-md-12">
 														<label>CEP</label>
-														<input type="text" class="form-control col-md-5 cep">
+														<input type="text" name="cep" wm-cep required class="form-control col-md-5 cep">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Logradouro</label>
-														<input type="text" wm-logradouro class="form-control">
+														<input type="text"  name="logradouro" required wm-logradouro class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Número</label>
-														<input type="number" class="form-control">
+														<input type="number" name="numero" required class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Complemento</label>
-														<input type="text" class="form-control">
+														<input type="text" name="complemento"  class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Bairro</label>
-														<input type="text" wm-bairro class="form-control">
+														<input type="text" name="bairro" required wm-bairro class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Cidade</label>
-														<input type="text" wm-cidade class="form-control">
+														<input type="text" name="cidade" required wm-cidade class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Estado</label>
-														<select name="estados-brasil" wm-estado class="form-control">
+														<select name="estado" required wm-estado class="form-control">
 															<option value="AC">Acre</option>
 															<option value="AL">Alagoas</option>
 															<option value="AP">Amapá</option>
@@ -146,56 +147,7 @@
 												</div>
 											</div>
 											<!-- Basic info -->
-
-										</div>
-
-									</div>
-								</div>
-							</div>
-							<!-- /Row -->
-
-
-
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-												<h4>Link de vídeos</h4>
-											</div>
-										</div>
-										<div class="dashboard_container_body p-4">
-											<!-- Basic info -->
-											<div class="submit-section">
-
-												<h6 class="ml-2">Item</h6>
-												<div class="form-row">
-
-													<div class="form-group col-md-4">
-														<label>Título</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Categoria</label>
-														<input type="email" class="form-control">
-													</div>
-
-													<div class="form-group col-md-4">
-														<label>Link</label>
-														<input type="text" class="form-control">
-													</div>
-
-													<div class="form-group col-md-12">
-														<a href="javascript:void(0);" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar item</a>
-													</div>
-												</div>
-
-
-											</div>
-											<!-- Basic info -->
-
+											
 										</div>
 
 									</div>
@@ -205,7 +157,7 @@
 
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Salvar material</button>
+									<button class="btn btn-theme" type="submit">Salvar escola</button>
 								</div>
 							</div>
 
@@ -213,7 +165,7 @@
 
 					</div>
 					<!-- Row -->
-
+					</form>
 				</div>
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->

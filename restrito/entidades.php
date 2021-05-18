@@ -81,7 +81,7 @@
 													</li>
 													<li class="list-inline-item">
 														<form action="entidades.php"  class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" value="<?= $_GET['p'] ?? '' ?>" name="p" placeholder="Procurar" aria-label="Search">
+															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
 													</li>
@@ -111,10 +111,9 @@
                                             </thead>
                                             <tbody>
                                                 <?php
-	$where = '';
-	$busca = $_GET['p'] ?? '';
-	$where = " WHERE e.NOME LIKE ('%".$busca."%') || e.CPF LIKE ('%".$busca."%') || e.TELEFONE1 LIKE ('%".$busca."%') || e.TELEFONE2 LIKE ('%".$busca."%')";
-
+$where = '';
+$busca = $_GET['p'] ?? '';
+$where = " WHERE e.NOME LIKE ('%" . $busca . "%') || e.CPF LIKE ('%" . $busca . "%') || e.TELEFONE1 LIKE ('%" . $busca . "%') || e.TELEFONE2 LIKE ('%" . $busca . "%')";
 
 $query = "SELECT
                                                                         e.`PK_ENTIDADE`,
@@ -144,7 +143,7 @@ if ($smtp->execute()) {
     // Pega o total de registros
     $total = $smtp->rowCount();
     //determina o numero de registros que serão mostrados na tela
-    $maximo = 5;
+    $maximo = 10;
     //pega o valor da pagina atual
     $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
 

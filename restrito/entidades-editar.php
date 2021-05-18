@@ -9,7 +9,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
     $smtp->execute();
     $linha = $smtp->fetch(PDO::FETCH_OBJ);
 } else {
-    header('Location: disciplinas.php');
+    header('Location: entidades.php');
 }
 
 ?>
@@ -71,7 +71,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Entidades Cadastro</li>
+											<li class="breadcrumb-item active" aria-current="page">Entidades Editar</li>
 										</ol>
 									</nav>
 								</div>
@@ -84,7 +84,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-												<h4>Cadastrar entidade</h4>
+												<h4>Editar entidade</h4>
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
