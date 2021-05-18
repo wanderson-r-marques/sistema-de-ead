@@ -74,7 +74,7 @@
 											</div>
 										</div>
 										<div class="dashboard_container_body p-4">
-										
+
 											<!-- Basic info -->
 											<div class="submit-section">
 												<div class="form-row">
@@ -85,7 +85,7 @@
 
 													<div class="form-group col-md-6">
 														<label>Código INEP</label>
-														<input type="number" name="cod" required class="form-control">
+														<input type="number" name="cod"  class="form-control">
 													</div>
 
 													<div class="form-group col-md-12">
@@ -98,7 +98,7 @@
 													</div>
 													<div class="form-group col-md-6">
 														<label>Número</label>
-														<input type="number" name="numero" required class="form-control">
+														<input type="number" name="numero"  class="form-control">
 													</div>
 													<div class="form-group col-md-6">
 														<label>Complemento</label>
@@ -147,7 +147,7 @@
 												</div>
 											</div>
 											<!-- Basic info -->
-											
+
 										</div>
 
 									</div>
@@ -309,6 +309,7 @@
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
 		<script src="../assets/js/metisMenu.min.js"></script>
+		<script src="../assets/js/cep.js"></script>
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
@@ -330,6 +331,8 @@
 				$('input[name="start"]').val('');
 				$('input[name="start"]').attr("placeholder","Course Start");
 			});
+
+			cep()
 		</script>
 
 	</body>
