@@ -2,7 +2,7 @@
 require_once 'valida.php';
 // Função para cadastrar
 if ($_GET['funcao'] == 'cadastrar') {
-    if (isset($_POST['cod']) && $_POST['cod'] != null) {
+    if (isset($_POST['escola']) && $_POST['escola'] != null) {
         $escola = addslashes($_POST['escola']);
         $cod = addslashes($_POST['cod']);
         $cep = addslashes($_POST['cep']);
