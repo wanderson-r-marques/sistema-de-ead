@@ -60,7 +60,7 @@ if ($_GET['funcao'] == 'cadastrar') {
 }
 // Função para editar
 if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
-    if (isset($_POST['cod']) && $_POST['cod'] != null) {
+    if (isset($_POST['escola']) && $_POST['escola'] != null) {
         $escola = addslashes($_POST['escola']); 
         $cod = addslashes($_POST['cod']);        
         $logradouro = addslashes($_POST['logradouro']);
