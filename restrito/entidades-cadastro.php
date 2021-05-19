@@ -101,7 +101,7 @@
 													
 													<div class="form-group col-md-4">
 														<label>Data de nascimento</label>
-														<input type="text" required name="edu-start" class="form-control" />
+														<input type="date" required name="edu-start" value="" class="form-control" />
 													</div>
 
 													<div class="form-group col-md-4">
@@ -148,7 +148,7 @@
 							
 							<div class="row">
 								<div class="form-group col-lg-12 col-md-12">
-									<button class="btn btn-theme" type="submit">Salvar entidade</button>
+									<button class="btn btn-theme" type="submit">Salvar</button>
 								</div>
 							</div>
 							</form>
@@ -304,26 +304,6 @@
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
-		
-		<script>
-				// Course Expire and Start Daterange Script
-			$(function() {
-			  $('input[name="edu-expire"]').daterangepicker({
-				singleDatePicker: true,
-			  });
-				$('input[name="edu-expire"]').val('');
-				$('input[name="edu-expire"]').attr("placeholder","Course Expire");
-			});
-			$(function() {
-			  $('input[name="edu-start"]').daterangepicker({
-				singleDatePicker: true,
-				
-			  });
-				$('input[name="start"]').val('');
-				$('input[name="start"]').attr("placeholder","Course Start");
-			});
-		</script>
-
 	</body>
 
 <!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->

@@ -115,7 +115,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 
 													<div class="form-group col-md-4">
 														<label>Data de nascimento</label>
-														<input type="text" value="<?=$linha->DATA_NASCIMENTO?>" required name="edu-start" class="form-control" />
+														<input type="date" value="<?=$linha->DATA_NASCIMENTO?>" required name="edu-start" class="form-control" />
 													</div>
 
 													<div class="form-group col-md-4">
@@ -310,32 +310,13 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 		<script src="../assets/js/valida.cpf.js"></script>
 		<!-- Date Booking Script -->
 		<script src="../assets/js/moment.min.js"></script>
-		<script src="../assets/js/daterangepicker.js"></script>
+		
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
 		<script src="../assets/js/metisMenu.min.js"></script>
 		<script>
 			$('#side-menu').metisMenu();
-		</script>
-
-		<script>
-				// Course Expire and Start Daterange Script
-			$(function() {
-			  $('input[name="edu-expire"]').daterangepicker({
-				singleDatePicker: true,
-			  });
-				$('input[name="edu-expire"]').val('');
-				$('input[name="edu-expire"]').attr("placeholder","Course Expire");
-			});
-			$(function() {
-			  $('input[name="edu-start"]').daterangepicker({
-				singleDatePicker: true,
-
-			  });
-				$('input[name="start"]').val('');
-				$('input[name="start"]').attr("placeholder","Course Start");
-			});
 		</script>
 
 	</body>
