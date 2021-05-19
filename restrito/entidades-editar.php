@@ -104,7 +104,8 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 
 													<div class="form-group col-md-6">
 														<label>CPF</label>
-														<input type="text" value="<?=$linha->CPF?>" required name="cpf" class="form-control">
+														<input type="text" value="<?=$linha->CPF?>" required name="cpf" class="form-control cpf">
+														<span id="txtCPF" class="payment_status cancel" style="color: red;">CPF inválido</span>
 													</div>
 
 													<div class="form-group col-md-6">
@@ -306,7 +307,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 		<script src="../assets/js/custom.js"></script>
 
 		<script src="../assets/js/dropzone.js"></script>
-
+		<script src="../assets/js/valida.cpf.js"></script>
 		<!-- Date Booking Script -->
 		<script src="../assets/js/moment.min.js"></script>
 		<script src="../assets/js/daterangepicker.js"></script>
