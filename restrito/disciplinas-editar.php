@@ -71,7 +71,7 @@ if(isset($_GET['pk']) &&  is_numeric($_GET['pk'])){
 										<nav aria-label="breadcrumb">
 											<ol class="breadcrumb">
 												<li class="breadcrumb-item"><a href="#">Painel</a></li>
-												<li class="breadcrumb-item active" aria-current="page">Disciplinas Cadastro</li>
+												<li class="breadcrumb-item active" aria-current="page">Disciplinas editar</li>
 											</ol>
 										</nav>
 									</div>

@@ -1,5 +1,18 @@
 <?php require_once 'valida.php';?>
-<?php require_once '../helpers/alert.php';?>
+<?php
+
+if(isset($_GET['pk']) &&  is_numeric($_GET['pk'])){
+	$pk = $_GET['pk'];
+	$query = "SELECT DESCRICAO FROM ensinos WHERE PK_ENSINOS = :pk";
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+    $smtp->execute();
+	$linha = $smtp->fetch(PDO::FETCH_OBJ);
+}else{
+	header('Location: ensinos.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -33,12 +46,13 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-			<?php include_once 'include/header.php'?>
             <!-- ============================================================== -->
+            <?php include_once 'include/header.php'?>
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
+
 
 			<!-- ============================ Dashboard: My Order Start ================================== -->
 			<section class="gray pt-0">
@@ -47,115 +61,59 @@
 					<!-- Row -->
 					<div class="row">
 
-						<?php include_once 'include/nav.php'?>
+					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
-									<nav aria-label="breadcrumb">
-										<ol class="breadcrumb">
-											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Ensinos</li>
-										</ol>
-									</nav>
+							<form action="ensinos-funcao.php?funcao=editar&pk=<?= $pk ?>" method="post">
+								<!-- Row -->
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
+										<nav aria-label="breadcrumb">
+											<ol class="breadcrumb">
+												<li class="breadcrumb-item"><a href="#">Painel</a></li>
+												<li class="breadcrumb-item active" aria-current="page">Ensino Editar</li>
+											</ol>
+										</nav>
+									</div>
 								</div>
-							</div>
-							<!-- /Row -->
+								<!-- /Row -->
 
-							<!-- Row -->
-							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-                                <?=alert()?>
-									<!-- Course Style 1 For Student -->
-									<div class="dashboard_container">
-										<div class="dashboard_container_header">
-											<div class="dashboard_fl_1">
-											<h4>Ensinos</h4>
+								<!-- Row -->
+								<div class="row">
+									<div class="col-lg-12 col-md-12 col-sm-12">
+										<div class="dashboard_container">
+											<div class="dashboard_container_header">
+												<div class="dashboard_fl_1">
+													<h4>Editar Tipos Ensino</h4>
+												</div>
 											</div>
-											<div class="dashboard_fl_2">
-												<ul class="mb0">
-													<li class="list-inline-item">
+											<div class="dashboard_container_body p-4">
+												<!-- Basic info -->
+												<div class="submit-section">
+													<div class="form-row">
 
-													</li>
-													<li class="list-inline-item">
-														<form class="form-inline my-2 my-lg-0">
-															<input class="form-control" name="p" value="<?= $_GET['p'] ?? '' ?>" type="search" placeholder="Procurar" aria-label="Search">
-															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
-														</form>
-													</li>
-												</ul>
+														<div class="form-group col-md-12">
+															<label>Descrição</label>
+															<input name="descricao" value="<?= $linha->DESCRICAO ?>" type="text" class="form-control">
+														</div>
+
+													</div>
+												</div>
+												<!-- Basic info -->
+
 											</div>
-										</div>
-										<div class="dashboard_container_body">
-
-											<!-- Row -->
-							<div class="row">
-
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="dashboard_container">
-								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="ensinos-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar ensino</a>
-								</div>
-                                <div class="dashboard_container_body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Descrição</th>
-                                                    <th scope="col">Ação</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-
-$where = '';
-												$busca = $_GET['p'] ?? '';
-												$where = " WHERE DESCRICAO LIKE ('%".$busca."%')";                                                    
-                                                    $query = "SELECT
-                                                                        DESCRICAO,
-                                                                        PK_ENSINOS
-                                                                    FROM
-                                                                        ensinos $where";
-
-$smtp = $con->prepare($query);
-
-if ($smtp->execute()) {
-    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-    foreach ($linhas as $linha) {
-        ?>
-                                                <tr>
-                                                    <th scope="row"><?=$linha->DESCRICAO?></th>
-                                                    <td>
-                                                        <div class="dash_action_link">
-                                                            <a href="ensinos-editar.php?pk=<?=$linha->PK_ENSINOS?>" class="view">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="ensinos-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENSINOS?>" class="cancel">Deletar</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                               <?php
-}
-}
-?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /Row -->
 
 										</div>
 									</div>
-
 								</div>
-							</div>
-							<!-- /Row -->
+								<!-- /Row -->
 
+								<div class="row">
+									<div class="form-group col-lg-12 col-md-12">
+										<button class="btn btn-theme" type="submit">Salvar</button>
+									</div>
+								</div>
+							</form>
 						</div>
 
 					</div>
@@ -165,7 +123,9 @@ if ($smtp->execute()) {
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-			<?php include_once 'include/footer.php';?>
+
+
+			<?php require_once 'include/footer.php'?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
@@ -290,8 +250,14 @@ if ($smtp->execute()) {
 		<script src="../assets/js/slick.js"></script>
 		<script src="../assets/js/jquery.counterup.min.js"></script>
 		<script src="../assets/js/counterup.min.js"></script>
-        <script src="../assets/js/jquery.mask.min.js"></script>
+		<script src="../assets/js/jquery.mask.min.js"></script>
 		<script src="../assets/js/custom.js"></script>
+
+		<script src="../assets/js/dropzone.js"></script>
+
+		<!-- Date Booking Script -->
+		<script src="../assets/js/moment.min.js"></script>
+		<script src="../assets/js/daterangepicker.js"></script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
@@ -299,5 +265,27 @@ if ($smtp->execute()) {
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
+
+		<script>
+				// Course Expire and Start Daterange Script
+			$(function() {
+			  $('input[name="edu-expire"]').daterangepicker({
+				singleDatePicker: true,
+			  });
+				$('input[name="edu-expire"]').val('');
+				$('input[name="edu-expire"]').attr("placeholder","Course Expire");
+			});
+			$(function() {
+			  $('input[name="edu-start"]').daterangepicker({
+				singleDatePicker: true,
+
+			  });
+				$('input[name="start"]').val('');
+				$('input[name="start"]').attr("placeholder","Course Start");
+			});
+		</script>
+
 	</body>
+
+<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->
 </html>

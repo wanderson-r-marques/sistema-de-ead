@@ -50,7 +50,7 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-							<form action="ensinos-funcao.php" method="post">
+							<form action="ensinos-funcao.php?funcao=cadastrar" method="post">
 								<!-- Row -->
 								<div class="row">
 									<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
@@ -96,7 +96,7 @@
 
 								<div class="row">
 									<div class="form-group col-lg-12 col-md-12">
-										<button class="btn btn-theme" type="submit">Salvar Cadastro</button>
+										<button class="btn btn-theme" type="submit">Salvar</button>
 									</div>
 								</div>
 							</form>

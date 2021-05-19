@@ -131,7 +131,7 @@ if ($smtp->execute()) {
                                                     <td>
                                                         <div class="dash_action_link">
                                                             <a href="disciplinas-editar.php?pk=<?=$linha->PK_DISCIPLINAS?>" class="view">Editar</a>
-                                                            <a href="disciplinas-funcao.php?funcao=deletar&pk=<?=$linha->PK_DISCIPLINAS?>" class="cancel">Deletar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="disciplinas-funcao.php?funcao=deletar&pk=<?=$linha->PK_DISCIPLINAS?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>
