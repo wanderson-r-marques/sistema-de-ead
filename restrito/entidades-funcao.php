@@ -5,7 +5,9 @@ if ($_GET['funcao'] == 'cadastrar') {
     if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
-        $cpf = addslashes($_POST['cpf']);
+        $cpf = $_POST['cpf'];        
+        $cpf = str_replace('.', '', $cpf);
+        $cpf = str_replace('-', '', $cpf);
         $rg = addslashes($_POST['rg']);
         $dataNascimento = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['edu-start'])));
         $telefone1 = addslashes($_POST['telefone-1']);
@@ -67,7 +69,9 @@ if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
     if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
-        $cpf = addslashes($_POST['cpf']);
+        $cpf = $_POST['cpf'];        
+        $cpf = str_replace('.', '', $cpf);
+        $cpf = str_replace('-', '', $cpf);
         $rg = addslashes($_POST['rg']);
         $dataNascimento = date('Y-m-d', strtotime(str_replace('/', '-', $_POST['edu-start'])));
         $telefone1 = addslashes($_POST['telefone-1']);
