@@ -5,6 +5,7 @@ if ($_GET['funcao'] == 'cadastrar') {
     if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
+        $cod = $_POST['cod']; 
         $cpf = $_POST['cpf'];        
         $cpf = str_replace('.', '', $cpf);
         $cpf = str_replace('-', '', $cpf);
@@ -26,6 +27,7 @@ if ($_GET['funcao'] == 'cadastrar') {
             `TELEFONE2`,
             `EMAIL`,
             `PK_TIPO_CADASTRO`,
+            `COD_INEP`,
             `SENHA`
           )
           VALUES
@@ -39,6 +41,7 @@ if ($_GET['funcao'] == 'cadastrar') {
               :telefone2,
               :email,
               :tipo,
+              :cod
               :senha
             );";
         $smtp = $con->prepare($query);
@@ -51,6 +54,7 @@ if ($_GET['funcao'] == 'cadastrar') {
         $smtp->bindParam(':telefone2', $telefone2, PDO::PARAM_STR);
         $smtp->bindParam(':email', $email, PDO::PARAM_STR);
         $smtp->bindParam(':tipo', $tipo, PDO::PARAM_STR);
+        $smtp->bindParam(':cod', $cod, PDO::PARAM_INT);
         $smtp->bindParam(':senha', $senha, PDO::PARAM_STR);
         if ($smtp->execute()) {
             session_start();
@@ -70,6 +74,7 @@ if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
         $cpf = $_POST['cpf'];        
+        $cod = $_POST['cod'];        
         $cpf = str_replace('.', '', $cpf);
         $cpf = str_replace('-', '', $cpf);
         $rg = addslashes($_POST['rg']);
@@ -91,6 +96,7 @@ if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
         `TELEFONE1` = '$telefone1',
         `TELEFONE2` = '$telefone2',
         `EMAIL` = '$email',
+        `COD_INEP` = '$cod',
         `PK_TIPO_CADASTRO` = '$tipo',        
         `SENHA` = '$senha'
         WHERE `PK_ENTIDADE` = $pk;

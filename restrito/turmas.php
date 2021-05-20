@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas</li>
+											<li class="breadcrumb-item active" aria-current="page">Turmas</li>
 										</ol>
 									</nav>
 								</div>
@@ -72,7 +72,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Escolas</h4>
+											<h4>Turmas</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -80,7 +80,7 @@
 
 													</li>
 													<li class="list-inline-item">
-														<form action="escolas.php"  class="form-inline my-2 my-lg-0">
+														<form action="turmas.php"  class="form-inline my-2 my-lg-0">
 															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
@@ -96,15 +96,17 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="escolas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar escolas</a>
+									<a href="turmas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar turmas</a>
 								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Código</th>
                                                     <th scope="col">Escola</th>
+                                                    <th scope="col">Série</th>
+                                                    <th scope="col">Turma</th>
+                                                    <th scope="col">Turno</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
@@ -112,9 +114,14 @@
 <?php
 $where = '';
 $busca = $_GET['p'] ?? '';
-$where = " WHERE DESCRICAO LIKE ('%" . $busca . "%') || COD_INEP LIKE ('%" . $busca . "%')";
+$where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || t.`DESCRICAO` LIKE ('%" . $busca . "%') || tu.`DESCRICAO` LIKE ('%" . $busca . "%')";
 
-$query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD  FROM escolas  $where ORDER BY DESCRICAO ASC";
+$query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno  FROM turmas t
+JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
+JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
+JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
+$where
+ORDER BY escola, serie, turno, turma";
 
 $smtp = $con->prepare($query);
 
@@ -131,7 +138,13 @@ if ($smtp->execute()) {
     //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
     $inicio = $maximo * $inicio;
     // Nova query com as limitações
-    $query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD FROM escolas $where ORDER BY DESCRICAO ASC	LIMIT $inicio,$maximo"; 
+    $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno, t.PK_TURMA  FROM turmas t
+	JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
+	JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
+	JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
+	$where
+	ORDER BY escola, serie, turno, turma
+	LIMIT $inicio,$maximo";
     $smtp = $con->prepare($query);
     $smtp->execute();
 
@@ -139,13 +152,15 @@ if ($smtp->execute()) {
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row" wm-lista><?=$linha->COD?></th>
-                                                    <td><?=$linha->ESCOLA?></td>
+                                                    <th scope="row"><?=$linha->escola?></th>
+                                                    <td><?=$linha->serie?></td>
+                                                    <td><?=$linha->turma?></td>
+                                                    <td><?=$linha->turno?></td>
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="escolas-visualizar.php?pk=<?=$linha->PK_ESCOLA?>" class="view">Ver</a>
-														<a href="escolas-editar.php?pk=<?=$linha->PK_ESCOLA?>" class="edit">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="escolas-funcao.php?funcao=deletar&pk=<?=$linha->PK_ESCOLA?>" class="cancel">Deletar</a>
+														<a href="turmas-visualizar.php?pk=<?=$linha->PK_TURMA?>" class="view">Ver</a>
+														<a href="turmas-editar.php?pk=<?=$linha->PK_TURMA?>" class="edit">Editar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?=$linha->PK_TURMA?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>

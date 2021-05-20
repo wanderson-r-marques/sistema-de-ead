@@ -40,6 +40,9 @@
 										<li class="<?=pgActive('ensinos')?>">
 											<a href="ensinos.php"><i class="ti-blackboard"></i>Ensinos</a>											
 										</li>
+										<li class="<?=pgActive('turmas')?>">
+											<a href="turmas.php"><i class="ti-id-badge"></i>Turmas</a>											
+										</li>
 										<li><a href="logout.php"><i class="ti-power-off"></i>Sair</a></li>
 									</ul>
 								</div>

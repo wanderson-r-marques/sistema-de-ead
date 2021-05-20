@@ -88,15 +88,20 @@
 														<input type="text" name="apelido" class="form-control">
 													</div>
 
-													<div class="form-group col-md-6">
+													<div class="form-group col-md-4">
 														<label>CPF</label>
 														<input type="text" id="validaCPF" required name="cpf" class="form-control cpf">
 														<span id="txtCPF" class="payment_status cancel" style="color: red;">CPF inválido</span>
 													</div>
 													
-													<div class="form-group col-md-6">
+													<div class="form-group col-md-4">
 														<label>RG</label>
 														<input type="text" required name="rg" class="form-control">
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>Cód. INEP</label>
+														<input type="text"  name="cod" class="form-control">
 													</div>
 													
 													<div class="form-group col-md-4">
