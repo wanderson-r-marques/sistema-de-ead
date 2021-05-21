@@ -1,10 +1,9 @@
-
-.alterarFoto{ 
-    background:url(../img/btn-alterar.png);  
+.alterarFoto {
+    background: url(../img/btn-alterar.png);
     width: 75px;
     height: 40px;
-    top:110px;     
-    position:absolute;
+    top: 110px;
+    position: absolute;
     left: calc(50% - 40px);
     display: none;
     cursor: pointer;
@@ -12,17 +11,32 @@
     text-align: center;
 }
 
-.linkFoto:active{
+.linkFoto:active {
     background: none;
     border: none;
 }
-.linkFoto:hover .alterarFoto{
+
+.linkFoto:hover .alterarFoto {
     display: block;
     margin-left: auto;
-    margin-right: auto;     
+    margin-right: auto;
 }
-.custom-file{
-    position:absolute; 
+
+.custom-file {
+    position: absolute;
     float: left;
     z-index: 99999;
+}
+
+.b1 {
+    border: 1px #e2e2e2 solid;
+}
+
+ul.cart_list {
+    min-height: 30px;
+    pad
+}
+
+ul.cart_list li {
+    padding: 10px;
 }

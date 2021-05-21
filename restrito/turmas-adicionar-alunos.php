@@ -1,5 +1,8 @@
 <?php require_once 'valida.php';?>
 <?php require_once '../helpers/alert.php';?>
+<?php
+$pk = $_GET['pk'];
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -57,7 +60,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Turmas</li>
+											<li class="breadcrumb-item active" aria-current="page">Matricular alunos</li>
 										</ol>
 									</nav>
 								</div>
@@ -66,13 +69,12 @@
 
 							<!-- Row -->
 							<div class="row">
-								<div class="col-lg-12 col-md-12 col-sm-12">
-								<?=alert()?>
+								<div class="col-lg-12 col-md-12 col-sm-12">								
 									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Turmas</h4>
+											<h4>Matricular alunos</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -95,93 +97,111 @@
 
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
-								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="turmas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar turmas</a>
+								
+								<div class="row">
+								
+								
+						<div class="col-lg-6 col-md-6">
+							<!-- Total Cart -->
+							<div class="cart_totals checkout">
+								<h4>Alunos não matriculados</h4>
+								<div class="cart-wrap">
+									<ul class="cart_list " id="reports_out" ondrop="drop_out(event)" ondragover="allowDrop(event)">
+										<?php 
+										$query = "SELECT PK_ENTIDADE, NOME, CPF FROM `entidades` 
+										WHERE PK_ENTIDADE NOT IN (SELECT PK_ENTIDADE FROM `alunos_escolas_turmas` WHERE PK_TURMA = $pk) 
+										AND `PK_TIPO_CADASTRO` = 1 ";
+										$smtp = $con->prepare($query);
+										$smtp->execute();
+									
+										$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+										foreach ($linhas as $linha) {
+											?>									
+											<li id="<?= $linha->PK_ENTIDADE ?>" ondragstart="drag(event)" draggable="true" class="b1"><?= $linha->NOME ?><strong><?= $linha->CPF ?></strong></li>
+										<?php } ?>
+									</ul>
 								</div>
-                                <div class="dashboard_container_body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Escola</th>
-                                                    <th scope="col">Série</th>
-                                                    <th scope="col">Turma</th>
-                                                    <th scope="col">Turno</th>
-                                                    <th scope="col">Ação</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-<?php
-$where = '';
-$busca = $_GET['p'] ?? '';
-$where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || t.`DESCRICAO` LIKE ('%" . $busca . "%') || tu.`DESCRICAO` LIKE ('%" . $busca . "%')";
+							</div>
+						</div>
+						
+						<div class="col-lg-6 col-md-6">
+							<!-- Total Cart -->
+							<div class="cart_totals checkout">
+								<h4>Alunos matricudos</h4>
+								<div class="cart-wrap">
+									<ul class="cart_list" id="reports_in" ondrop="drop_in(event)" ondragover="allowDrop(event)">
+									<?php 
+										$query = "SELECT a.`PK_ENTIDADE`, e.NOME, e.CPF FROM `alunos_escolas_turmas` a
+										JOIN entidades e ON a.`PK_ENTIDADE` = e.`PK_ENTIDADE`
+										 WHERE a.`PK_TURMA` = ?";
+										$smtp = $con->prepare($query);
+										$smtp->execute([$_GET['pk']]);									
+										$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+										foreach ($linhas as $linha) {
+											?>									
+											<li id="<?= $linha->PK_ENTIDADE ?>" ondragstart="drag(event)" draggable="true" class="b1"><?= $linha->NOME ?><strong><?= $linha->CPF ?></strong></li>
+										<?php } ?>
+									</ul>									
+									<button type="button" onclick="setAlunosParaTurma()" class="btn checkout_btn">Atualizar turma</button>
+									<div wm-alerta  class="alert d-none"></div>
+								</div>
+							</div>
+						</div>
 
-$query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno  FROM turmas t
-JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
-JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
-JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
-$where
-ORDER BY escola, serie, turno, turma";
+						<script type="text/javascript">
+			function drag(ev){				
+				ev.dataTransfer.setData("text", ev.target.id);
+			}
+		
+			function drop_in(ev){
+				ev.preventDefault();
+				var data = ev.dataTransfer.getData("text")
+				document.getElementById("reports_in").appendChild(document.getElementById(data))
+			}
 
-$smtp = $con->prepare($query);
+			function drop_out(ev){
+				ev.preventDefault();
+				var data = ev.dataTransfer.getData("text")
+				document.getElementById("reports_out").appendChild(document.getElementById(data))
+			}
 
-if ($smtp->execute()) {
-    // Pega o total de registros
-    $total = $smtp->rowCount();
-    //determina o numero de registros que serão mostrados na tela
-    $maximo = 10;
-    //pega o valor da pagina atual
-    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
+			function allowDrop(ev){
+				ev.preventDefault()
+			}
 
-    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-    $inicio = $pagina - 1;
-    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-    $inicio = $maximo * $inicio;
-    // Nova query com as limitações
-    $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno, t.PK_TURMA  FROM turmas t
-	JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
-	JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
-	JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
-	$where
-	ORDER BY escola, serie, turno, turma
-	LIMIT $inicio,$maximo";
-    $smtp = $con->prepare($query);
-    $smtp->execute();
-
-    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-    foreach ($linhas as $linha) {
-        ?>
-                                                <tr>
-                                                    <th scope="row"><?=$linha->escola?></th>
-                                                    <td><?=$linha->serie?></td>
-                                                    <td><?=$linha->turma?></td>
-                                                    <td><?=$linha->turno?></td>
-                                                    <td>
-                                                        <div class="dash_action_link">
-														<a href="turmas-visualizar.php?pk=<?=$linha->PK_TURMA?>" class="view">Ver</a>
-														<a href="turmas-editar.php?pk=<?=$linha->PK_TURMA?>" class="edit">Editar</a>
-														<a href="turmas-adicionar-alunos.php?pk=<?=$linha->PK_TURMA?>" class="edit">Alunos</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?=$linha->PK_TURMA?>" class="cancel">Deletar</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                               <?php
-}
-}
-?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+			function setAlunosParaTurma(){
+				let lista = []
+				$('#reports_in').find("li").each(function(){
+					lista.push(this.id)
+				})
+				$.post("turmas-matricular-request.php",{
+					turma:"<?= addslashes($_GET['pk']) ?>",
+					alunos: lista
+				}, function(data){
+					const alerta = document.querySelector("[wm-alerta]")					
+					alerta.classList.remove("alert-success")
+					alerta.classList.remove("alert-danger")
+					alerta.classList.remove("d-none")
+					if(data == 1){
+						alerta.innerHTML = "Atualizado com sucesso!"
+						alerta.classList.add("alert-success");
+					}else{
+						alerta.innerHTML = "Não houve atualização!"
+						alerta.classList.add("alert-danger");
+					}
+				})
+			}
+		</script>
+						
+					</div>
+                                
                             </div>
                         </div>
                     </div>
 
 
 <!-- /Row Início da paginação -->
-<!-- É necessário que exista a variável $pagina e $total no código -->
-<?php include 'include/paginacao.php'?>
-<!-- /Row Final da paginação -->
+
 
 							<br>
 
@@ -232,5 +252,6 @@ if ($smtp->execute()) {
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
+		
 	</body>
 </html>
