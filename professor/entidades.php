@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas</li>
+											<li class="breadcrumb-item active" aria-current="page">Entidades</li>
 										</ol>
 									</nav>
 								</div>
@@ -72,7 +72,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Escolas</h4>
+											<h4>Entidades</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -80,7 +80,7 @@
 
 													</li>
 													<li class="list-inline-item">
-														<form action="escolas.php"  class="form-inline my-2 my-lg-0">
+														<form action="entidades.php"  class="form-inline my-2 my-lg-0">
 															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
@@ -96,25 +96,46 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="escolas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar escolas</a>
+									<a href="entidades-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar entidades</a>
 								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Código</th>
-                                                    <th scope="col">Escola</th>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Telefone</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-<?php
+                                                <?php
 $where = '';
 $busca = $_GET['p'] ?? '';
-$where = " WHERE DESCRICAO LIKE ('%" . $busca . "%') || COD_INEP LIKE ('%" . $busca . "%')";
+$where = " WHERE e.NOME LIKE ('%" . $busca . "%') || e.CPF LIKE ('%" . $busca . "%') || e.TELEFONE1 LIKE ('%" . $busca . "%') || e.TELEFONE2 LIKE ('%" . $busca . "%')";
 
-$query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD  FROM escolas  $where ORDER BY DESCRICAO ASC";
+$query = "SELECT
+                                                                        e.`PK_ENTIDADE`,
+                                                                        e.`NOME`,
+                                                                        e.`NOME_FANTASIA`,
+                                                                        e.`CPF`,
+                                                                        e.`RG`,
+                                                                        e.`DATA_NASCIMENTO`,
+                                                                        e.`TELEFONE1`,
+                                                                        e.`TELEFONE2`,
+                                                                        e.`EMAIL`,
+                                                                        e.`PK_TIPO_CADASTRO`,
+                                                                        e.`MATRICULA`,
+                                                                        e.`SENHA`,
+                                                                        e.`COD_INEP`,
+																		tc.DESCRICAO as TIPO
+                                                                    FROM
+                                                                        `entidades` e
+																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		$where
+																		ORDER BY NOME ASC
+																		";
 
 $smtp = $con->prepare($query);
 
@@ -131,7 +152,27 @@ if ($smtp->execute()) {
     //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
     $inicio = $maximo * $inicio;
     // Nova query com as limitações
-    $query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD FROM escolas $where ORDER BY DESCRICAO ASC	LIMIT $inicio,$maximo"; 
+    $query = "SELECT
+                                                                        e.`PK_ENTIDADE`,
+                                                                        e.`NOME`,
+                                                                        e.`NOME_FANTASIA`,
+                                                                        e.`CPF`,
+                                                                        e.`RG`,
+                                                                        e.`DATA_NASCIMENTO`,
+                                                                        e.`TELEFONE1`,
+                                                                        e.`TELEFONE2`,
+                                                                        e.`EMAIL`,
+                                                                        e.`PK_TIPO_CADASTRO`,
+                                                                        e.`MATRICULA`,
+                                                                        e.`SENHA`,
+                                                                        e.`COD_INEP`,
+																		tc.DESCRICAO as TIPO
+                                                                    FROM
+                                                                        `entidades` e
+																		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
+																		$where
+																		ORDER BY NOME ASC
+																		LIMIT $inicio,$maximo";
     $smtp = $con->prepare($query);
     $smtp->execute();
 
@@ -139,13 +180,13 @@ if ($smtp->execute()) {
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row" wm-lista><?=$linha->COD?></th>
-                                                    <td><?=$linha->ESCOLA?></td>
+                                                    <th scope="row" wm-lista><?=$linha->TIPO?></th>
+                                                    <td><?=$linha->NOME?></td>
+                                                    <td><?=$linha->TELEFONE1?></td>
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="escolas-visualizar.php?pk=<?=$linha->PK_ESCOLA?>" class="view">Ver</a>
-														<a href="escolas-editar.php?pk=<?=$linha->PK_ESCOLA?>" class="edit">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="escolas-funcao.php?funcao=deletar&pk=<?=$linha->PK_ESCOLA?>" class="cancel">Deletar</a>
+															<a href="entidades-editar.php?pk=<?=$linha->PK_ENTIDADE?>" class="view">Editar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="entidades-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENTIDADE?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>

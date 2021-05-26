@@ -1,5 +1,18 @@
 <?php require_once 'valida.php';?>
-<?php require_once '../helpers/alert.php';?>
+<?php
+
+if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
+    $pk = $_GET['pk'];
+    $query = "SELECT * FROM entidades WHERE PK_ENTIDADE = :pk";
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+    $smtp->execute();
+    $linha = $smtp->fetch(PDO::FETCH_OBJ);
+} else {
+    header('Location: entidades.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -33,12 +46,13 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-			<?php include_once 'include/header.php'?>
             <!-- ============================================================== -->
+            <?php include_once 'include/header.php'?>
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
+
 
 			<!-- ============================ Dashboard: My Order Start ================================== -->
 			<section class="gray pt-0">
@@ -47,17 +61,17 @@
 					<!-- Row -->
 					<div class="row">
 
-						<?php include_once 'include/nav.php'?>
+					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-
+							<form  action="entidades-funcao.php?funcao=editar&pk=<?=$pk?>" method="post">
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas</li>
+											<li class="breadcrumb-item active" aria-current="page">Entidades Editar</li>
 										</ol>
 									</nav>
 								</div>
@@ -67,115 +81,97 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-								<?=alert()?>
-									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Escolas</h4>
-											</div>
-											<div class="dashboard_fl_2">
-												<ul class="mb0">
-													<li class="list-inline-item">
-
-													</li>
-													<li class="list-inline-item">
-														<form action="escolas.php"  class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
-															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
-														</form>
-													</li>
-												</ul>
+												<h4>Editar entidade</h4>
 											</div>
 										</div>
-										<div class="dashboard_container_body">
+										<div class="dashboard_container_body p-4">
+											<!-- Basic info -->
+											<div class="submit-section">
+												<div class="form-row">
 
-											<!-- Row -->
-							<div class="row">
+													<div class="form-group col-md-6">
+														<label>Nome</label>
+														<input type="text" value="<?=$linha->NOME?>" required name="nome" class="form-control">
+													</div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="dashboard_container">
-								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="escolas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar escolas</a>
-								</div>
-                                <div class="dashboard_container_body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Código</th>
-                                                    <th scope="col">Escola</th>
-                                                    <th scope="col">Ação</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-<?php
-$where = '';
-$busca = $_GET['p'] ?? '';
-$where = " WHERE DESCRICAO LIKE ('%" . $busca . "%') || COD_INEP LIKE ('%" . $busca . "%')";
+													<div class="form-group col-md-6">
+														<label>Apelido</label>
+														<input type="text" value="<?=$linha->NOME_FANTASIA?>" name="apelido" class="form-control">
+													</div>
 
-$query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD  FROM escolas  $where ORDER BY DESCRICAO ASC";
+													<div class="form-group col-md-4">
+														<label>CPF</label>
+														<input type="text" value="<?=$linha->CPF?>" required name="cpf" class="form-control cpf">
+														<span id="txtCPF" class="payment_status cancel" style="color: red;">CPF inválido</span>
+													</div>
 
-$smtp = $con->prepare($query);
+													<div class="form-group col-md-4">
+														<label>RG</label>
+														<input type="text" value="<?=$linha->RG?>" required name="rg" class="form-control">
+													</div>
 
-if ($smtp->execute()) {
-    // Pega o total de registros
-    $total = $smtp->rowCount();
-    //determina o numero de registros que serão mostrados na tela
-    $maximo = 10;
-    //pega o valor da pagina atual
-    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
+													<div class="form-group col-md-4">
+														<label>Cód. INEP</label>
+														<input type="text" value="<?=$linha->COD_INEP?>"  name="cod" class="form-control">
+													</div>
 
-    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-    $inicio = $pagina - 1;
-    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-    $inicio = $maximo * $inicio;
-    // Nova query com as limitações
-    $query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD FROM escolas $where ORDER BY DESCRICAO ASC	LIMIT $inicio,$maximo"; 
-    $smtp = $con->prepare($query);
-    $smtp->execute();
+													<div class="form-group col-md-4">
+														<label>Data de nascimento</label>
+														<input type="date" value="<?=$linha->DATA_NASCIMENTO?>" required name="edu-start" class="form-control" />
+													</div>
 
-    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-    foreach ($linhas as $linha) {
-        ?>
-                                                <tr>
-                                                    <th scope="row" wm-lista><?=$linha->COD?></th>
-                                                    <td><?=$linha->ESCOLA?></td>
-                                                    <td>
-                                                        <div class="dash_action_link">
-														<a href="escolas-visualizar.php?pk=<?=$linha->PK_ESCOLA?>" class="view">Ver</a>
-														<a href="escolas-editar.php?pk=<?=$linha->PK_ESCOLA?>" class="edit">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="escolas-funcao.php?funcao=deletar&pk=<?=$linha->PK_ESCOLA?>" class="cancel">Deletar</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                               <?php
-}
-}
-?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+													<div class="form-group col-md-4">
+														<label>Telefone 1</label>
+														<input type="text" value="<?=$linha->TELEFONE1?>" required name="telefone-1" class="form-control" />
+													</div>
 
+													<div class="form-group col-md-4">
+														<label>Telefone 2</label>
+														<input type="text" value="<?=$linha->TELEFONE2?>" name="telefone-2" class="form-control" />
+													</div>
 
-<!-- /Row Início da paginação -->
-<!-- É necessário que exista a variável $pagina e $total no código -->
-<?php include 'include/paginacao.php'?>
-<!-- /Row Final da paginação -->
+													<div class="form-group col-md-4">
+														<label>E-mail</label>
+														<input type="email" required value="<?=$linha->EMAIL?>" name="email" class="form-control" />
+													</div>
 
-							<br>
+													<div class="form-group col-md-4">
+														<label>Tipo</label>
+														<select name="tipo" required class="form-control">
+															<option <?=($linha->PK_TIPO_CADASTRO == 1) ? 'selected' : '';?> value="1">Aluno</option>
+															<option <?=($linha->PK_TIPO_CADASTRO == 2) ? 'selected' : '';?> value="2">Professor</option>
+															<option <?=($linha->PK_TIPO_CADASTRO == 3) ? 'selected' : '';?> value="3">Coordenador</option>
+															<option <?=($linha->PK_TIPO_CADASTRO == 4) ? 'selected' : '';?> value="4">Diretor</option>
+														</select>
+													</div>
+
+													<div class="form-group col-md-4">
+														<label>Senha</label>
+														<input type="hidden"   name="senhaOld" class="form-control" />
+														<input type="password"   name="senha" class="form-control" />
+													</div>
+												</div>
+											</div>
+											<!-- Basic info -->
 
 										</div>
+
 									</div>
-
 								</div>
 							</div>
 							<!-- /Row -->
 
+							<!-- /Row -->
+
+							<div class="row">
+								<div class="form-group col-lg-12 col-md-12">
+									<button class="btn btn-theme" type="submit">Salvar entidade</button>
+								</div>
+							</div>
+							</form>
 						</div>
 
 					</div>
@@ -185,7 +181,9 @@ if ($smtp->execute()) {
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-			<?php include_once 'include/footer.php';?>
+
+
+			<?php require_once 'include/footer.php'?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
@@ -310,8 +308,14 @@ if ($smtp->execute()) {
 		<script src="../assets/js/slick.js"></script>
 		<script src="../assets/js/jquery.counterup.min.js"></script>
 		<script src="../assets/js/counterup.min.js"></script>
-        <script src="../assets/js/jquery.mask.min.js"></script>
+		<script src="../assets/js/jquery.mask.min.js"></script>
 		<script src="../assets/js/custom.js"></script>
+
+		<script src="../assets/js/dropzone.js"></script>
+		<script src="../assets/js/valida.cpf.js"></script>
+		<!-- Date Booking Script -->
+		<script src="../assets/js/moment.min.js"></script>
+		
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
@@ -319,5 +323,8 @@ if ($smtp->execute()) {
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
+
 	</body>
+
+<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->
 </html>

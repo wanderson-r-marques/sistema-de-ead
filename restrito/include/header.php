@@ -26,15 +26,19 @@ function pgActive($pg)
 										<li class="<?=pgActive('escolas')?>">
 											<a href="escolas.php"><i class="ti-home"></i> Escolas</a>											
 										</li>
+										<li class="<?=pgActive('turmas')?>">
+											<a href="turmas.php"><i class="ti-id-badge"></i> Turmas</a>											
+										</li>
+										<li class="<?=pgActive('tarefas')?>">
+											<a href="tarefas.php"><i class="fa fa-tasks"></i> Tarefas</a>											
+										</li>
 										<li class="<?=pgActive('disciplinas')?>">
 											<a href="disciplinas.php"><i class="ti-book"></i> Disciplinas</a>											
 										</li>
 										<li class="<?=pgActive('ensinos')?>">
 											<a href="ensinos.php"><i class="ti-blackboard"></i> Ensinos</a>											
 										</li>
-										<li class="<?=pgActive('turmas')?>">
-											<a href="turmas.php"><i class="ti-id-badge"></i> Turmas</a>											
-										</li>
+										
 								
 							</ul>
 							

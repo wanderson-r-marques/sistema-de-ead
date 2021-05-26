@@ -1,5 +1,18 @@
 <?php require_once 'valida.php';?>
-<?php require_once '../helpers/alert.php';?>
+<?php
+
+if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
+    $pk = $_GET['pk'];
+    $query = "SELECT * FROM escolas WHERE PK_ESCOLA = :pk";
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+    $smtp->execute();
+    $linha = $smtp->fetch(PDO::FETCH_OBJ);
+} else {
+    header('Location: escolas.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -33,12 +46,13 @@
 
             <!-- ============================================================== -->
             <!-- Top header  -->
-			<?php include_once 'include/header.php'?>
             <!-- ============================================================== -->
+            <?php include_once 'include/header.php'?>
 			<div class="clearfix"></div>
 			<!-- ============================================================== -->
 			<!-- Top header  -->
 			<!-- ============================================================== -->
+
 
 			<!-- ============================ Dashboard: My Order Start ================================== -->
 			<section class="gray pt-0">
@@ -47,17 +61,17 @@
 					<!-- Row -->
 					<div class="row">
 
-						<?php include_once 'include/nav.php'?>
+					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-
+						<form>
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas</li>
+											<li class="breadcrumb-item active" aria-current="page">Escolas Visualizar</li>
 										</ol>
 									</nav>
 								</div>
@@ -67,125 +81,108 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-								<?=alert()?>
-									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Escolas</h4>
-											</div>
-											<div class="dashboard_fl_2">
-												<ul class="mb0">
-													<li class="list-inline-item">
-
-													</li>
-													<li class="list-inline-item">
-														<form action="escolas.php"  class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
-															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
-														</form>
-													</li>
-												</ul>
+												<h4>Visualizar escola</h4>
 											</div>
 										</div>
-										<div class="dashboard_container_body">
+										<div class="dashboard_container_body p-4">
+										
+											<!-- Basic info -->
+											<div class="submit-section">
+												<div class="form-row">
+													<div class="form-group col-md-6">
+														<label>Escola</label>
+														<input disabled="disabled" type="text" value="<?= $linha->DESCRICAO ?? '' ?>" name="escola" required class="form-control">
+													</div>
 
-											<!-- Row -->
-							<div class="row">
+													<div class="form-group col-md-6">
+														<label>Código INEP</label>
+														<input disabled="disabled" type="number" value="<?= $linha->COD_INEP ?? '' ?>" name="cod"  class="form-control">
+													</div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="dashboard_container">
-								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="escolas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar escolas</a>
-								</div>
-                                <div class="dashboard_container_body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead class="thead-dark">
-                                                <tr>
-                                                    <th scope="col">Código</th>
-                                                    <th scope="col">Escola</th>
-                                                    <th scope="col">Ação</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-<?php
-$where = '';
-$busca = $_GET['p'] ?? '';
-$where = " WHERE DESCRICAO LIKE ('%" . $busca . "%') || COD_INEP LIKE ('%" . $busca . "%')";
-
-$query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD  FROM escolas  $where ORDER BY DESCRICAO ASC";
-
-$smtp = $con->prepare($query);
-
-if ($smtp->execute()) {
-    // Pega o total de registros
-    $total = $smtp->rowCount();
-    //determina o numero de registros que serão mostrados na tela
-    $maximo = 10;
-    //pega o valor da pagina atual
-    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
-
-    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-    $inicio = $pagina - 1;
-    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-    $inicio = $maximo * $inicio;
-    // Nova query com as limitações
-    $query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD FROM escolas $where ORDER BY DESCRICAO ASC	LIMIT $inicio,$maximo"; 
-    $smtp = $con->prepare($query);
-    $smtp->execute();
-
-    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-    foreach ($linhas as $linha) {
-        ?>
-                                                <tr>
-                                                    <th scope="row" wm-lista><?=$linha->COD?></th>
-                                                    <td><?=$linha->ESCOLA?></td>
-                                                    <td>
-                                                        <div class="dash_action_link">
-														<a href="escolas-visualizar.php?pk=<?=$linha->PK_ESCOLA?>" class="view">Ver</a>
-														<a href="escolas-editar.php?pk=<?=$linha->PK_ESCOLA?>" class="edit">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="escolas-funcao.php?funcao=deletar&pk=<?=$linha->PK_ESCOLA?>" class="cancel">Deletar</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                               <?php
-}
-}
-?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-<!-- /Row Início da paginação -->
-<!-- É necessário que exista a variável $pagina e $total no código -->
-<?php include 'include/paginacao.php'?>
-<!-- /Row Final da paginação -->
-
-							<br>
-
+													<div class="form-group col-md-12">
+														<label>CEP</label>
+														<input disabled="disabled" type="text" value="<?= $linha->CEP ?? '' ?>" name="cep" wm-cep required class="form-control col-md-5 cep">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Logradouro</label>
+														<input disabled="disabled" type="text" value="<?= $linha->LOGRADOURO ?? '' ?>" name="logradouro" required wm-logradouro class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Número</label>
+														<input disabled="disabled" type="number" value="<?= $linha->NUMERO ?? '' ?>" name="numero"  class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Complemento</label>
+														<input disabled="disabled" type="text" value="<?= $linha->COMPLEMENTO ?? '' ?>" name="complemento"  class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Bairro</label>
+														<input disabled="disabled" type="text" name="bairro" value="<?= $linha->BAIRRO ?? '' ?>" required wm-bairro class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Cidade</label>
+														<input  disabled="disabled" type="text" name="cidade" value="<?= $linha->CIDADE ?? '' ?>" required wm-cidade class="form-control">
+													</div>
+													<div class="form-group col-md-6">
+														<label>Estado</label>
+														<select disabled="disabled" name="estado" required wm-estado class="form-control">
+															<option <?= ($linha->ESTADO == 'AC') ?'selected':'' ?> value="AC">Acre</option>
+															<option <?= ($linha->ESTADO == 'AL') ?'selected':'' ?> value="AL">Alagoas</option>
+															<option <?= ($linha->ESTADO == 'AP') ?'selected':'' ?> value="AP">Amapá</option>
+															<option <?= ($linha->ESTADO == 'AM') ?'selected':'' ?> value="AM">Amazonas</option>
+															<option <?= ($linha->ESTADO == 'BA') ?'selected':'' ?> value="BA">Bahia</option>
+															<option <?= ($linha->ESTADO == 'CE') ?'selected':'' ?> value="CE">Ceará</option>
+															<option <?= ($linha->ESTADO == 'DF') ?'selected':'' ?> value="DF">Distrito Federal</option>
+															<option <?= ($linha->ESTADO == 'ES') ?'selected':'' ?> value="ES">Espírito Santo</option>
+															<option <?= ($linha->ESTADO == 'GO') ?'selected':'' ?> value="GO">Goiás</option>
+															<option <?= ($linha->ESTADO == 'MA') ?'selected':'' ?> value="MA">Maranhão</option>
+															<option <?= ($linha->ESTADO == 'MT') ?'selected':'' ?> value="MT">Mato Grosso</option>
+															<option <?= ($linha->ESTADO == 'MS') ?'selected':'' ?> value="MS">Mato Grosso do Sul</option>
+															<option <?= ($linha->ESTADO == 'MG') ?'selected':'' ?> value="MG">Minas Gerais</option>
+															<option <?= ($linha->ESTADO == 'PA') ?'selected':'' ?> value="PA">Pará</option>
+															<option <?= ($linha->ESTADO == 'PB') ?'selected':'' ?> value="PB">Paraíba</option>
+															<option <?= ($linha->ESTADO == 'PR') ?'selected':'' ?> value="PR">Paraná</option>
+															<option <?= ($linha->ESTADO == 'PE') ?'selected':'' ?> value="PE">Pernambuco</option>
+															<option <?= ($linha->ESTADO == 'PI') ?'selected':'' ?> value="PI">Piauí</option>
+															<option <?= ($linha->ESTADO == 'RJ') ?'selected':'' ?> value="RJ">Rio de Janeiro</option>
+															<option <?= ($linha->ESTADO == 'RN') ?'selected':'' ?> value="RN">Rio Grande do Norte</option>
+															<option <?= ($linha->ESTADO == 'RS') ?'selected':'' ?> value="RS">Rio Grande do Sul</option>
+															<option <?= ($linha->ESTADO == 'RO') ?'selected':'' ?> value="RO">Rondônia</option>
+															<option <?= ($linha->ESTADO == 'RR') ?'selected':'' ?> value="RR">Roraima</option>
+															<option <?= ($linha->ESTADO == 'SC') ?'selected':'' ?> value="SC">Santa Catarina</option>
+															<option <?= ($linha->ESTADO == 'SP') ?'selected':'' ?> value="SP">São Paulo</option>
+															<option <?= ($linha->ESTADO == 'SE') ?'selected':'' ?> value="SE">Sergipe</option>
+															<option <?= ($linha->ESTADO == 'TO') ?'selected':'' ?> value="TO">Tocantins</option>
+														</select>
+													</div>
+												</div>
+											</div>
+											<!-- Basic info -->
+											
 										</div>
+
 									</div>
-
 								</div>
 							</div>
 							<!-- /Row -->
+
+							
 
 						</div>
 
 					</div>
 					<!-- Row -->
-
+					</form>
 				</div>
 			</section>
 			<!-- ============================ Dashboard: My Order Start End ================================== -->
 
-			<?php include_once 'include/footer.php';?>
+
+
+			<?php require_once 'include/footer.php'?>
 
 			<!-- Log In Modal -->
 			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
@@ -310,14 +307,44 @@ if ($smtp->execute()) {
 		<script src="../assets/js/slick.js"></script>
 		<script src="../assets/js/jquery.counterup.min.js"></script>
 		<script src="../assets/js/counterup.min.js"></script>
-        <script src="../assets/js/jquery.mask.min.js"></script>
+		<script src="../assets/js/jquery.mask.min.js"></script>
 		<script src="../assets/js/custom.js"></script>
+
+		<script src="../assets/js/dropzone.js"></script>
+
+		<!-- Date Booking Script -->
+		<script src="../assets/js/moment.min.js"></script>
+		<script src="../assets/js/daterangepicker.js"></script>
 		<!-- ============================================================== -->
 		<!-- This page plugins -->
 		<!-- ============================================================== -->
 		<script src="../assets/js/metisMenu.min.js"></script>
+		<script src="../assets/js/cep.js"></script>
 		<script>
 			$('#side-menu').metisMenu();
 		</script>
+
+		<script>
+				// Course Expire and Start Daterange Script
+			$(function() {
+			  $('input[name="edu-expire"]').daterangepicker({
+				singleDatePicker: true,
+			  });
+				$('input[name="edu-expire"]').val('');
+				$('input[name="edu-expire"]').attr("placeholder","Course Expire");
+			});
+			$(function() {
+			  $('input[name="edu-start"]').daterangepicker({
+				singleDatePicker: true,
+
+			  });
+				$('input[name="start"]').val('');
+				$('input[name="start"]').attr("placeholder","Course Start");
+			});
+			cep()
+		</script>
+
 	</body>
+
+<!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->
 </html>

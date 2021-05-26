@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Escolas</li>
+											<li class="breadcrumb-item active" aria-current="page">Ensinos</li>
 										</ol>
 									</nav>
 								</div>
@@ -67,12 +67,12 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-								<?=alert()?>
+                                <?=alert()?>
 									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Escolas</h4>
+											<h4>Ensinos</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -80,8 +80,8 @@
 
 													</li>
 													<li class="list-inline-item">
-														<form action="escolas.php"  class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
+														<form class="form-inline my-2 my-lg-0">
+															<input class="form-control" name="p" value="<?= $_GET['p'] ?? '' ?>" type="search" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
 													</li>
@@ -96,56 +96,41 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="escolas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar escolas</a>
+									<a href="ensinos-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar ensino</a>
 								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Código</th>
-                                                    <th scope="col">Escola</th>
+                                                    <th scope="col">Descrição</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-<?php
-$where = '';
-$busca = $_GET['p'] ?? '';
-$where = " WHERE DESCRICAO LIKE ('%" . $busca . "%') || COD_INEP LIKE ('%" . $busca . "%')";
+                                                <?php
 
-$query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD  FROM escolas  $where ORDER BY DESCRICAO ASC";
+$where = '';
+												$busca = $_GET['p'] ?? '';
+												$where = " WHERE DESCRICAO LIKE ('%".$busca."%')";                                                    
+                                                    $query = "SELECT
+                                                                        DESCRICAO,
+                                                                        PK_ENSINOS
+                                                                    FROM
+                                                                        ensinos $where";
 
 $smtp = $con->prepare($query);
 
 if ($smtp->execute()) {
-    // Pega o total de registros
-    $total = $smtp->rowCount();
-    //determina o numero de registros que serão mostrados na tela
-    $maximo = 10;
-    //pega o valor da pagina atual
-    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
-
-    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-    $inicio = $pagina - 1;
-    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-    $inicio = $maximo * $inicio;
-    // Nova query com as limitações
-    $query = "SELECT PK_ESCOLA, DESCRICAO AS ESCOLA, COD_INEP AS COD FROM escolas $where ORDER BY DESCRICAO ASC	LIMIT $inicio,$maximo"; 
-    $smtp = $con->prepare($query);
-    $smtp->execute();
-
     $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row" wm-lista><?=$linha->COD?></th>
-                                                    <td><?=$linha->ESCOLA?></td>
+                                                    <th scope="row"><?=$linha->DESCRICAO?></th>
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="escolas-visualizar.php?pk=<?=$linha->PK_ESCOLA?>" class="view">Ver</a>
-														<a href="escolas-editar.php?pk=<?=$linha->PK_ESCOLA?>" class="edit">Editar</a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="escolas-funcao.php?funcao=deletar&pk=<?=$linha->PK_ESCOLA?>" class="cancel">Deletar</a>
+                                                            <a href="ensinos-editar.php?pk=<?=$linha->PK_ENSINOS?>" class="view">Editar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="ensinos-funcao.php?funcao=deletar&pk=<?=$linha->PK_ENSINOS?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -157,17 +142,12 @@ if ($smtp->execute()) {
                                         </table>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
-
-
-<!-- /Row Início da paginação -->
-<!-- É necessário que exista a variável $pagina e $total no código -->
-<?php include 'include/paginacao.php'?>
-<!-- /Row Final da paginação -->
-
-							<br>
+                    <!-- /Row -->
 
 										</div>
 									</div>
