@@ -17,7 +17,7 @@ if (is_numeric($pk)) {
                 GROUP BY b.`pk_turma`";
 
     $smtp = $con->prepare($query);
-    $smtp->execute([$pk]);
+    $smtp->execute();
     if ($smtp->rowCount()) {
         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
         $html = '<label>Turmas</label><br>';
@@ -25,7 +25,7 @@ if (is_numeric($pk)) {
             $html .= "
                     <div class='form-check-inline'>
                         <label class='form-check-label'>
-                            <input type='checkbox' wm-inputEscolas class='form-check-input' value='" . $linha->pk_turma . "'>" . $linha->turma . "
+                            <input type='checkbox' name='turmas[]' checked wm-inputEscolas class='form-check-input' value='" . $linha->pk_turma . "'>" . $linha->turma . "
                         </label>
                     </div>
                     ";

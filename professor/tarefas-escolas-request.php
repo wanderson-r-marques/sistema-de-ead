@@ -28,7 +28,7 @@ WHERE a.`PK_SERIES` = ? GROUP BY b.`PK_ESCOLA`";
             $html .= "
                     <div class='form-check-inline'>
                         <label class='form-check-label'>
-                            <input type='checkbox' wm-inputEscolas class='form-check-input' value='" . $linha->pkEscola . "'>" . $linha->escola . "
+                            <input type='checkbox' name='escolas[]' wm-inputEscolas class='form-check-input' value='" . $linha->pkEscola . "'>" . $linha->escola . "
                         </label>
                     </div>
                     ";

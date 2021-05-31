@@ -50,7 +50,7 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-						<form action="turmas-funcao.php?funcao=cadastrar" method="post">
+						<form action="tarefas-funcao.php?funcao=alunos" method="post">
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
@@ -82,13 +82,13 @@
 													<div class="form-group col-md-12">
 														<label>Série</label>
 														<?php
-$query = "SELECT PK_SERIES PK, DESCRICAO FROM series
+															$query = "SELECT PK_SERIES PK, DESCRICAO FROM series
 															ORDER BY `DESCRICAO` ASC";
-$smtp = $con->prepare($query);
-$smtp->execute();
-$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-?>
-														<select name="serie" required wm-serie class="form-control">
+															$smtp = $con->prepare($query);
+															$smtp->execute();
+															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+														?>
+															<select name="serie" required wm-serie class="form-control">
 														<?php foreach ($linhas as $linha): ?>
 															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
 														<?php endforeach;?>
@@ -101,9 +101,109 @@ $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
 													<div wm-turmas class="form-group col-md-12">
 
 													</div>
+
+
+													
 												</div>
 											</div>
 											<!-- Basic info -->
+
+
+
+<!-- Materiais -->
+<div  wm-materiais class="submit-section ">
+												<div class="form-row">
+
+
+
+													
+													<div class="form-group col-12">
+														<label>Descrição</label>														
+														<input type="text" name="descricao" class="form-control" />
+													</div>
+													
+													<div class="form-group col-6">
+														<label>Tipo</label>														
+														<?php
+															$query = "SELECT
+															`PK_TIPO_MATERIAL`  AS PK,
+															`DESCRICAO`,
+															`RETORNO`
+														FROM
+															`tipos_material`
+														ORDER BY DESCRICAO ASC";
+															$smtp = $con->prepare($query);
+															$smtp->execute();
+															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+														?>
+															<select name="tipo1" wm-tipo required class="form-control">
+														<?php foreach ($linhas as $linha): ?>
+															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
+														<?php endforeach;?>
+														</select>
+													</div>		
+													<div class="form-group col-6">
+														<label>Material 1</label>														
+														<input type="text" name="material1" class="form-control" />
+													</div>											
+													
+													<div class="form-group col-6">
+														<label>Tipo</label>														
+														<?php
+															$query = "SELECT
+															`PK_TIPO_MATERIAL`  AS PK,
+															`DESCRICAO`,
+															`RETORNO`
+														FROM
+															`tipos_material`
+														ORDER BY DESCRICAO ASC";
+															$smtp = $con->prepare($query);
+															$smtp->execute();
+															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+														?>
+															<select name="tipo2" wm-tipo required class="form-control">
+														<?php foreach ($linhas as $linha): ?>
+															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
+														<?php endforeach;?>
+														</select>
+													</div>
+													<div class="form-group col-6">
+														<label>Material 2</label>														
+														<input type="text" name="material2" class="form-control" />
+													</div>
+													
+													<div class="form-group col-6">
+														<label>Tipo</label>														
+														<?php
+															$query = "SELECT
+															`PK_TIPO_MATERIAL`  AS PK,
+															`DESCRICAO`,
+															`RETORNO`
+														FROM
+															`tipos_material`
+														ORDER BY DESCRICAO ASC";
+															$smtp = $con->prepare($query);
+															$smtp->execute();
+															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+														?>
+															<select name="tipo3" wm-tipo required class="form-control">
+														<?php foreach ($linhas as $linha): ?>
+															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
+														<?php endforeach;?>
+														</select>
+													</div>
+													<div class="form-group col-6">
+														<label>Material 3</label>														
+														<input type="text" name="material3" class="form-control" />
+													</div>
+											
+												
+
+</div>
+</div>
+<!-- Fim materiais -->
+
+
 										</div>
 									</div>
 								</div>
@@ -266,8 +366,10 @@ $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
 
 		<script>
 			const selectSerie = document.querySelector("[wm-serie]")
+			const inputsTipo = document.querySelectorAll("[wm-tipo]")
 			const cxEscolas = document.querySelector("[wm-escolas]")
 			const cxTurmas = document.querySelector("[wm-turmas]")
+			const cxMateriais = document.querySelector("[wm-materiais]")
 			
 			selectSerie.addEventListener("change", ()=>{				
 				puxaEscolas(selectSerie.value)				
@@ -305,8 +407,16 @@ $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
 					arrayEscolas:arrayEscolas
 				}, function(data){
 					cxTurmas.innerHTML = data
+					cxMateriais.classList.remove("d-none")
 				})
 			}
+
+			inputsTipo.forEach(input => {
+				input.addEventListener("change", (e) => {
+					alert(e.target.value)
+				})
+			})
+
 		</script>
 
 		<script>
