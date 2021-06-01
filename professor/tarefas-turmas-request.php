@@ -13,11 +13,11 @@ if (is_numeric($pk)) {
                 JOIN professor_turmas_disciplinas c ON b.`PK_TURMA` = c.`pk_turma` AND b.`PK_ESCOLA` = c.`pk_escola`
                 JOIN entidades			  d ON c.`pk_entidade` = d.pk_entidade
                 JOIN escolas                      e ON b.`PK_ESCOLA` = e.`PK_ESCOLA`
-                WHERE a.`PK_SERIES` = $pk AND b.`PK_ESCOLA` IN ($arrayEscolas)
+                WHERE a.`PK_SERIES` = $pk AND b.`PK_ESCOLA` IN ($arrayEscolas)  AND d.`CPF` = ?
                 GROUP BY b.`pk_turma`";
 
     $smtp = $con->prepare($query);
-    $smtp->execute();
+    $smtp->execute([$cpf]);
     if ($smtp->rowCount()) {
         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
         $html = '<label>Turmas</label><br>';

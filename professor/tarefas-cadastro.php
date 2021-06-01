@@ -50,7 +50,7 @@
 					<?php include_once 'include/nav.php'?>
 
 						<div class="col-lg-9 col-md-9 col-sm-12">
-						<form action="tarefas-funcao.php?funcao=alunos" method="post">
+						<form action="tarefas-funcao.php?funcao=alunos" enctype="multipart/form-data" method="post">
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
@@ -111,10 +111,8 @@
 
 
 <!-- Materiais -->
-<div  wm-materiais class="submit-section ">
+<div  wm-materiais class="submit-section d-none">
 												<div class="form-row">
-
-
 
 													
 													<div class="form-group col-12">
@@ -122,82 +120,41 @@
 														<input type="text" name="descricao" class="form-control" />
 													</div>
 													
-													<div class="form-group col-6">
-														<label>Tipo</label>														
-														<?php
-															$query = "SELECT
-															`PK_TIPO_MATERIAL`  AS PK,
-															`DESCRICAO`,
-															`RETORNO`
-														FROM
-															`tipos_material`
-														ORDER BY DESCRICAO ASC";
-															$smtp = $con->prepare($query);
-															$smtp->execute();
-															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-														?>
-															<select name="tipo1" wm-tipo required class="form-control">
-														<?php foreach ($linhas as $linha): ?>
-															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
-														<?php endforeach;?>
-														</select>
-													</div>		
-													<div class="form-group col-6">
-														<label>Material 1</label>														
-														<input type="text" name="material1" class="form-control" />
-													</div>											
+													<?php for($i = 0 ; $i < 3 ; $i++): ?>																								
 													
-													<div class="form-group col-6">
-														<label>Tipo</label>														
-														<?php
-															$query = "SELECT
-															`PK_TIPO_MATERIAL`  AS PK,
-															`DESCRICAO`,
-															`RETORNO`
-														FROM
-															`tipos_material`
-														ORDER BY DESCRICAO ASC";
-															$smtp = $con->prepare($query);
-															$smtp->execute();
-															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-														?>
-															<select name="tipo2" wm-tipo required class="form-control">
-														<?php foreach ($linhas as $linha): ?>
-															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
-														<?php endforeach;?>
-														</select>
-													</div>
-													<div class="form-group col-6">
-														<label>Material 2</label>														
-														<input type="text" name="material2" class="form-control" />
-													</div>
+														<div class="form-group col-4">
+															<label>Tipo</label>														
+															<?php
+																$query = "SELECT
+																`PK_TIPO_MATERIAL`  AS PK,
+																`DESCRICAO`,
+																`RETORNO`
+															FROM
+																`tipos_material`
+															ORDER BY DESCRICAO ASC";
+																$smtp = $con->prepare($query);
+																$smtp->execute();
+																$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+															?>
+																<select name="tipo[<?= $i+1 ?>]" wm-tipo required class="form-control">
+															<?php foreach ($linhas as $linha): ?>
+																<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
+															<?php endforeach;?>
+															</select>
+														</div>
+														<div class="form-group col-2">
+															<label>Modo</label>
+															<select name="modo[<?= $i+1 ?>]"  wm-modo class="form-control">
+																<option value="link">Link</option>
+																<option value="arquivo">Arquivo</option>
+															</select>
+														</div>
+														<div class="form-group col-6">
+															<label>Material <?= $i+1 ?></label>														
+															<input type="text" name="link[<?= $i+1 ?>]"  id="<?= $i+1 ?>" class="form-control" />
+														</div>
 													
-													<div class="form-group col-6">
-														<label>Tipo</label>														
-														<?php
-															$query = "SELECT
-															`PK_TIPO_MATERIAL`  AS PK,
-															`DESCRICAO`,
-															`RETORNO`
-														FROM
-															`tipos_material`
-														ORDER BY DESCRICAO ASC";
-															$smtp = $con->prepare($query);
-															$smtp->execute();
-															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-														?>
-															<select name="tipo3" wm-tipo required class="form-control">
-														<?php foreach ($linhas as $linha): ?>
-															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
-														<?php endforeach;?>
-														</select>
-													</div>
-													<div class="form-group col-6">
-														<label>Material 3</label>														
-														<input type="text" name="material3" class="form-control" />
-													</div>
-											
-												
+													<?php endfor; ?>
 
 </div>
 </div>
@@ -370,6 +327,7 @@
 			const cxEscolas = document.querySelector("[wm-escolas]")
 			const cxTurmas = document.querySelector("[wm-turmas]")
 			const cxMateriais = document.querySelector("[wm-materiais]")
+			const modo = document.querySelectorAll("[wm-modo]")
 			
 			selectSerie.addEventListener("change", ()=>{				
 				puxaEscolas(selectSerie.value)				
@@ -413,7 +371,23 @@
 
 			inputsTipo.forEach(input => {
 				input.addEventListener("change", (e) => {
-					alert(e.target.value)
+					
+				})
+			})
+
+			modo.forEach(m => {
+				m.addEventListener("change", (e) => {
+					const input = e.currentTarget.parentNode.nextElementSibling.children[1]
+					const id = input.id
+					if(e.target.value == 'arquivo'){
+						input.type = 'file'
+						input.name = 'arquivo['+id+']'
+					}						
+					else{
+						input.type = 'text'
+						input.name = 'link['+id+']'
+					}
+						
 				})
 			})
 

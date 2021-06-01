@@ -18,9 +18,9 @@ JOIN turmas 			  b ON a.`PK_SERIES` = b.`PK_SERIE`
 JOIN professor_turmas_disciplinas c ON b.`PK_TURMA` = c.`pk_turma` AND b.`PK_ESCOLA` = c.`pk_escola`
 JOIN entidades			  d ON c.`pk_entidade` = d.pk_entidade
 JOIN escolas                      e ON b.`PK_ESCOLA` = e.`PK_ESCOLA`
-WHERE a.`PK_SERIES` = ? GROUP BY b.`PK_ESCOLA`";
+WHERE a.`PK_SERIES` = ? AND d.`CPF` = ? GROUP BY b.`PK_ESCOLA`";
     $smtp = $con->prepare($query);
-    $smtp->execute([$pk]);
+    $smtp->execute([$pk,$cpf]);
     if ($smtp->rowCount()) {
         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
         $html = '<label>Escolas</label><br>';
