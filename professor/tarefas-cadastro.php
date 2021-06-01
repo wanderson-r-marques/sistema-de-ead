@@ -1,4 +1,5 @@
 <?php require_once 'valida.php';?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -82,13 +83,23 @@
 													<div class="form-group col-md-12">
 														<label>Série</label>
 														<?php
-															$query = "SELECT PK_SERIES PK, DESCRICAO FROM series
-															ORDER BY `DESCRICAO` ASC";
+															$query = "SELECT 
+															F.`PK_SERIES` AS PK,
+															F.`DESCRICAO` 
+													 FROM entidades        			A
+													 JOIN professor_escola 			B ON A.`PK_ENTIDADE` = B.`entidade`
+													 JOIN escolas          			C ON B.`escola` = C.`PK_ESCOLA`
+													 JOIN professor_turmas_disciplinas	D ON A.`PK_ENTIDADE` = D.`pk_entidade`
+													 JOIN turmas				E ON D.`pk_turma` = E.`PK_TURMA`
+													 JOIN series				F ON E.`PK_SERIE` = F.`PK_SERIES`
+													 WHERE CPF=?
+													 GROUP BY F.`PK_SERIES`";
 															$smtp = $con->prepare($query);
-															$smtp->execute();
+															$smtp->execute([$cpf]);
 															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
 														?>
 															<select name="serie" required wm-serie class="form-control">
+															<option value="">Selecione a série</option>
 														<?php foreach ($linhas as $linha): ?>
 															<option value="<?=$linha->PK?>"><?=$linha->DESCRICAO?></option>
 														<?php endforeach;?>

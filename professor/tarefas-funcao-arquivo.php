@@ -35,7 +35,7 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
     }
 
     // Envia os inputs de arquivos
-    if (isset($arquivos)) {
+    if (is_array($arquivos)) {
         foreach ($arquivos['error'] as $key => $error) {
             if ($error == UPLOAD_ERR_OK) {
                 $ext = pathinfo($arquivos['name'][$key], PATHINFO_EXTENSION);

@@ -9,9 +9,11 @@ $localDev = ($_SERVER['SERVER_NAME'] == 'localhost') ? '/iseducacao' : '';
 $url = 'http://' . $_SERVER['SERVER_NAME'] . $localDev;
 $logo = 'http://' . $_SERVER['SERVER_NAME'] . $localDev . '/assets/img/logo.png';
 $favicon = 'http://' . $_SERVER['SERVER_NAME'] . $localDev . '/assets/img/favicon.png';
+$data_hora = date('Y-m-d H:i:s');
 define("SITE", "IS Soluções");
 define("LOGO", $logo);
 define("FAVICON", $favicon);
+
 function conectar()
 {
     // Conexão com o PDO
@@ -35,3 +37,5 @@ function conectar()
         echo $e->getMessage() . '<hr>';
     }
 }
+
+
