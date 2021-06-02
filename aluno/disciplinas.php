@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Tarefas</li>
+											<li class="breadcrumb-item active" aria-current="page">Disciplinas</li>
 										</ol>
 									</nav>
 								</div>
@@ -67,12 +67,12 @@
 							<!-- Row -->
 							<div class="row">
 								<div class="col-lg-12 col-md-12 col-sm-12">
-								<?=alert()?>
+                                <?=alert()?>
 									<!-- Course Style 1 For Student -->
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Tarefas</h4>
+											<h4>Disciplinas</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -80,8 +80,8 @@
 
 													</li>
 													<li class="list-inline-item">
-														<form action="turmas.php"  class="form-inline my-2 my-lg-0">
-															<input class="form-control" type="search" value="<?=$_GET['p'] ?? ''?>" name="p" placeholder="Procurar" aria-label="Search">
+														<form class="form-inline my-2 my-lg-0">
+															<input class="form-control" name="p" value="<?= $_GET['p'] ?? '' ?>" type="search" placeholder="Procurar" aria-label="Search">
 															<button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
 														</form>
 													</li>
@@ -96,68 +96,42 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="tarefas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
+									<a href="disciplinas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar disciplina</a>
 								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Data</th>
-                                                    <th scope="col">Tarefa</th>
-                                                    <th scope="col">Qtd Alunos</th>                                                   
+                                                    <th scope="col">Descrição</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-<?php
+                                                <?php
+
 $where = '';
 $busca = $_GET['p'] ?? '';
-$where = " WHERE ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
+$where = " WHERE DESCRICAO LIKE ('%".$busca."%')";
 
-$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-FROM cadastro_tarefas ct 
-JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
-$where
-GROUP BY am.`PK_CADASTRO_TAREFAS`";
+$query = "SELECT
+                                                                        DESCRICAO,
+                                                                        PK_DISCIPLINAS
+                                                                    FROM
+                                                                        disciplinas $where";
 
 $smtp = $con->prepare($query);
 
 if ($smtp->execute()) {
-    // Pega o total de registros
-    $total = $smtp->rowCount();
-    //determina o numero de registros que serão mostrados na tela
-    $maximo = 10;
-    //pega o valor da pagina atual
-    $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
-
-    //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-    $inicio = $pagina - 1;
-    //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-    $inicio = $maximo * $inicio;
-    // Nova query com as limitações
-    $query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-	FROM cadastro_tarefas ct 
-	JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
-	$where
-	GROUP BY am.`PK_CADASTRO_TAREFAS`
-	LIMIT $inicio,$maximo";
-    $smtp = $con->prepare($query);
-    $smtp->execute();
-
     $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row"><?= date('d/m/Y H:i', strtotime($linha->DATA_HORA)) ?></th>
-                                                    <td><?=$linha->DESCRICAO_GERAL?></td>
-                                                    <td><?=$linha->QTD?></td>                                                  
+                                                    <th scope="row"><?=$linha->DESCRICAO?></th>
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="turmas-visualizar.php?pk=<?=$linha->PK_TURMA?>" class="view"><i class="fa fa-eye"></i></a>
-														<a href="turmas-editar.php?pk=<?=$linha->PK_TURMA?>" class="edit"><i class="fa fa-pen"></i></a>
-														<a href="turmas-adicionar-alunos.php?pk=<?=$linha->PK_TURMA?>" class="edit"><i class="fa fa-users"></i></a>
-                                                            <a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?=$linha->PK_TURMA?>" class="cancel"><i class="fa fa-trash"></i></a>
+                                                            <a href="disciplinas-editar.php?pk=<?=$linha->PK_DISCIPLINAS?>" class="view">Editar</a>
+                                                            <a onclick="return confirm('Deseja deletar?')" href="disciplinas-funcao.php?funcao=deletar&pk=<?=$linha->PK_DISCIPLINAS?>" class="cancel">Deletar</a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -169,17 +143,12 @@ if ($smtp->execute()) {
                                         </table>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
-
-
-<!-- /Row Início da paginação -->
-<!-- É necessário que exista a variável $pagina e $total no código -->
-<?php include 'include/paginacao.php'?>
-<!-- /Row Final da paginação -->
-
-							<br>
+                    <!-- /Row -->
 
 										</div>
 									</div>
@@ -199,7 +168,110 @@ if ($smtp->execute()) {
 
 			<?php include_once 'include/footer.php';?>
 
-		
+			<!-- Log In Modal -->
+			<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="registermodal" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+					<div class="modal-content" id="registermodal">
+						<span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+						<div class="modal-body">
+							<h4 class="modal-header-title">Log In</h4>
+							<div class="login-form">
+								<form>
+
+									<div class="form-group">
+										<label>User Name</label>
+										<input type="text" class="form-control" placeholder="Username">
+									</div>
+
+									<div class="form-group">
+										<label>Password</label>
+										<input type="password" class="form-control" placeholder="*******">
+									</div>
+
+									<div class="form-group">
+										<button type="submit" class="btn btn-md full-width pop-login">Login</button>
+									</div>
+
+								</form>
+							</div>
+
+							<div class="social-login mb-3">
+								<ul>
+									<li>
+										<input id="reg" class="checkbox-custom" name="reg" type="checkbox">
+										<label for="reg" class="checkbox-custom-label">Save Password</label>
+									</li>
+									<li class="right"><a href="#" class="theme-cl">Forget Password?</a></li>
+								</ul>
+							</div>
+
+							<div class="modal-divider"><span>Or login via</span></div>
+							<div class="social-login ntr mb-3">
+								<ul>
+									<li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
+								</ul>
+							</div>
+
+							<div class="text-center">
+								<p class="mt-2">Haven't Any Account? <a href="register.html" class="link">Click here</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Modal -->
+
+			<!-- Sign Up Modal -->
+			<div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="sign-up" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+					<div class="modal-content" id="sign-up">
+						<span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+						<div class="modal-body">
+							<h4 class="modal-header-title">Sign Up</h4>
+							<div class="login-form">
+								<form>
+
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Full Name">
+									</div>
+
+									<div class="form-group">
+										<input type="email" class="form-control" placeholder="Email">
+									</div>
+
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Username">
+									</div>
+
+									<div class="form-group">
+										<input type="password" class="form-control" placeholder="*******">
+									</div>
+
+
+									<div class="form-group">
+										<button type="submit" class="btn btn-md full-width pop-login">Sign Up</button>
+									</div>
+
+								</form>
+							</div>
+
+							<div class="modal-divider"><span>Or Signup via</span></div>
+							<div class="social-login ntr mb-3">
+								<ul>
+									<li><a href="#" class="btn connect-fb"><i class="ti-facebook"></i>Facebook</a></li>
+									<li><a href="#" class="btn connect-google"><i class="ti-google"></i>Google</a></li>
+								</ul>
+							</div>
+
+							<div class="text-center">
+								<p class="mt-3"><i class="ti-user mr-1"></i>Already Have An Account? <a href="#" class="link">Go For LogIn</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Modal -->
 
 			<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 

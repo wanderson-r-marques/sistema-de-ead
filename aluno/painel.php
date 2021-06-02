@@ -3,18 +3,20 @@
 <html lang="pt-br">
 	
 <head>
-		<title><?=SITE?> - Aulas EAD </title>
+<title><?=SITE?> - Aulas EAD </title>
         <link rel="icon" href="<?=FAVICON?>" />
 		<meta charset="utf-8" />
 		<meta name="author" content="www.frebsite.nl" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		
-        		 
+        
+		 
         <!-- Custom CSS -->
         <link href="../assets/css/styles.css" rel="stylesheet">
 		
 		<!-- Custom Color Option -->
 		<link href="../assets/css/colors.css" rel="stylesheet">
+		<link href="../assets/css/custom.css" rel="stylesheet">
 		
     </head>
 	
@@ -33,6 +35,7 @@
 		
             <!-- ============================================================== -->
             <!-- Top header  -->
+			<?php include_once 'include/header.php' ?>	
             <!-- ============================================================== -->
             
 			<div class="clearfix"></div>
@@ -47,42 +50,7 @@
 										
 					<div class="row">
 					
-						<div class="col-lg-3 col-md-3 p-0">
-							<div class="dashboard-navbar">
-								
-								<div class="d-user-avater">
-									<img src="../assets/img/user.png" class="img-fluid avater" alt="">
-									<h4><?= $entidade->NOME ?></h4>
-									<span>Canada USA</span>
-								</div>
-								
-								<div class="d-navigation">
-									<ul id="side-menu">
-										<li class="active"><a href="../template/dashboard.html"><i class="ti-user"></i>Dashboard</a></li>
-										<li><a href="../template/my-profile.html"><i class="ti-heart"></i>My Profile</a></li>
-										<li><a href="../template/add-listing.html"><i class="ti-plus"></i>Add Course</a></li>
-										<li><a href="../template/saved-courses.html"><i class="ti-heart"></i>Saved Courses</a></li>
-										<li class="dropdown">
-											<a href="../template/all-courses.html"><i class="ti-layers"></i>All Courses<span class="ti-angle-left"></span></a>
-											<ul class="nav nav-second-level">
-												<li><a href="../template/all-courses.html">All</a></li>
-												<li><a href="../template/javascript:void(0);">Published</a></li>
-												<li><a href="../template/javascript:void(0);">Pending</a></li>
-												<li><a href="../template/javascript:void(0);">Expired</a></li>
-												<li><a href="../template/javascript:void(0);">In Draft</a></li>
-											</ul>
-										</li>
-										<li><a href="../template/my-order.html"><i class="ti-shopping-cart"></i>My Order</a></li>
-										<li><a href="../template/settings.html"><i class="ti-settings"></i>Settings</a></li>
-										<li><a href="../template/reviews.html"><i class="ti-comment-alt"></i>Reviews</a></li>
-										<li><a href="../template/#"><i class="ti-power-off"></i>Log Out</a></li>
-									</ul>
-								</div>
-								
-							</div>
-							
-							
-						</div>	
+						<?php include_once 'include/nav.php' ?>	
 						
 						<div class="col-lg-9 col-md-9 col-sm-12">
 							
@@ -250,7 +218,7 @@
 
 							</div>
 							<!-- /Row -->
-							
+
 							<!-- Row -->
 							<div class="row">
 						
@@ -281,8 +249,8 @@
 															<td>$110.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -293,8 +261,8 @@
 															<td>$119.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -305,8 +273,8 @@
 															<td>$149.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -317,8 +285,8 @@
 															<td>$199.00</td>
 															<td>
 																<div class="dash_action_link">
-																	<a href="../template/#" class="view">View</a>
-																	<a href="../template/#" class="cancel">Cancel</a>
+																	<a href="#" class="view">View</a>
+																	<a href="#" class="cancel">Cancel</a>
 																</div>	
 															</td>
 														</tr>
@@ -332,6 +300,8 @@
 								
 							</div>
 							<!-- /Row -->
+							
+							
 							
 						</div>
 					

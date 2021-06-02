@@ -57,7 +57,7 @@
 									<nav aria-label="breadcrumb">
 										<ol class="breadcrumb">
 											<li class="breadcrumb-item"><a href="#">Painel</a></li>
-											<li class="breadcrumb-item active" aria-current="page">Tarefas</li>
+											<li class="breadcrumb-item active" aria-current="page">Turmas</li>
 										</ol>
 									</nav>
 								</div>
@@ -72,7 +72,7 @@
 									<div class="dashboard_container">
 										<div class="dashboard_container_header">
 											<div class="dashboard_fl_1">
-											<h4>Tarefas</h4>
+											<h4>Turmas</h4>
 											</div>
 											<div class="dashboard_fl_2">
 												<ul class="mb0">
@@ -96,16 +96,17 @@
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="dashboard_container">
 								<div class="form-group col-md-12" style="margin-top:1rem;">
-									<a href="tarefas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
+									<a href="turmas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar turmas</a>
 								</div>
                                 <div class="dashboard_container_body">
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>
-                                                    <th scope="col">Data</th>
-                                                    <th scope="col">Tarefa</th>
-                                                    <th scope="col">Qtd Alunos</th>                                                   
+                                                    <th scope="col">Escola</th>
+                                                    <th scope="col">Série</th>
+                                                    <th scope="col">Turma</th>
+                                                    <th scope="col">Turno</th>
                                                     <th scope="col">Ação</th>
                                                 </tr>
                                             </thead>
@@ -113,13 +114,14 @@
 <?php
 $where = '';
 $busca = $_GET['p'] ?? '';
-$where = " WHERE ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
+$where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || t.`DESCRICAO` LIKE ('%" . $busca . "%') || tu.`DESCRICAO` LIKE ('%" . $busca . "%')";
 
-$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-FROM cadastro_tarefas ct 
-JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
+$query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno  FROM turmas t
+JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
+JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
+JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
 $where
-GROUP BY am.`PK_CADASTRO_TAREFAS`";
+ORDER BY escola, serie, turno, turma";
 
 $smtp = $con->prepare($query);
 
@@ -136,11 +138,12 @@ if ($smtp->execute()) {
     //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
     $inicio = $maximo * $inicio;
     // Nova query com as limitações
-    $query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-	FROM cadastro_tarefas ct 
-	JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
+    $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno, t.PK_TURMA  FROM turmas t
+	JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
+	JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
+	JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
 	$where
-	GROUP BY am.`PK_CADASTRO_TAREFAS`
+	ORDER BY escola, serie, turno, turma
 	LIMIT $inicio,$maximo";
     $smtp = $con->prepare($query);
     $smtp->execute();
@@ -149,9 +152,10 @@ if ($smtp->execute()) {
     foreach ($linhas as $linha) {
         ?>
                                                 <tr>
-                                                    <th scope="row"><?= date('d/m/Y H:i', strtotime($linha->DATA_HORA)) ?></th>
-                                                    <td><?=$linha->DESCRICAO_GERAL?></td>
-                                                    <td><?=$linha->QTD?></td>                                                  
+                                                    <th scope="row"><?=$linha->escola?></th>
+                                                    <td><?=$linha->serie?></td>
+                                                    <td><?=$linha->turma?></td>
+                                                    <td><?=$linha->turno?></td>
                                                     <td>
                                                         <div class="dash_action_link">
 														<a href="turmas-visualizar.php?pk=<?=$linha->PK_TURMA?>" class="view"><i class="fa fa-eye"></i></a>
