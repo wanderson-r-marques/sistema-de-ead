@@ -154,7 +154,7 @@ if ($smtp->execute()) {
                                                     <td><?=$linha->QTD?></td>                                                  
                                                     <td>
                                                         <div class="dash_action_link">
-														<a href="tarefas-arquivos.php?pk=<?=$linha->CADASTRO_TAREFAS?>" class="view"><i class="fa fa-eye"></i></a>
+														<a href="turmas-visualizar.php?pk=<?=$linha->PK_TURMA?>" class="view"><i class="fa fa-eye"></i></a>
 														<a href="turmas-editar.php?pk=<?=$linha->PK_TURMA?>" class="edit"><i class="fa fa-pen"></i></a>
 														<a href="turmas-adicionar-alunos.php?pk=<?=$linha->PK_TURMA?>" class="edit"><i class="fa fa-users"></i></a>
                                                             <a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?=$linha->PK_TURMA?>" class="cancel"><i class="fa fa-trash"></i></a>
