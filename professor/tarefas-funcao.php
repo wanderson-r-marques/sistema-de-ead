@@ -32,7 +32,7 @@ if ($_GET['funcao'] == 'alunos') {
         tarefas_cadastrar($id, $_FILES['arquivo'] ?? '', $_POST['link'] ?? '', $_POST['tipo'], $con);
 
         // Insere todos os alunos
-        echo $query = "SELECT d.`PK_ENTIDADE`,
+        $query = "SELECT d.`PK_ENTIDADE`,
         d.`NOME` AS NOME_PROFESSOR,
         d.`PK_TIPO_CADASTRO`,
         a.`PK_SERIES`,
@@ -54,7 +54,7 @@ if ($_GET['funcao'] == 'alunos') {
         JOIN entidades	                  g ON f.`PK_ENTIDADE` = g.`PK_ENTIDADE`
         WHERE b.`pk_turma` IN ($turmas)
         AND d.`CPF`=  '$cpf'";
-exit;
+
         $smtp = $con->prepare($query);
         // $smtp->bindParam(':cpf', $cpf);
         $smtp->execute();
