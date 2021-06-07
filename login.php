@@ -4,11 +4,10 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
     if ($_POST['cpf'] != '' && $_POST['senha'] != '') {
 
         // Guardar senha no Coock
-        if($_POST['lembrar'] == 1){
-            setcookie("loginEAD",$_POST['cpf'], time() + (86400 * 36000));
-            setcookie("senhaEAD",$_POST['senha'], time() + (86400 * 36000));
-            
-        }else{
+        if ($_POST['lembrar'] == 1) {
+            setcookie("loginEAD", $_POST['cpf'], time() + (86400 * 36000));
+            setcookie("senhaEAD", $_POST['senha'], time() + (86400 * 36000));
+        } else {
             setcookie("loginEAD", "", time() - 3600);
             setcookie("senhaEAD", "", time() - 3600);
         }
@@ -57,11 +56,11 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
                     $smtp->bindParam(':cpf', $cpf, PDO::PARAM_STR);
                     $smtp->execute();
                 }
-                
+
                 if (password_verify($senha, $linha->SENHA) || password_verify($senha, $senhaHash)) {
                     session_start();
                     $_SESSION['cpf'] = $cpf;
-                
+
                     if ($linha->PK_TIPO_CADASTRO == 2) {
                         header('Location: professor/painel.php');
                     } else if ($linha->PK_TIPO_CADASTRO == 4) {
@@ -85,5 +84,4 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
         $_SESSION['msg'] = "Você precisa preencher todos os campos!#danger";
         header('Location: index.php');
     }
-
 }

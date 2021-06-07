@@ -41,17 +41,13 @@ if ($_GET['funcao'] == 'alunos') {
         b.`DESCRICAO` AS turma,
         b.`PK_ESCOLA`,
         e.`DESCRICAO` AS escola,
-        f.`PK_ALUNOS_ESCOLAS_TURMAS`,
-        f.`PK_ENTIDADE`,
-        g.`NOME` AS nome_aluno
+        c.pk_disciplinas       
         
         FROM series 			  a
         JOIN turmas 			  b ON a.`PK_SERIES` = b.`PK_SERIE`
         JOIN professor_turmas_disciplinas c ON b.`PK_TURMA` = c.`pk_turma` AND b.`PK_ESCOLA` = c.`pk_escola`
         JOIN entidades			  d ON c.`pk_entidade` = d.pk_entidade
-        JOIN escolas                      e ON b.`PK_ESCOLA` = e.`PK_ESCOLA`
-        JOIN alunos_escolas_turmas        f ON b.`PK_TURMA` = f.`PK_TURMA`
-        JOIN entidades	                  g ON f.`PK_ENTIDADE` = g.`PK_ENTIDADE`
+        JOIN escolas                      e ON b.`PK_ESCOLA` = e.`PK_ESCOLA`        
         WHERE b.`pk_turma` IN ($turmas)
         AND d.`CPF`=  '$cpf'";
 
@@ -63,36 +59,38 @@ if ($_GET['funcao'] == 'alunos') {
 
         foreach ($linhas as $linha) {
 
-            $PK_ALUNO = $linha->PK_ENTIDADE;
+            $PK_DISCIPLINA = $linha->pk_disciplinas;
+            $PK_TURMA = $linha->pk_turma;
             $PK_CADASTRO_TAREFAS = $id;
-            $PK_ALUNO_ESCOLA_TURMA = $linha->PK_ALUNOS_ESCOLAS_TURMAS;
             $ANO = ano_letivo($con);
 
             try {
-                $query = "INSERT INTO `alunos_material` (  
-                    `PK_ALUNO`,
-                    `PK_CADASTRO_TAREFAS`,
-                    `PK_ALUNO_ESCOLA_TURMA`,
+                $query = "INSERT INTO `alunos_material` (                      
+                    `PK_CADASTRO_TAREFAS`,                 
                     `ANO`,
-                    `DATA_HORA`
+                    `DATA_HORA`,
+                    `PK_DISCIPLINA`,
+                    `PK_TURMA`
                   )
                   VALUES
-                    (                 
-                      :PK_ALUNO,
-                      :PK_CADASTRO_TAREFAS,
-                      :PK_ALUNO_ESCOLA_TURMA,
+                    (
+                      :PK_CADASTRO_TAREFAS,                    
                       :ANO,
-                      :DATA_HORA
+                      :DATA_HORA,
+                      :PK_DISCIPLINA,
+                      :PK_TURMA
                     )";
                 $smtp = $con->prepare($query);
-                $smtp->bindParam(':PK_ALUNO', $PK_ALUNO);
+
+                $smtp->bindParam(':PK_DISCIPLINA', $PK_DISCIPLINA);
+                $smtp->bindParam(':PK_TURMA', $PK_TURMA);
                 $smtp->bindParam(':PK_CADASTRO_TAREFAS', $PK_CADASTRO_TAREFAS);
-                $smtp->bindParam(':PK_ALUNO_ESCOLA_TURMA', $PK_ALUNO_ESCOLA_TURMA);
                 $smtp->bindParam(':ANO', $ANO);
                 $smtp->bindParam(':DATA_HORA', $data_hora);
                 $smtp->execute();
             } catch (PDOException $th) {
                 echo $th->getMessage();
+                exit;
             }
         }
         session_start();
