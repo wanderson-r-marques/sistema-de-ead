@@ -183,7 +183,7 @@
 																   JOIN cadastro_tarefas       j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
 																  
 																  WHERE a.`CPF`='$cpf'
-	LIMIT $inicio,$maximo";
+																  LIMIT $inicio,$maximo";
 																		$smtp = $con->prepare($query);
 																		$smtp->execute();
 
@@ -196,7 +196,7 @@
 																				<td><?= $linha->tipo_material ?></td>
 																				<td>
 																					<div class="dash_action_link">
-																						<a href="tarefas-arquivos.php?pk=<?= $linha->CADASTRO_TAREFAS ?>" class="view"><i class="fa fa-eye"></i></a>
+																						<a href="<?= $linha->LINK ?>" target="_blank" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>" class="view"><i class="fa fa-eye"></i></a>
 																						<a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-pen"></i></a>
 																						<a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-users"></i></a>
 																						<a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>" class="cancel"><i class="fa fa-trash"></i></a>
@@ -269,6 +269,21 @@
 	<script src="../assets/js/metisMenu.min.js"></script>
 	<script>
 		$('#side-menu').metisMenu();
+	</script>
+	<script>
+		document.querySelectorAll('[wm-confirma]').forEach(confirma => {
+			confirma.addEventListener("click", e => {
+				const url = 'tarefas-requests.php'
+				const pk = e.pk
+				// alert(pk)
+				// $.post(url, {
+				// 	pk: pk
+				// }, function(data) {
+				// 	alert(data)
+				// 	// cxEscolas.innerHTML = data
+				// })
+			})
+		})
 	</script>
 </body>
 
