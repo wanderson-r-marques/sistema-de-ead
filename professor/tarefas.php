@@ -23,9 +23,9 @@
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
-	<div id="preloader">
+	<!-- <div id="preloader">
 		<div class="preloader"><span></span><span></span></div>
-	</div>
+	</div> -->
 
 
 	<!-- ============================================================== -->
@@ -117,7 +117,7 @@
 																	$busca = $_GET['p'] ?? '';
 																	$where = " WHERE ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
 
-																	$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD FROM cadastro_tarefas ct JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS $where GROUP BY am.`PK_CADASTRO_TAREFAS`";
+																	echo $query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD FROM cadastro_tarefas ct JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS $where GROUP BY am.`PK_CADASTRO_TAREFAS`";
 
 																	$smtp = $con->prepare($query);
 

@@ -4,7 +4,7 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
 {
     $data_hora = date("Y-m-d-H-i-s");
     // Envia os inputs de arquivos
-    if (count($links)) {
+    if (count($links) && $links != '') {
         foreach ($links as $key => $value) {
             try {
                 $query = "INSERT INTO `materiais_tarefa` (                            
