@@ -4,10 +4,11 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
 {
     $data_hora = date("Y-m-d-H-i-s");
     // Envia os inputs de arquivos
-    if (count($links) && $links != '') {
+    if (count($links)) {
         foreach ($links as $key => $value) {
-            try {
-                $query = "INSERT INTO `materiais_tarefa` (                            
+            if ($value != '') {
+                try {
+                    $query = "INSERT INTO `materiais_tarefa` (                            
                                         `PK_CADASTRO_TAREFA`,
                                         `LINK`,
                                         `TIPO_MATERIAL`,
@@ -20,16 +21,17 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                                           :TIPO_MATERIAL,
                                           :DATA_HORA
                                         )";
-                $tipoTarefa = $tipo[$key];
-                $smtp = $con->prepare($query);
-                $smtp->bindParam(':PK_CADASTRO_TAREFA', $id);
-                $smtp->bindParam(':LINK', $value);
-                $smtp->bindParam(':TIPO_MATERIAL', $tipoTarefa);
-                $smtp->bindParam(':DATA_HORA', $data_hora);
-                $smtp->execute();
-            } catch (PDOException $th) {
-                $th->getMessage();
-                die;
+                    $tipoTarefa = $tipo[$key];
+                    $smtp = $con->prepare($query);
+                    $smtp->bindParam(':PK_CADASTRO_TAREFA', $id);
+                    $smtp->bindParam(':LINK', $value);
+                    $smtp->bindParam(':TIPO_MATERIAL', $tipoTarefa);
+                    $smtp->bindParam(':DATA_HORA', $data_hora);
+                    $smtp->execute();
+                } catch (PDOException $th) {
+                    $th->getMessage();
+                    die;
+                }
             }
         }
     }
