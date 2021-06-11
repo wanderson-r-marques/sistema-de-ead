@@ -1,6 +1,6 @@
 <?php
 // Função para colocar os arquivos
-function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
+function tarefas_cadastrar($id, $arquivos, $links, $tipo, $carga, $titulo, $con)
 {
     $data_hora = date("Y-m-d-H-i-s");
     // Envia os inputs de arquivos
@@ -12,6 +12,8 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                                         `PK_CADASTRO_TAREFA`,
                                         `LINK`,
                                         `TIPO_MATERIAL`,
+                                        `CARGA_HORARIA`,
+                                        `TITULO`,
                                         `DATA_HORA`
                                       )
                                       VALUES
@@ -19,13 +21,19 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                                           :PK_CADASTRO_TAREFA,
                                           :LINK,
                                           :TIPO_MATERIAL,
+                                          :CARGA_HORARIA,
+                                          :TITULO,
                                           :DATA_HORA
                                         )";
                     $tipoTarefa = $tipo[$key];
+                    $cargaTarefa = $carga[$key];
+                    $tituloTarefa = $titulo[$key];
                     $smtp = $con->prepare($query);
                     $smtp->bindParam(':PK_CADASTRO_TAREFA', $id);
                     $smtp->bindParam(':LINK', $value);
                     $smtp->bindParam(':TIPO_MATERIAL', $tipoTarefa);
+                    $smtp->bindParam(':CARGA_HORARIA', $cargaTarefa);
+                    $smtp->bindParam(':TITULO', $tituloTarefa);
                     $smtp->bindParam(':DATA_HORA', $data_hora);
                     $smtp->execute();
                 } catch (PDOException $th) {
@@ -44,6 +52,8 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                 $tmp_name = $arquivos['tmp_name'][$key];
                 $name = slugify($arquivos['name'][$key]);
                 $tipoTarefa = $tipo[$key];
+                $cargaTarefa = $carga[$key];
+                $tituloTarefa = $titulo[$key];
 
                 $new_name =  date("Y-m-d-H-i-s") . '-' . $name . '.' . $ext;
                 $dir = '../assets/arquivos/' . date("Y-m-d"); //Diretório para uploads
@@ -58,6 +68,8 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                             `PK_CADASTRO_TAREFA`,
                             `LINK`,
                             `TIPO_MATERIAL`,
+                            `CARGA_HORARIA`,
+                            `TITULO`,
                             `DATA_HORA`
                           )
                           VALUES
@@ -65,12 +77,16 @@ function tarefas_cadastrar($id, $arquivos, $links, $tipo, $con)
                               :PK_CADASTRO_TAREFA,
                               :LINK,
                               :TIPO_MATERIAL,
+                              :CARGA_HORARIA,
+                              :TITULO,
                               :DATA_HORA
                             )";
                         $smtp = $con->prepare($query);
                         $smtp->bindParam(':PK_CADASTRO_TAREFA', $id);
                         $smtp->bindParam(':LINK', $path);
                         $smtp->bindParam(':TIPO_MATERIAL', $tipoTarefa);
+                        $smtp->bindParam(':CARGA_HORARIA', $cargaTarefa);
+                        $smtp->bindParam(':TITULO', $tituloTarefa);
                         $smtp->bindParam(':DATA_HORA', $data_hora);
                         $smtp->execute();
                     } catch (PDOException $th) {

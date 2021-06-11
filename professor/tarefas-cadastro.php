@@ -124,17 +124,23 @@
 
 
 											<!-- Materiais -->
-											<div wm-materiais class="submit-section d-none">
+											<div wm-materiais class="submit-section ">
 												<div class="form-row">
 
 
 													<div class="form-group col-12">
 														<label>Descrição</label>
-														<input type="text" name="descricao" class="form-control" />
+														<input type="text" required name="descricao" class="form-control" />
 													</div>
 
-													<?php for ($i = 0; $i < 3; $i++) : ?>
 
+													<h5 class="pt-5">arquivos</h5>
+
+													<?php for ($i = 0; $i < 3; $i++) : ?>
+														<div class="form-group col-12  pt-5">
+															<label><b>Título <?= $i + 1 ?></b></label>
+															<input type="text" name="titulo[<?= $i + 1 ?>]" class="form-control" />
+														</div>
 														<div class="form-group col-4">
 															<label>Tipo</label>
 															<?php
@@ -156,17 +162,21 @@
 															</select>
 														</div>
 														<div class="form-group col-2">
+															<label>Carga Horária</label>
+															<input type="time" name="carga[<?= $i + 1 ?>]" wm-carga class="form-control" />
+														</div>
+														<div class="form-group col-2">
 															<label>Modo</label>
 															<select name="modo[<?= $i + 1 ?>]" wm-modo class="form-control">
 																<option value="link">Link</option>
 																<option value="arquivo">Arquivo</option>
 															</select>
 														</div>
-														<div class="form-group col-6">
-															<label>Material <?= $i + 1 ?></label>
+														<div class="form-group col-4">
+															<label>Material </label>
 															<input type="text" name="link[<?= $i + 1 ?>]" id="<?= $i + 1 ?>" class="form-control" />
 														</div>
-
+														<hr>
 													<?php endfor; ?>
 
 												</div>

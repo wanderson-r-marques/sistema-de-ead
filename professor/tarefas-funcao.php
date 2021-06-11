@@ -12,16 +12,19 @@ if ($_GET['funcao'] == 'alunos') {
         try {
             $query = "INSERT INTO `cadastro_tarefas` (
                 `DESCRICAO_GERAL`,
-                `DATA_HORA`
+                `DATA_HORA`, 
+                `CPF_ENTIDADE`
               )
               VALUES
                 (   
                   :descricao,
-                  :data_hora
+                  :data_hora,
+                  :cpf
                 )";
             $smtp = $con->prepare($query);
             $smtp->bindParam(':descricao', $descricao);
             $smtp->bindParam(':data_hora', $data_hora);
+            $smtp->bindParam(':cpf', $cpf);
             $smtp->execute();
             $id = $con->lastInsertId();
         } catch (PDOException $th) {
@@ -29,7 +32,7 @@ if ($_GET['funcao'] == 'alunos') {
             die;
         }
         // Envia todos os links e arquivos
-        tarefas_cadastrar($id, $_FILES['arquivo'] ?? '', $_POST['link'] ?? '', $_POST['tipo'], $con);
+        tarefas_cadastrar($id, $_FILES['arquivo'] ?? '', $_POST['link'] ?? '', $_POST['tipo'], $_POST['carga'], $_POST['titulo'], $con);
 
         // Insere todos os alunos
         $query = "SELECT d.`PK_ENTIDADE`,
