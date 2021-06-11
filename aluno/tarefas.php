@@ -274,6 +274,7 @@
 		document.querySelectorAll('[wm-confirma]').forEach(confirma => {
 			confirma.addEventListener("click", e => {
 				const url = 'tarefas-requests.php'
+				console.log(e.target);
 				const pk = e.pk
 				// alert(pk)
 				// $.post(url, {
