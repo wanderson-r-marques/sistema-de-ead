@@ -5,7 +5,7 @@
  * https://github.com/wanderson-r-marques
  */
 date_default_timezone_set('America/Recife');
-$localDev = ($_SERVER['SERVER_NAME'] == 'localhost') ? '/iseducacao' : '';
+$localDev = ($_SERVER['SERVER_NAME'] == 'localhost') ? '/sistema-de-ead' : '';
 $url = 'http://' . $_SERVER['SERVER_NAME'] . $localDev;
 $logo = 'http://' . $_SERVER['SERVER_NAME'] . $localDev . '/assets/img/logo.png';
 $favicon = 'http://' . $_SERVER['SERVER_NAME'] . $localDev . '/assets/img/favicon.png';
@@ -37,5 +37,3 @@ function conectar()
         echo $e->getMessage() . '<hr>';
     }
 }
-
-

@@ -23,9 +23,9 @@
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
-	<!-- <div id="preloader">
+	<div id="preloader">
 		<div class="preloader"><span></span><span></span></div>
-	</div> -->
+	</div>
 
 
 	<!-- ============================================================== -->
@@ -115,9 +115,35 @@
 																	<?php
 																	$where = '';
 																	$busca = $_GET['p'] ?? '';
-																	$where = " WHERE ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
+																	$where = " WHERE l.`CPF`='$cpf' AND j.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
 
-																	echo $query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD FROM cadastro_tarefas ct JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS $where GROUP BY am.`PK_CADASTRO_TAREFAS`";
+																	$query = "SELECT 
+																	g.`MATERIAL_TAREFA`,
+																f.`PK_CADASTRO_TAREFAS`,
+																 i.`PK_DISCIPLINAS`,
+																 i.`DESCRICAO` AS nome_disciplina,
+																 j.`DESCRICAO_GERAL` AS nome_atividade,
+																 h.`DESCRICAO` AS tipo_material,
+																 g.`LINK`,
+																 a.`PK_ENTIDADE` AS aluno,
+																  c.`PK_TURMA`
+																		 
+																		 
+																		 
+																 FROM entidades              		a
+																 JOIN alunos_escolas_turmas  		b  ON a.`PK_ENTIDADE` = b.`PK_ENTIDADE`
+																  JOIN turmas                		c  ON b.`PK_TURMA` = c.`PK_TURMA`
+																  JOIN series                		d  ON c.`PK_SERIE` = d.`PK_SERIES`
+																  JOIN curriculo             		e  ON d.`PK_SERIES` = e.serie
+																  JOIN alunos_material       		f  ON c.`PK_TURMA` = f.`PK_TURMA` AND e.disciplina = f.`PK_DISCIPLINA`
+																  JOIN materiais_tarefa      		g  ON f.`PK_CADASTRO_TAREFAS` = g.`PK_CADASTRO_TAREFA`
+																  JOIN tipos_material        		h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
+																  JOIN disciplinas           		i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
+																  JOIN cadastro_tarefas      		j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
+																  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
+																  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
+																 $where
+																   ";
 
 																	$smtp = $con->prepare($query);
 
@@ -134,7 +160,33 @@
 																		//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
 																		$inicio = $maximo * $inicio;
 																		// Nova query com as limitações
-																		$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD FROM cadastro_tarefas ct JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS $where GROUP BY am.`PK_CADASTRO_TAREFAS` LIMIT $inicio,$maximo";
+																		$query = "SELECT 
+																		g.`MATERIAL_TAREFA`,
+																	f.`PK_CADASTRO_TAREFAS`,
+																	 i.`PK_DISCIPLINAS`,
+																	 i.`DESCRICAO` AS nome_disciplina,
+																	 j.`DESCRICAO_GERAL` AS nome_atividade,
+																	 h.`DESCRICAO` AS tipo_material,
+																	 g.`LINK`,
+																	 a.`PK_ENTIDADE` AS aluno,
+																	  c.`PK_TURMA`
+																			 
+																			 
+																			 
+																	 FROM entidades              		a
+																	 JOIN alunos_escolas_turmas  		b  ON a.`PK_ENTIDADE` = b.`PK_ENTIDADE`
+																	  JOIN turmas                		c  ON b.`PK_TURMA` = c.`PK_TURMA`
+																	  JOIN series                		d  ON c.`PK_SERIE` = d.`PK_SERIES`
+																	  JOIN curriculo             		e  ON d.`PK_SERIES` = e.serie
+																	  JOIN alunos_material       		f  ON c.`PK_TURMA` = f.`PK_TURMA` AND e.disciplina = f.`PK_DISCIPLINA`
+																	  JOIN materiais_tarefa      		g  ON f.`PK_CADASTRO_TAREFAS` = g.`PK_CADASTRO_TAREFA`
+																	  JOIN tipos_material        		h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
+																	  JOIN disciplinas           		i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
+																	  JOIN cadastro_tarefas      		j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
+																	  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
+																	  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
+																	 $where
+																		LIMIT $inicio,$maximo";
 																		$smtp = $con->prepare($query);
 																		$smtp->execute();
 
@@ -142,12 +194,12 @@
 																		foreach ($linhas as $linha) {
 																	?>
 																			<tr>
-																				<th scope="row"><?= date('d/m/Y H:i', strtotime($linha->DATA_HORA)) ?></th>
-																				<td><?= $linha->DESCRICAO_GERAL ?></td>
-																				<td><?= $linha->QTD ?></td>
+																				<th scope="row"><?= $linha->nome_disciplina ?></th>
+																				<td><?= $linha->nome_atividade ?></td>
+																				<td><?= $linha->tipo_material ?></td>
 																				<td>
 																					<div class="dash_action_link">
-																						<a href="turmas-visualizar.php?pk=<?= $linha->PK_TURMA ?>" class="view"><i class="fa fa-eye"></i></a>
+																						<a target="_blank" href="<?= $linha->LINK ?>" class="view"><i class="fa fa-eye"></i></a>
 																						<a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-pen"></i></a>
 																						<a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-users"></i></a>
 																						<a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>" class="cancel"><i class="fa fa-trash"></i></a>
