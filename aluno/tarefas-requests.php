@@ -1,39 +1,18 @@
 <?php
 require_once 'valida.php';
-echo $pk = $_POST['pk'];
-exit;
-if (is_numeric($pk)) {
-    // Deletar o aluno caso ele tenha saido da turma
-    $query = "SELECT d.`PK_ENTIDADE`,
-    d.`NOME`,
-    a.`PK_SERIES`,
-    a.`DESCRICAO` AS serie,
-    b.`pk_turma`,
-    b.`DESCRICAO` AS turma,
-    b.`PK_ESCOLA` AS pkEscola,
-    e.`DESCRICAO` AS escola
+$pk = $_POST['pk'];
 
-FROM series 			  a
-JOIN turmas 			  b ON a.`PK_SERIES` = b.`PK_SERIE`
-JOIN professor_turmas_disciplinas c ON b.`PK_TURMA` = c.`pk_turma` AND b.`PK_ESCOLA` = c.`pk_escola`
-JOIN entidades			  d ON c.`pk_entidade` = d.pk_entidade
-JOIN escolas                      e ON b.`PK_ESCOLA` = e.`PK_ESCOLA`
-WHERE a.`PK_SERIES` = ? AND d.`CPF` = ? GROUP BY b.`PK_ESCOLA`";
+if (is_numeric($pk) && $_GET['funcao'] == 'visto') {
+    // Update para marcar como material visto
+    $query = "UPDATE
+    `materiais_tarefa`
+  SET  
+    `VISTO` = 1
+  WHERE `MATERIAL_TAREFA` = ?";
+
     $smtp = $con->prepare($query);
-    $smtp->execute([$pk, $cpf]);
-    if ($smtp->rowCount()) {
-        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-        $html = '<label>Escolas</label><br>';
-        foreach ($linhas as $linha) {
-            $html .= "
-                    <div class='form-check-inline'>
-                        <label class='form-check-label'>
-                            <input type='checkbox' name='escolas[]' wm-inputEscolas class='form-check-input' value='" . $linha->pkEscola . "'>" . $linha->escola . "
-                        </label>
-                    </div>
-                    ";
-        }
 
-        echo $html;
+    if ($smtp->execute([$pk])) {
+        echo true;
     }
 }

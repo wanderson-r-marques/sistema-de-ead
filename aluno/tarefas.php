@@ -97,9 +97,7 @@
 
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="dashboard_container">
-													<div class="form-group col-md-12" style="margin-top:1rem;">
-														<a href="tarefas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
-													</div>
+
 													<div class="dashboard_container_body">
 														<div class="table-responsive">
 															<table class="table">
@@ -117,7 +115,8 @@
 																	$busca = $_GET['p'] ?? '';
 																	$where = " AND ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
 
-																	$query = "SELECT 
+																	$query = "SELECT
+																	h.`PK_TIPO_MATERIAL`,  
 																	g.`MATERIAL_TAREFA`,
 																	f.`PK_CADASTRO_TAREFAS`,
 																	 i.`PK_DISCIPLINAS`,
@@ -159,6 +158,7 @@
 																		$inicio = $maximo * $inicio;
 																		// Nova query com as limitações
 																		$query = "SELECT 
+																		h.`PK_TIPO_MATERIAL`,  
 																		g.`MATERIAL_TAREFA`,
 																		f.`PK_CADASTRO_TAREFAS`,
 																		 i.`PK_DISCIPLINAS`,
@@ -196,10 +196,10 @@
 																				<td><?= $linha->tipo_material ?></td>
 																				<td>
 																					<div class="dash_action_link">
-																						<a href="<?= $linha->LINK ?>" target="_blank" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>" class="view"><i class="fa fa-eye"></i></a>
-																						<a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-pen"></i></a>
-																						<a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-users"></i></a>
-																						<a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>" class="cancel"><i class="fa fa-trash"></i></a>
+																						<a href="<?= $linha->LINK ?>" alvo="a" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" target="_blank" class="view" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"><i alvo="i" class="fa fa-eye" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"></i></a>
+																						<?php if ($linha->PK_TIPO_MATERIAL == 1) : ?>
+																							<a style="opacity:0.3;" class="edit"><i class="fa fa-pen"></i></a>
+																						<?php endif; ?>
 																					</div>
 																				</td>
 																			</tr>
@@ -273,16 +273,26 @@
 	<script>
 		document.querySelectorAll('[wm-confirma]').forEach(confirma => {
 			confirma.addEventListener("click", e => {
-				const url = 'tarefas-requests.php'
-				console.log(e.target);
-				const pk = e.pk
-				// alert(pk)
-				// $.post(url, {
-				// 	pk: pk
-				// }, function(data) {
-				// 	alert(data)
-				// 	// cxEscolas.innerHTML = data
-				// })
+				const url = 'tarefas-requests.php?funcao=visto'
+				const pk = e.target.getAttribute("pk")
+				const tipo = e.target.getAttribute("tipo")
+				let alvo = e.target.getAttribute("alvo")
+
+				$.post(url, {
+					pk: pk
+				}, function(data) {
+					if (data == 1 && tipo == 1) {
+						if (alvo == 'a') {
+							e.target.nextElementSibling.setAttribute("href", "tarefas-arquivos.php")
+							e.target.nextElementSibling.style.opacity = "1"
+						} else if (alvo == 'i') {
+							e.target.parentNode.nextElementSibling.setAttribute("href", "tarefas-arquivos.php")
+							e.target.parentNode.nextElementSibling.style.opacity = "1"
+						}
+
+					}
+					// cxEscolas.innerHTML = data
+				})
 			})
 		})
 	</script>
