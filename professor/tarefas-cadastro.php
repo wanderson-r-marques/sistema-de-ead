@@ -124,8 +124,8 @@
 
 
 											<!-- Materiais -->
-											<div wm-materiais class="submit-section ">
-												<div class="form-row">
+											<div wm-materiais class="submit-section d-none">
+												<div class="form-row" wm-cxArquivo>
 
 
 													<div class="form-group col-12">
@@ -137,53 +137,57 @@
 													<h5 class="pt-5">arquivos</h5>
 
 													<?php for ($i = 0; $i < 3; $i++) : ?>
-														<div class="form-group col-12  pt-5">
-															<label><b>Título <?= $i + 1 ?></b></label>
-															<input type="text" name="titulo[<?= $i + 1 ?>]" class="form-control" />
-														</div>
-														<div class="form-group col-4">
-															<label>Tipo</label>
-															<?php
-															$query = "SELECT
+														<div class="form-row" wm-ordem="<?= $i + 1 ?>">
+															<div class="form-group col-12  pt-5">
+																<label wm-labelTitulo><b>Título <?= $i + 1 ?></b></label>
+																<input type="text" wm-titulo name="titulo[<?= $i + 1 ?>]" class="form-control" />
+															</div>
+															<div class="form-group col-4">
+																<label>Tipo</label>
+																<?php
+																$query = "SELECT
 																`PK_TIPO_MATERIAL`  AS PK,
 																`DESCRICAO`,
 																`RETORNO`
 															FROM
 																`tipos_material`
 															ORDER BY DESCRICAO ASC";
-															$smtp = $con->prepare($query);
-															$smtp->execute();
-															$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-															?>
-															<select name="tipo[<?= $i + 1 ?>]" wm-tipo required class="form-control">
-																<?php foreach ($linhas as $linha) : ?>
-																	<option value="<?= $linha->PK ?>"><?= $linha->DESCRICAO ?></option>
-																<?php endforeach; ?>
-															</select>
+																$smtp = $con->prepare($query);
+																$smtp->execute();
+																$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+																?>
+																<select name="tipo[<?= $i + 1 ?>]" wm-tipo required class="form-control">
+																	<?php foreach ($linhas as $linha) : ?>
+																		<option value="<?= $linha->PK ?>"><?= $linha->DESCRICAO ?></option>
+																	<?php endforeach; ?>
+																</select>
+															</div>
+															<div class="form-group col-2">
+																<label>Carga Horária</label>
+																<input type="time" name="carga[<?= $i + 1 ?>]" wm-carga class="form-control" />
+															</div>
+															<div class="form-group col-2">
+																<label>Modo</label>
+																<select name="modo[<?= $i + 1 ?>]" wm-modo class="form-control">
+																	<option value="link">Link</option>
+																	<option value="arquivo">Arquivo</option>
+																</select>
+															</div>
+															<div class="form-group col-4">
+																<label>Material </label>
+																<input type="text" wm-link name="link[<?= $i + 1 ?>]" class="form-control" />
+															</div>
 														</div>
-														<div class="form-group col-2">
-															<label>Carga Horária</label>
-															<input type="time" name="carga[<?= $i + 1 ?>]" wm-carga class="form-control" />
-														</div>
-														<div class="form-group col-2">
-															<label>Modo</label>
-															<select name="modo[<?= $i + 1 ?>]" wm-modo class="form-control">
-																<option value="link">Link</option>
-																<option value="arquivo">Arquivo</option>
-															</select>
-														</div>
-														<div class="form-group col-4">
-															<label>Material </label>
-															<input type="text" name="link[<?= $i + 1 ?>]" id="<?= $i + 1 ?>" class="form-control" />
-														</div>
-														<hr>
 													<?php endfor; ?>
-
 												</div>
 											</div>
+
 											<!-- Fim materiais -->
-
-
+										</div>
+										<div wm-btnAdd class="row w-100 text-center d-none">
+											<div class="form-group col-lg-12 col-md-12 mt-3 text-center">
+												<a class="btn btn-success text-white" onclick="clonarArquivo()"><i class="fa fa-plus-circle"></i> Adicionar mais arquivo</a>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -284,6 +288,7 @@
 			}, function(data) {
 				cxTurmas.innerHTML = data
 				cxMateriais.classList.remove("d-none")
+				document.querySelector('[wm-btnAdd]').classList.remove("d-none")
 			})
 		}
 
@@ -330,6 +335,25 @@
 			$('input[name="start"]').val('');
 			$('input[name="start"]').attr("placeholder", "Course Start");
 		});
+	</script>
+
+	<script>
+		function clonarArquivo() {
+			const cxArquivo = document.querySelector("[wm-cxArquivo]")
+			const ultimoElemento = document.querySelector("[wm-cxArquivo]").lastElementChild
+			const ordem = parseInt(ultimoElemento.getAttribute("wm-ordem")) + 1
+
+			const cloneElemento = ultimoElemento.cloneNode(true)
+			cloneElemento.setAttribute("wm-ordem", ordem)
+			cloneElemento.querySelector("[wm-titulo]").setAttribute("name", `titulo[${ordem}]`)
+			cloneElemento.querySelector("[wm-tipo]").setAttribute("name", `tipo[${ordem}]`)
+			cloneElemento.querySelector("[wm-carga]").setAttribute("name", `carga[${ordem}]`)
+			cloneElemento.querySelector("[wm-modo]").setAttribute("name", `modo[${ordem}]`)
+			cloneElemento.querySelector("[wm-link]").setAttribute("name", `link[${ordem}]`)
+			cloneElemento.querySelector("[wm-labelTitulo]").innerHTML = `<b>Título ${ordem}</b>`
+
+			cxArquivo.appendChild(cloneElemento)
+		}
 	</script>
 
 </body>
