@@ -32,7 +32,7 @@ if ($_GET['funcao'] == 'alunos') {
             die;
         }
         // Envia todos os links e arquivos
-        tarefas_cadastrar($id, $_FILES['arquivo'] ?? '', $_POST['link'] ?? '', $_POST['tipo'], $_POST['carga'], $_POST['titulo'], $con);
+        tarefas_cadastrar($id, $_FILES['arquivo'] ?? '', $_POST['link'] ?? '', $_POST['tipo'], $_POST['carga'], $_POST['titulo'], $_POST['modo'], $con);
 
         // Insere todos os alunos
         $query = "SELECT d.`PK_ENTIDADE`,
