@@ -125,7 +125,8 @@
 																	 h.`DESCRICAO` AS tipo_material,
 																	 g.`LINK`,
 																	 a.`PK_ENTIDADE` AS aluno,
-																	 c.`PK_TURMA`
+																	 c.`PK_TURMA`,
+																	 l.DATA_HORA_VISTO
 																	 
 																	 
 																	 
@@ -139,6 +140,7 @@
 															   JOIN tipos_material         h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
 															   JOIN disciplinas            i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
 															   JOIN cadastro_tarefas       j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
+															   LEFT JOIN materiais_tarefas_resposta l ON g.MATERIAL_TAREFA = l.PK_MATERIAIS_TAREFA
 															  
 															  WHERE a.`CPF`='$cpf'";
 
@@ -157,7 +159,7 @@
 																		//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
 																		$inicio = $maximo * $inicio;
 																		// Nova query com as limitações
-																		$query = "SELECT 
+																		$query = "SELECT
 																		h.`PK_TIPO_MATERIAL`,  
 																		g.`MATERIAL_TAREFA`,
 																		f.`PK_CADASTRO_TAREFAS`,
@@ -167,7 +169,8 @@
 																		 h.`DESCRICAO` AS tipo_material,
 																		 g.`LINK`,
 																		 a.`PK_ENTIDADE` AS aluno,
-																		 c.`PK_TURMA`
+																		 c.`PK_TURMA`,
+																	 	 l.DATA_HORA_VISTO
 																		 
 																		 
 																		 
@@ -181,6 +184,7 @@
 																   JOIN tipos_material         h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
 																   JOIN disciplinas            i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
 																   JOIN cadastro_tarefas       j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
+																   LEFT JOIN materiais_tarefas_resposta l ON g.MATERIAL_TAREFA = l.PK_MATERIAIS_TAREFA
 																  
 																  WHERE a.`CPF`='$cpf'
 																  LIMIT $inicio,$maximo";
@@ -198,7 +202,11 @@
 																					<div class="dash_action_link">
 																						<a href="<?= $linha->LINK ?>" alvo="a" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" target="_blank" class="view" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"><i alvo="i" class="fa fa-eye" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"></i></a>
 																						<?php if ($linha->PK_TIPO_MATERIAL == 1) : ?>
-																							<a style="opacity:0.3;" class="edit"><i class="fa fa-pen"></i></a>
+																							<?php if (!$linha->DATA_HORA_VISTO) : ?>
+																								<a style="opacity:0.3;" class="edit"><i class="fa fa-pen"></i></a>
+																							<?php else : ?>
+																								<a href="tarefas-arquivos.php?pkTarefa=<?= $linha->MATERIAL_TAREFA ?>" class="edit"><i class="fa fa-pen"></i></a>
+																							<?php endif; ?>
 																						<?php endif; ?>
 																					</div>
 																				</td>
@@ -279,14 +287,15 @@
 				let alvo = e.target.getAttribute("alvo")
 
 				$.post(url, {
-					pk: pk
+					pk: pk,
+					cpfEntidade: <?= $cpf ?>
 				}, function(data) {
-					if (data == 1 && tipo == 1) {
+					if (data > 0) {
 						if (alvo == 'a') {
-							e.target.nextElementSibling.setAttribute("href", "tarefas-arquivos.php")
+							e.target.nextElementSibling.setAttribute("href", "tarefas-arquivos.php?pkTarefa=" + pk + "&pkResposta=" + data)
 							e.target.nextElementSibling.style.opacity = "1"
 						} else if (alvo == 'i') {
-							e.target.parentNode.nextElementSibling.setAttribute("href", "tarefas-arquivos.php")
+							e.target.parentNode.nextElementSibling.setAttribute("href", "tarefas-arquivos.php?pkTarefa=" + pk + "&pkResposta=" + data)
 							e.target.parentNode.nextElementSibling.style.opacity = "1"
 						}
 

@@ -1,32 +1,6 @@
 <?php require_once 'valida.php'; ?>
 <?php require_once '../helpers/alert.php'; ?>
 
-<?php
-if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {	
-	$query = "SELECT * FROM `entidades` e 
-		JOIN tipo_cadastro tc ON e.PK_TIPO_CADASTRO = tc.PK_TIPO_CADASTRO
-		WHERE e.CPF = :cpf AND e.PK_TIPO_CADASTRO = 1";
-	$smtp = $con->prepare($query);
-	$smtp->bindParam(':cpf', $cpf);
-
-	if ($smtp->execute()) {
-		$entidade = $smtp->fetch(PDO::FETCH_OBJ);
-		$foto = $entidade->FOTO;
-		if ($foto == '')
-			$foto = 'semFoto.jpg';
-		if ($smtp->rowCount() <= 0) {
-			$_SESSION['msg'] = "Sua sessão expirou!#danger";
-			header('Location: ' . $url);
-		}
-	} else {
-		$_SESSION['msg'] = "Sua sessão expirou!#danger";
-		header('Location: ' . $url);
-	}
-} else {
-	$_SESSION['msg'] = "Sua sessão expirou!#danger";
-	header('Location: ' . $url);
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -43,6 +17,7 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 	<!-- Custom Color Option -->
 	<link href="../assets/css/colors.css" rel="stylesheet">
 	<link href="../assets/css/custom.css" rel="stylesheet">
+	<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 </head>
 
 <body class="red-skin">
@@ -94,19 +69,20 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 						<!-- /Row -->
 
 						<!-- Row -->
+
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
+
 								<?= alert() ?>
 								<!-- Course Style 1 For Student -->
 								<div class="dashboard_container">
 									<div class="dashboard_container_header">
 										<div class="dashboard_fl_1">
-											<h4>Tarefas</h4>
+											<h4>Entrega de Tarefas</h4>
 										</div>
 										<div class="dashboard_fl_2">
 											<ul class="mb0">
 												<li class="list-inline-item">
-
 												</li>
 												<li class="list-inline-item">
 													<form action="turmas.php" class="form-inline my-2 my-lg-0">
@@ -117,106 +93,52 @@ if (isset($_GET['pk']) && is_numeric($_GET['pk'])) {
 											</ul>
 										</div>
 									</div>
-									<div class="dashboard_container_body">
-
-										<!-- Row -->
-										<div class="row">
-
-											<div class="col-lg-12 col-md-12 col-sm-12">
-												<div class="dashboard_container">
-													<div class="form-group col-md-12" style="margin-top:1rem;">
-														<a href="tarefas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
-													</div>
-													<div class="dashboard_container_body">
-														<div class="table-responsive">
-															<table class="table add_to_cart">
-																<thead>
-																	<tr>
-																		<th scope="col">#</th>
-																		<th scope="col">Title</th>
-																		<th scope="col">Price</th>
-																		<th scope="col">Quantity</th>
-																		<th scope="col">Action</th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<?php
-																	$where = '';
-																	$busca = $_GET['p'] ?? '';
-																	$where = " WHERE ct.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
-
-																	$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-FROM cadastro_tarefas ct 
-JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
-$where
-GROUP BY am.`PK_CADASTRO_TAREFAS`";
-
-																	$smtp = $con->prepare($query);
-
-																	if ($smtp->execute()) {
-																		// Pega o total de registros
-																		$total = $smtp->rowCount();
-																		//determina o numero de registros que serão mostrados na tela
-																		$maximo = 10;
-																		//pega o valor da pagina atual
-																		$pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
-
-																		//subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-																		$inicio = $pagina - 1;
-																		//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-																		$inicio = $maximo * $inicio;
-																		// Nova query com as limitações
-																		$query = "SELECT ct.`CADASTRO_TAREFAS`, ct.`DESCRICAO_GERAL`, ct.`DATA_HORA`, COUNT(am.`PK_CADASTRO_TAREFAS`) AS QTD 
-	FROM cadastro_tarefas ct 
-	JOIN alunos_material am ON ct.`CADASTRO_TAREFAS` = am.`PK_CADASTRO_TAREFAS`
-	$where
-	GROUP BY am.`PK_CADASTRO_TAREFAS`
-	LIMIT $inicio,$maximo";
-																		$smtp = $con->prepare($query);
-																		$smtp->execute();
-
-																		$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-																		foreach ($linhas as $linha) {
-																	?>
-																			<tr>
-																				<td>
-																					<div class="tb_course_thumb"><img src="assets/img/course-1.jpg" class="img-fluid" alt="" /></div>
-																				</td>
-																				<th>Besic Web Design<span class="tb_date">18 july 2020</span></th>
-																				<td><span class="wish_price theme-cl">$149.00</span></td>
-																				<td><input type="number" class="form-control qty" step="1" value="1" title="Qty" size="4" placeholder="" inputmode="numeric"></td>
-																				<td><a href="#" class="btn btn-remove">Remove</span></td>
-																			</tr>
-																	<?php
-																		}
-																	}
-																	?>
-																</tbody>
-															</table>
+									<form action="tarefas-funcao.php?pkTarefa=<?= $_GET['pkTarefa'] ?>&pkResposta=<?= $_GET['pkResposta'] ?>&funcao=resposta" method="post" enctype="multipart/form-data" wm-cxArquivo class="form-inline my-2 p-3 w-100">
+										<div class="dashboard_container_body w-100">
+											<!-- Row -->
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<div class="dashboard_container p-4">
+														<div class="dashboard_container_body w-100">
+															<textarea class="form-control w-100" name="texto" id="area" rows="20"></textarea>
 														</div>
+														<h2 class="mt-5 mb-5 w-100">Arquivos</h2>
+														<?php for ($i = 0; $i < 3; $i++) : ?>
+															<div class="form-row w-100 mb-3" wm-ordem="<?= $i + 1 ?>">
+																<div class="form-group col-7">
+																	<label wm-labelDescricao>Descrição <?= $i + 1 ?></label>
+																	<input type="text" name="descricao[<?= $i + 1 ?>]" wm-descricao class="form-control w-100" />
+																</div>
+																<div class="form-group col-5">
+																	<label wm-labelArquivo>Arquivo <?= $i + 1 ?></label>
+																	<input type="file" wm-arquivo name="arquivo[<?= $i + 1 ?>]" class="form-control w-100" />
+																</div>
+															</div>
+														<?php endfor; ?>
+
 													</div>
 												</div>
 											</div>
+											<div wm-btnAdd class="row w-100 text-center">
+												<div class="form-group col-lg-12 col-md-12 mt-3 text-center">
+													<a class="btn btn-success text-white w-auto" onclick="clonarArquivo()"><i class="fa fa-plus-circle"></i> Adicionar mais arquivo</a>
+												</div>
+											</div>
+											<br>
 										</div>
-
-
-										<!-- /Row Início da paginação -->
-										<!-- É necessário que exista a variável $pagina e $total no código -->
-										<?php include 'include/paginacao.php' ?>
-										<!-- /Row Final da paginação -->
-
-										<br>
-
-									</div>
 								</div>
-
 							</div>
 						</div>
 						<!-- /Row -->
-
+						<div class="row">
+							<div class="form-group col-lg-12 col-md-12">
+								<button class="btn btn-theme" type="submit">Salvar</button>
+							</div>
+						</div>
+						</form>
 					</div>
-
 				</div>
+
 				<!-- Row -->
 
 			</div>
@@ -247,12 +169,41 @@ GROUP BY am.`PK_CADASTRO_TAREFAS`";
 	<script src="../assets/js/counterup.min.js"></script>
 	<script src="../assets/js/jquery.mask.min.js"></script>
 	<script src="../assets/js/custom.js"></script>
+	<script src="assets/js/custom.js"></script>
 	<!-- ============================================================== -->
 	<!-- This page plugins -->
 	<!-- ============================================================== -->
 	<script src="../assets/js/metisMenu.min.js"></script>
 	<script>
 		$('#side-menu').metisMenu();
+	</script>
+	<script type="text/javascript">
+		bkLib.onDomLoaded(function() {
+			nicEditors.allTextAreas()
+		}); // convert all text areas to rich text editor on that page
+
+		bkLib.onDomLoaded(function() {
+			new nicEditor().panelInstance('area1');
+		}); // convert text area with id area1 to rich text editor.
+
+		bkLib.onDomLoaded(function() {
+			new nicEditor({
+				fullPanel: true
+			}).panelInstance('area2');
+		}); // convert text area with id area2 to rich text editor with full panel.
+	</script>
+	<script type="text/javascript">
+		//<![CDATA[
+		bkLib.onDomLoaded(function() {
+			new nicEditor({
+				maxHeight: 200
+			}).panelInstance('area');
+			new nicEditor({
+				fullPanel: true,
+				maxHeight: 200
+			}).panelInstance('area1');
+		});
+		//]]>
 	</script>
 </body>
 

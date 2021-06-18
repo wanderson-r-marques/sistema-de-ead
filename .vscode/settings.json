@@ -1,4 +1,7 @@
 {
     "terminal.integrated.allowChords": false,
-    "terminal.integrated.automationShell.windows": "C:\\Program Files\\Git\\git-bash.exe"
+    "terminal.integrated.automationShell.windows": "C:\\Program Files\\Git\\git-bash.exe",
+    "cSpell.words": [
+        "funcao"
+    ]
 }
