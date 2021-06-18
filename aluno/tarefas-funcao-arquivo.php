@@ -8,6 +8,7 @@ function tarefas_cadastrar($cpf, $pkTarefa, $id, $arquivos, $descricoes, $con)
     if (is_array($arquivos)) {
         foreach ($arquivos['error'] as $key => $error) {
             if ($error == UPLOAD_ERR_OK) {
+                $descricao = $descricoes[$key];
 
                 $ext = pathinfo($arquivos['name'][$key], PATHINFO_EXTENSION);
                 $tmp_name = $arquivos['tmp_name'][$key];
@@ -23,17 +24,20 @@ function tarefas_cadastrar($cpf, $pkTarefa, $id, $arquivos, $descricoes, $con)
                     try {
                         $query = "INSERT INTO `materiais_tarefas_respostas_arquivos` (
                             `PK_MATERIAIS_TAREFAS_RESPOSTA`,
+                            `DESCRICAO`,
                             `LINK`,
                             `DATA_HORA`
                           )
                           VALUES
                             (
                               :PK_MATERIAIS_TAREFAS_RESPOSTA,
+                              :DESCRICAO,
                               :LINK,
                               :DATA_HORA
                             )";
                         $smtp = $con->prepare($query);
                         $smtp->bindParam(':PK_MATERIAIS_TAREFAS_RESPOSTA', $id);
+                        $smtp->bindParam(':DESCRICAO', $descricao);
                         $smtp->bindParam(':LINK', $path);
                         $smtp->bindParam(':DATA_HORA', $data_hora);
                         $smtp->execute();
