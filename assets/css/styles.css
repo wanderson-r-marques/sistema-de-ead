@@ -9666,6 +9666,11 @@ span.payment_status.cancel {
     color: #009688
 }
 
+.dash_action_link a.students {
+    background:#99d2ff ;
+    color: #468dc4
+}
+
 .dash_action_link a.edit {
     background: #ffead1;
     color: #bc915c

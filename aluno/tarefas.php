@@ -126,7 +126,9 @@
 																	 g.`LINK`,
 																	 a.`PK_ENTIDADE` AS aluno,
 																	 c.`PK_TURMA`,
-																	 l.DATA_HORA_VISTO
+																	 l.DATA_HORA_VISTO,
+																	 l.DATA_HORA_RESPOSTA,
+																     l.PK_MATERIAIS_TAREFAS_RESPOSTAS
 																	 
 																	 
 																	 
@@ -170,7 +172,9 @@
 																		 g.`LINK`,
 																		 a.`PK_ENTIDADE` AS aluno,
 																		 c.`PK_TURMA`,
-																	 	 l.DATA_HORA_VISTO
+																	 	 l.DATA_HORA_VISTO,
+																	 	 l.DATA_HORA_RESPOSTA,
+																	 	 l.PK_MATERIAIS_TAREFAS_RESPOSTAS
 																		 
 																		 
 																		 
@@ -202,10 +206,10 @@
 																					<div class="dash_action_link">
 																						<a href="<?= $linha->LINK ?>" alvo="a" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" target="_blank" class="view" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"><i alvo="i" class="fa fa-eye" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"></i></a>
 																						<?php if ($linha->PK_TIPO_MATERIAL == 1) : ?>
-																							<?php if (!$linha->DATA_HORA_VISTO) : ?>
+																							<?php if (!$linha->DATA_HORA_VISTO || $linha->DATA_HORA_RESPOSTA) : ?>
 																								<a style="opacity:0.3;" class="edit"><i class="fa fa-pen"></i></a>
 																							<?php else : ?>
-																								<a href="tarefas-arquivos.php?pkTarefa=<?= $linha->MATERIAL_TAREFA ?>" class="edit"><i class="fa fa-pen"></i></a>
+																								<a href="tarefas-arquivos.php?pkTarefa=<?= $linha->MATERIAL_TAREFA ?>&pkResposta= <?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" class="edit"><i class="fa fa-pen"></i></a>
 																							<?php endif; ?>
 																						<?php endif; ?>
 																					</div>

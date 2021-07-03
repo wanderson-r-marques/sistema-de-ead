@@ -23,9 +23,9 @@
 	<!-- ============================================================== -->
 	<!-- Preloader - style you can find in spinners.css -->
 	<!-- ============================================================== -->
-	<div id="preloader">
+	<!-- <div id="preloader">
 		<div class="preloader"><span></span><span></span></div>
-	</div>
+	</div> -->
 
 
 	<!-- ============================================================== -->
@@ -59,7 +59,8 @@
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a href="#">Painel</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Tarefas</li>
+										<li class="breadcrumb-item" aria-current="page">Tarefas</li>
+										<li class="breadcrumb-item active" aria-current="page">Respostas</li>
 									</ol>
 								</nav>
 							</div>
@@ -74,12 +75,11 @@
 								<div class="dashboard_container">
 									<div class="dashboard_container_header">
 										<div class="dashboard_fl_1">
-											<h4>Tarefas</h4>
+											<h4>Tarefas - Respostas</h4>
 										</div>
 										<div class="dashboard_fl_2">
 											<ul class="mb0">
 												<li class="list-inline-item">
-
 												</li>
 												<li class="list-inline-item">
 													<form action="turmas.php" class="form-inline my-2 my-lg-0">
@@ -91,24 +91,16 @@
 										</div>
 									</div>
 									<div class="dashboard_container_body">
-
 										<!-- Row -->
 										<div class="row">
-
 											<div class="col-lg-12 col-md-12 col-sm-12">
 												<div class="dashboard_container">
-													<div class="form-group col-md-12" style="margin-top:1rem;">
-														<a href="tarefas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
-														<a href="tarefas-respostas-colegios.php" class="btn  add-items btn-warning"><i class="fa fa-upload"></i>Respostas</a>
-													</div>
 													<div class="dashboard_container_body">
 														<div class="table-responsive">
 															<table class="table">
 																<thead class="thead-dark">
 																	<tr>
-																		<th scope="col">Data</th>
-																		<th scope="col">Tarefa</th>
-																		<th scope="col">Qtd Alunos</th>
+																		<th scope="col">Escola</th>
 																		<th scope="col">Ação</th>
 																	</tr>
 																</thead>
@@ -116,35 +108,21 @@
 																	<?php
 																	$where = '';
 																	$busca = $_GET['p'] ?? '';
-																	$where = " WHERE l.`CPF`='$cpf' AND j.`DESCRICAO_GERAL` LIKE ('%" . $busca . "%')";
 
-																	$query = "SELECT 
-																	g.`MATERIAL_TAREFA`,
-																f.`PK_CADASTRO_TAREFAS`,
-																 i.`PK_DISCIPLINAS`,
-																 i.`DESCRICAO` AS nome_disciplina,
-																 j.`DESCRICAO_GERAL` AS nome_atividade,
-																 h.`DESCRICAO` AS tipo_material,
-																 g.`LINK`,
-																 a.`PK_ENTIDADE` AS aluno,
-																  c.`PK_TURMA`
-																		 
-																		 
-																		 
-																 FROM entidades              		a
-																 JOIN alunos_escolas_turmas  		b  ON a.`PK_ENTIDADE` = b.`PK_ENTIDADE`
-																  JOIN turmas                		c  ON b.`PK_TURMA` = c.`PK_TURMA`
-																  JOIN series                		d  ON c.`PK_SERIE` = d.`PK_SERIES`
-																  JOIN curriculo             		e  ON d.`PK_SERIES` = e.serie
-																  JOIN alunos_material       		f  ON c.`PK_TURMA` = f.`PK_TURMA` AND e.disciplina = f.`PK_DISCIPLINA`
-																  JOIN materiais_tarefa      		g  ON f.`PK_CADASTRO_TAREFAS` = g.`PK_CADASTRO_TAREFA`
-																  JOIN tipos_material        		h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
-																  JOIN disciplinas           		i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
-																  JOIN cadastro_tarefas      		j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
-																  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
-																  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
-																 $where
-																   ";
+																	$where = " WHERE a.data_hora_resposta IS NOT NULL AND d.`PK_ENTIDADE` = $pk_entidade";
+
+																	$query = "SELECT f.`PK_ESCOLA`, f.`DESCRICAO`
+																	FROM materiais_tarefas_resposta   a
+																	JOIN materiais_tarefa             b ON a.`PK_MATERIAIS_TAREFA`  = b.`MATERIAL_TAREFA`
+																	JOIN cadastro_tarefas             c ON b.`PK_CADASTRO_TAREFA`   = c.`CADASTRO_TAREFAS`
+																	JOIN entidades			  d ON c.`CPF_ENTIDADE` 	= d.`CPF`
+																	JOIN professor_turmas_disciplinas e ON d.`PK_ENTIDADE` 		= e.`pk_entidade`
+																	JOIN entidades                    g ON g.cpf                    = a.cpf_entidade
+																	JOIN alunos_escolas_turmas        h ON h.`PK_ENTIDADE`          = g.`PK_ENTIDADE`
+																	JOIN turmas                       i ON h.`PK_TURMA`             = i.`PK_TURMA`
+																	JOIN escolas                      f ON i.PK_ESCOLA            = f.`PK_ESCOLA`
+																	$where																	
+																	GROUP BY f.`PK_ESCOLA`";
 
 																	$smtp = $con->prepare($query);
 
@@ -161,32 +139,18 @@
 																		//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
 																		$inicio = $maximo * $inicio;
 																		// Nova query com as limitações
-																		$query = "SELECT 
-																		g.`MATERIAL_TAREFA`,
-																	f.`PK_CADASTRO_TAREFAS`,
-																	 i.`PK_DISCIPLINAS`,
-																	 i.`DESCRICAO` AS nome_disciplina,
-																	 j.`DESCRICAO_GERAL` AS nome_atividade,
-																	 h.`DESCRICAO` AS tipo_material,
-																	 g.`LINK`,
-																	 a.`PK_ENTIDADE` AS aluno,
-																	  c.`PK_TURMA`
-																			 
-																			 
-																			 
-																	 FROM entidades              		a
-																	 JOIN alunos_escolas_turmas  		b  ON a.`PK_ENTIDADE` = b.`PK_ENTIDADE`
-																	  JOIN turmas                		c  ON b.`PK_TURMA` = c.`PK_TURMA`
-																	  JOIN series                		d  ON c.`PK_SERIE` = d.`PK_SERIES`
-																	  JOIN curriculo             		e  ON d.`PK_SERIES` = e.serie
-																	  JOIN alunos_material       		f  ON c.`PK_TURMA` = f.`PK_TURMA` AND e.disciplina = f.`PK_DISCIPLINA`
-																	  JOIN materiais_tarefa      		g  ON f.`PK_CADASTRO_TAREFAS` = g.`PK_CADASTRO_TAREFA`
-																	  JOIN tipos_material        		h  ON h.`PK_TIPO_MATERIAL` = g.`TIPO_MATERIAL`
-																	  JOIN disciplinas           		i  ON e.`disciplina` = i.`PK_DISCIPLINAS`
-																	  JOIN cadastro_tarefas      		j  ON f.`PK_CADASTRO_TAREFAS` = j.`CADASTRO_TAREFAS`
-																	  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
-																	  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
-																	 $where
+																		$query = "SELECT f.`PK_ESCOLA`, f.`DESCRICAO`
+																		FROM materiais_tarefas_resposta   a
+																		JOIN materiais_tarefa             b ON a.`PK_MATERIAIS_TAREFA`  = b.`MATERIAL_TAREFA`
+																		JOIN cadastro_tarefas             c ON b.`PK_CADASTRO_TAREFA`   = c.`CADASTRO_TAREFAS`
+																		JOIN entidades			  d ON c.`CPF_ENTIDADE` 	= d.`CPF`
+																		JOIN professor_turmas_disciplinas e ON d.`PK_ENTIDADE` 		= e.`pk_entidade`
+																		JOIN entidades                    g ON g.cpf                    = a.cpf_entidade
+																		JOIN alunos_escolas_turmas        h ON h.`PK_ENTIDADE`          = g.`PK_ENTIDADE`
+																		JOIN turmas                       i ON h.`PK_TURMA`             = i.`PK_TURMA`
+																		JOIN escolas                      f ON i.PK_ESCOLA            = f.`PK_ESCOLA`
+																		$where																	
+																		GROUP BY f.`PK_ESCOLA`
 																		LIMIT $inicio,$maximo";
 																		$smtp = $con->prepare($query);
 																		$smtp->execute();
@@ -195,15 +159,11 @@
 																		foreach ($linhas as $linha) {
 																	?>
 																			<tr>
-																				<th scope="row"><?= $linha->nome_disciplina ?></th>
-																				<td><?= $linha->nome_atividade ?></td>
-																				<td><?= $linha->tipo_material ?></td>
+																				<th scope="row"><?= $linha->DESCRICAO ?></th>
+
 																				<td>
 																					<div class="dash_action_link">
-																						<a target="_blank" href="<?= $linha->LINK ?>" class="view"><i class="fa fa-eye"></i></a>
-																						<a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-pen"></i></a>
-																						<a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>" class="students"><i class="fa fa-users"></i></a>
-																						<a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>" class="cancel"><i class="fa fa-trash"></i></a>
+																						<a href="tarefas-respostas-turmas.php?escola=<?= $linha->PK_ESCOLA ?>" class="view"><i class="fa fa-eye"></i></a>
 																					</div>
 																				</td>
 																			</tr>

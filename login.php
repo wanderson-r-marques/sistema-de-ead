@@ -22,6 +22,7 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
         $ipPc = $_SERVER["REMOTE_ADDR"];
 
         $query = "SELECT
+                        `PK_ENTIDADE`,
                         `NOME`,
                         `NOME_FANTASIA`,
                         `CPF`,
@@ -60,6 +61,7 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
                 if (password_verify($senha, $linha->SENHA) || password_verify($senha, $senhaHash)) {
                     session_start();
                     $_SESSION['cpf'] = $cpf;
+                    $_SESSION['entidade'] = $linha->PK_ENTIDADE;
 
                     if ($linha->PK_TIPO_CADASTRO == 2) {
                         header('Location: professor/painel.php');
