@@ -17,7 +17,7 @@
 	<!-- Custom Color Option -->
 	<link href="../assets/css/colors.css" rel="stylesheet">
 	<link href="../assets/css/custom.css" rel="stylesheet">
-	<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
+	
 </head>
 
 <body class="red-skin">
@@ -170,6 +170,7 @@
 	<script src="../assets/js/jquery.mask.min.js"></script>
 	<script src="../assets/js/custom.js"></script>
 	<script src="assets/js/custom.js"></script>
+	<script type="text/javascript" src="../assets/js/nicEdit.js"></script>
 	<!-- ============================================================== -->
 	<!-- This page plugins -->
 	<!-- ============================================================== -->

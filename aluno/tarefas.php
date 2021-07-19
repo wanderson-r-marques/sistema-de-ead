@@ -106,6 +106,7 @@
 																		<th scope="col">Disciplina</th>
 																		<th scope="col">Atividade</th>
 																		<th scope="col">Material</th>
+																		<th scope="col">Nota</th>
 																		<th scope="col">Ação</th>
 																	</tr>
 																</thead>
@@ -128,7 +129,8 @@
 																	 c.`PK_TURMA`,
 																	 l.DATA_HORA_VISTO,
 																	 l.DATA_HORA_RESPOSTA,
-																     l.PK_MATERIAIS_TAREFAS_RESPOSTAS
+																     l.PK_MATERIAIS_TAREFAS_RESPOSTAS,
+																	 l.NOTA
 																	 
 																	 
 																	 
@@ -174,7 +176,8 @@
 																		 c.`PK_TURMA`,
 																	 	 l.DATA_HORA_VISTO,
 																	 	 l.DATA_HORA_RESPOSTA,
-																	 	 l.PK_MATERIAIS_TAREFAS_RESPOSTAS
+																	 	 l.PK_MATERIAIS_TAREFAS_RESPOSTAS,
+																		  l.NOTA
 																		 
 																		 
 																		 
@@ -202,6 +205,7 @@
 																				<th scope="row"><?= $linha->nome_disciplina ?></th>
 																				<td><?= $linha->nome_atividade ?></td>
 																				<td><?= $linha->tipo_material ?></td>
+																				<td><?= $linha->NOTA ?></td>
 																				<td>
 																					<div class="dash_action_link">
 																						<a href="<?= $linha->LINK ?>" alvo="a" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" target="_blank" class="view" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"><i alvo="i" class="fa fa-eye" tipo="<?= $linha->PK_TIPO_MATERIAL ?>" wm-confirma pk="<?= $linha->MATERIAL_TAREFA ?>"></i></a>

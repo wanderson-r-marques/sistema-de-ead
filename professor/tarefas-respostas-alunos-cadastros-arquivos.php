@@ -1,6 +1,8 @@
 <?php require_once 'valida.php'; ?>
-<?php require_once '../helpers/alert.php'; 
-$pk_turma = $_GET['turma'];
+<?php require_once '../helpers/alert.php';
+$pk_tarefa = $_GET['tarefa'];
+$pk_aluno = $_GET['aluno'];
+$pk_resposta = $_GET['resposta'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -62,7 +64,8 @@ $pk_turma = $_GET['turma'];
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#">Painel</a></li>
                                         <li class="breadcrumb-item" aria-current="page">Tarefas</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Respostas</li>
+                                        <li class="breadcrumb-item" aria-current="page">Respostas</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Arquivos</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -77,7 +80,7 @@ $pk_turma = $_GET['turma'];
                                 <div class="dashboard_container">
                                     <div class="dashboard_container_header">
                                         <div class="dashboard_fl_1">
-                                            <h4>Tarefas - Respostas</h4>
+                                            <h4>Tarefas - Respostas - Arquivos</h4>
                                         </div>
                                         <div class="dashboard_fl_2">
                                             <ul class="mb0">
@@ -102,8 +105,9 @@ $pk_turma = $_GET['turma'];
                                                             <table class="table">
                                                                 <thead class="thead-dark">
                                                                     <tr>
-                                                                        <th scope="col">Matrícula</th>                                                                        
-                                                                        <th scope="col">Aluno</th>                                                                        
+                                                                        <th scope="col">Data</th>
+                                                                        <th scope="col">Descrição</th>
+                                                                        <th scope="col">Nota</th>
                                                                         <th scope="col">Ação</th>
                                                                     </tr>
                                                                 </thead>
@@ -113,23 +117,20 @@ $pk_turma = $_GET['turma'];
                                                                     $busca = $_GET['p'] ?? '';
 
                                                                     $where = " WHERE a.data_hora_resposta IS NOT NULL 
-                                                                    AND e.`PK_TURMA`=?";
+                                                                    AND c.`CADASTRO_TAREFAS`=? AND d.PK_ENTIdADE = ? AND f.PK_MATERIAIS_TAREFAS_RESPOSTA = ?";
 
-                                                                    $query = "SELECT 
-                                                                    c.`CADASTRO_TAREFAS`,
-                                                                    d.PK_ENTIDADE AS matricula_aluno,
-                                                                    d.nome AS nome_aluno  
-                                                                    FROM materiais_tarefas_resposta a 
-                                                                    JOIN materiais_tarefa           b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
-                                                                    JOIN cadastro_tarefas           c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
-                                                                    JOIN entidades                  d ON a.`CPF_ENTIDADE` = d.`CPF` 
-                                                                    JOIN alunos_escolas_turmas      e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE`
+                                                                    $query = "SELECT f.DESCRICAO, f.LINK, f.DATA_HORA, a.PK_MATERIAIS_TAREFAS_RESPOSTAS, a.NOTA
+                                                                    FROM materiais_tarefas_resposta a JOIN materiais_tarefa b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
+                                                                    JOIN cadastro_tarefas c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
+                                                                    JOIN entidades d ON a.`CPF_ENTIDADE` = d.`CPF` 
+                                                                    JOIN alunos_escolas_turmas e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE` 
+                                                                    JOIN materiais_tarefas_respostas_arquivos f ON a.PK_MATERIAIS_TAREFAS_RESPOSTAS = f.PK_MATERIAIS_TAREFAS_RESPOSTA
                                                                     
-																	$where GROUP BY d.PK_ENTIDADE";
+																	$where ";
 
                                                                     $smtp = $con->prepare($query);
 
-                                                                    if ($smtp->execute([$pk_turma])) {
+                                                                    if ($smtp->execute([$pk_tarefa, $pk_aluno, $pk_resposta])) {
                                                                         // Pega o total de registros
                                                                         $total = $smtp->rowCount();
                                                                         //determina o numero de registros que serão mostrados na tela
@@ -142,32 +143,31 @@ $pk_turma = $_GET['turma'];
                                                                         //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
                                                                         $inicio = $maximo * $inicio;
                                                                         // Nova query com as limitações
-                                                                        
-                                                                        $query = "SELECT 
-                                                                        c.`CADASTRO_TAREFAS`,
-                                                                        d.PK_ENTIDADE AS matricula_aluno,
-                                                                        d.nome AS nome_aluno  
-                                                                        FROM materiais_tarefas_resposta a 
-                                                                        JOIN materiais_tarefa           b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
-                                                                        JOIN cadastro_tarefas           c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
-                                                                        JOIN entidades                  d ON a.`CPF_ENTIDADE` = d.`CPF` 
-                                                                        JOIN alunos_escolas_turmas      e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE`
+
+                                                                        $query = "SELECT f.DESCRICAO, f.LINK, f.DATA_HORA, a.PK_MATERIAIS_TAREFAS_RESPOSTAS, a.NOTA
+                                                                        FROM materiais_tarefas_resposta a JOIN materiais_tarefa b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
+                                                                        JOIN cadastro_tarefas c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
+                                                                        JOIN entidades d ON a.`CPF_ENTIDADE` = d.`CPF` 
+                                                                        JOIN alunos_escolas_turmas e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE` 
+                                                                        JOIN materiais_tarefas_respostas_arquivos f ON a.PK_MATERIAIS_TAREFAS_RESPOSTAS = f.PK_MATERIAIS_TAREFAS_RESPOSTA
                                                                         
                                                                         $where 
-                                                                        GROUP BY d.PK_ENTIDADE
 																		LIMIT $inicio,$maximo";
                                                                         $smtp = $con->prepare($query);
-                                                                        $smtp->execute([$pk_turma]);
+                                                                        $smtp->execute([$pk_tarefa, $pk_aluno, $pk_resposta]);
 
                                                                         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-                                                                        foreach ($linhas as $linha) {
-                                                                    ?>
+                                                                        foreach ($linhas as $linha) {                                                                    ?>
                                                                             <tr>
-                                                                                <th scope="row"><?= $linha->matricula_aluno ?></th>
-                                                                                <th scope="row"><?= $linha->nome_aluno ?></th>
+                                                                                <td scope="row"><?= date('d/m/Y', strtotime($linha->DATA_HORA)) ?></td>
+                                                                                <td scope="row"><?= $linha->DESCRICAO ?></td>
+                                                                                <td scope="row"><?= $linha->NOTA ?></td>
                                                                                 <td>
                                                                                     <div class="dash_action_link">
-                                                                                        <a href="tarefas-respostas-alunos-cadastros.php?tarefa=<?= $linha->CADASTRO_TAREFAS ?>&aluno=<?= $linha->matricula_aluno ?>" class="view"><i class="fa fa-eye"></i></a>
+                                                                                        <a href="<?= $linha->LINK ?>" class="view"><i class="fa fa-eye"></i></a>
+                                                                                        <a data-toggle="modal" wm-pk="<?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" data-target="#correcao" wm-corrigir class="edit">
+                                                                                            <i data-toggle="modal" wm-pk="<?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" data-target="#correcao" wm-corrigir class="fa fa-check"></i>
+                                                                                        </a>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
@@ -208,8 +208,45 @@ $pk_turma = $_GET['turma'];
         <!-- ============================ Dashboard: My Order Start End ================================== -->
 
         <?php include_once 'include/footer.php'; ?>
+        <?php
+        // Pega o cpf do aluno 
+        $query = "SELECT CPF FROM entidades WHERE PK_ENTIDADE = :pk_aluno";
+        $smtp = $con->prepare($query);
+        $smtp->bindParam(':pk_aluno', $pk_aluno);
+        $smtp->execute();
+        $linha = $smtp->fetch(PDO::FETCH_OBJ);
 
+        ?>
+        <div class="modal fade" id="correcao" tabindex="-1" role="dialog" aria-labelledby="Correção" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+                <div class="modal-content" id="sign-up">
+                    <span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+                    <div class="modal-body">
+                        <h4 class="modal-header-title" wm-titulo></h4>
+                        <div class="login-form">
+                            <form action="tarefas-funcao.php?funcao=corrigir" method="post">
+                                <input type="hidden" wm-inputPk name="pk">
+                                <input type="hidden" value="<?= $linha->CPF ?>" name="cpf">
+                                <input type="hidden" value="<?= $pk_aluno ?>" name="aluno">
+                                <input type="hidden" value="<?= $pk_tarefa ?>" name="tarefa">
 
+                                <div class="form-group">
+                                    <input type="number" name="nota" class="form-control" placeholder="Nota">
+                                </div>
+
+                                <div class="form-group nicEdit-panelContain">
+                                    <textarea id="area" name="comentario" class="form-control w-100" placeholder="Comentário"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" wm-salvar class="btn btn-md full-width pop-login">Corrigir</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
@@ -231,6 +268,7 @@ $pk_turma = $_GET['turma'];
     <script src="../assets/js/counterup.min.js"></script>
     <script src="../assets/js/jquery.mask.min.js"></script>
     <script src="../assets/js/custom.js"></script>
+    <script type="text/javascript" src="../assets/js/nicEdit.js"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -238,6 +276,51 @@ $pk_turma = $_GET['turma'];
     <script>
         $('#side-menu').metisMenu();
     </script>
+
+    <script>
+        const titulo = document.querySelector('[wm-titulo]')
+        const corrigir = document.querySelector('[wm-salvar]')
+        document.querySelectorAll('[wm-corrigir]').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                let pk = btn.getAttribute('wm-pk');
+                let tr = e.target.closest('tr')
+                let descricao = tr.children[1].innerText
+                titulo.innerHTML = descricao
+                document.querySelector('[wm-inputPk]').setAttribute("value", pk)
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+        bkLib.onDomLoaded(function() {
+            nicEditors.allTextAreas()
+        }); // convert all text areas to rich text editor on that page
+
+        bkLib.onDomLoaded(function() {
+            new nicEditor().panelInstance('area1');
+        }); // convert text area with id area1 to rich text editor.
+
+        bkLib.onDomLoaded(function() {
+            new nicEditor({
+                fullPanel: true
+            }).panelInstance('area2');
+        }); // convert text area with id area2 to rich text editor with full panel.
+    </script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        bkLib.onDomLoaded(function() {
+            new nicEditor({
+                maxHeight: 200
+            }).panelInstance('area');
+            new nicEditor({
+                fullPanel: true,
+                maxHeight: 200
+            }).panelInstance('area1');
+        });
+        //]]>  
+    </script>
+
 </body>
 
 </html>

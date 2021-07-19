@@ -103,3 +103,27 @@ if ($_GET['funcao'] == 'alunos') {
         echo 'precisa selecionar uma turma';
     }
 }
+
+if ($_GET['funcao'] == 'corrigir') {
+    $nota = $_POST['nota'];
+    $pk_resposta = $_POST['pk'];
+    $pk_tarefa = $_POST['tarefa'];
+    $pk_aluno = $_POST['aluno'];
+    $cpf_aluno = $_POST['cpf'];
+    $comentario = $_POST['comentario'];
+
+    try {
+        $query = "UPDATE materiais_tarefas_resposta SET NOTA = :nota, COMENTARIO = :comentario WHERE PK_MATERIAIS_TAREFAS_RESPOSTAS = :pk_resposta";
+        $smtp = $con->prepare($query);
+        $smtp->bindParam(':nota', $nota);
+        $smtp->bindParam(':comentario', $comentario);
+        $smtp->bindParam(':pk_resposta', $pk_resposta);
+        $smtp->execute();
+    } catch (PDOException $th) {
+        echo $th->getMessage();
+        exit;
+    }
+    session_start();
+    $_SESSION['msg'] = "A correção foi cadastrado com sucesso!!#success";
+    header('Location: tarefas-respostas-alunos-cadastros-arquivos.php?resposta=' . $pk_resposta . '&aluno=' . $pk_aluno . '&tarefa=' . $pk_tarefa);
+}

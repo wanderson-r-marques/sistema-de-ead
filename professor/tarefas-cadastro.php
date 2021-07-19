@@ -134,8 +134,8 @@
 													</div>
 
 
-													<h5 class="pt-5">arquivos</h5>
-
+													<h5 class="pt-5 w-100">arquivos</h5>
+													<br>
 													<?php for ($i = 0; $i < 3; $i++) : ?>
 														<div class="form-row" wm-ordem="<?= $i + 1 ?>">
 															<div class="form-group col-12  pt-5">

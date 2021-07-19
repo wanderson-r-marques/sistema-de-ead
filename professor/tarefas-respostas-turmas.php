@@ -180,7 +180,7 @@ $pk_escola = $_GET['escola'];
 
                                                                                 <td>
                                                                                     <div class="dash_action_link">
-                                                                                        <a href="tarefas-respostas-alunos.php?escola=<?= $linha->PK_ESCOLA ?>" class="view"><i class="fa fa-eye"></i></a>
+                                                                                        <a href="tarefas-respostas-alunos.php?turma=<?= $linha->PK_TURMA ?>" class="view"><i class="fa fa-eye"></i></a>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>

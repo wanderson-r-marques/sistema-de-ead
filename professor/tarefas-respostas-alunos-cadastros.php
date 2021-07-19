@@ -1,6 +1,7 @@
 <?php require_once 'valida.php'; ?>
 <?php require_once '../helpers/alert.php'; 
-$pk_turma = $_GET['turma'];
+$pk_tarefa = $_GET['tarefa'];
+$pk_aluno = $_GET['aluno'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -102,8 +103,8 @@ $pk_turma = $_GET['turma'];
                                                             <table class="table">
                                                                 <thead class="thead-dark">
                                                                     <tr>
-                                                                        <th scope="col">Matrícula</th>                                                                        
-                                                                        <th scope="col">Aluno</th>                                                                        
+                                                                        <th scope="col">Tarefa</th>                                                                       
+                                                                                                                                            
                                                                         <th scope="col">Ação</th>
                                                                     </tr>
                                                                 </thead>
@@ -113,23 +114,21 @@ $pk_turma = $_GET['turma'];
                                                                     $busca = $_GET['p'] ?? '';
 
                                                                     $where = " WHERE a.data_hora_resposta IS NOT NULL 
-                                                                    AND e.`PK_TURMA`=?";
+                                                                    AND d.PK_ENTIdADE = ?";
 
                                                                     $query = "SELECT 
-                                                                    c.`CADASTRO_TAREFAS`,
-                                                                    d.PK_ENTIDADE AS matricula_aluno,
-                                                                    d.nome AS nome_aluno  
+                                                                    a.*, c.`DESCRICAO_GERAL`
                                                                     FROM materiais_tarefas_resposta a 
                                                                     JOIN materiais_tarefa           b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
                                                                     JOIN cadastro_tarefas           c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
                                                                     JOIN entidades                  d ON a.`CPF_ENTIDADE` = d.`CPF` 
                                                                     JOIN alunos_escolas_turmas      e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE`
                                                                     
-																	$where GROUP BY d.PK_ENTIDADE";
+																	$where ";
 
                                                                     $smtp = $con->prepare($query);
 
-                                                                    if ($smtp->execute([$pk_turma])) {
+                                                                    if ($smtp->execute([$pk_aluno])) {
                                                                         // Pega o total de registros
                                                                         $total = $smtp->rowCount();
                                                                         //determina o numero de registros que serão mostrados na tela
@@ -144,9 +143,7 @@ $pk_turma = $_GET['turma'];
                                                                         // Nova query com as limitações
                                                                         
                                                                         $query = "SELECT 
-                                                                        c.`CADASTRO_TAREFAS`,
-                                                                        d.PK_ENTIDADE AS matricula_aluno,
-                                                                        d.nome AS nome_aluno  
+                                                                        a.*, c.`DESCRICAO_GERAL`
                                                                         FROM materiais_tarefas_resposta a 
                                                                         JOIN materiais_tarefa           b ON a.`PK_MATERIAIS_TAREFA` = b.`MATERIAL_TAREFA` 
                                                                         JOIN cadastro_tarefas           c ON b.`PK_CADASTRO_TAREFA` = c.`CADASTRO_TAREFAS` 
@@ -154,20 +151,19 @@ $pk_turma = $_GET['turma'];
                                                                         JOIN alunos_escolas_turmas      e ON d.`PK_ENTIDADE` = e.`PK_ENTIDADE`
                                                                         
                                                                         $where 
-                                                                        GROUP BY d.PK_ENTIDADE
 																		LIMIT $inicio,$maximo";
                                                                         $smtp = $con->prepare($query);
-                                                                        $smtp->execute([$pk_turma]);
+                                                                        $smtp->execute([$pk_aluno]);
 
                                                                         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
                                                                         foreach ($linhas as $linha) {
                                                                     ?>
                                                                             <tr>
-                                                                                <th scope="row"><?= $linha->matricula_aluno ?></th>
-                                                                                <th scope="row"><?= $linha->nome_aluno ?></th>
+                                                                                <th scope="row"><?= $linha->DESCRICAO_GERAL ?></th>
+                                                                               
                                                                                 <td>
                                                                                     <div class="dash_action_link">
-                                                                                        <a href="tarefas-respostas-alunos-cadastros.php?tarefa=<?= $linha->CADASTRO_TAREFAS ?>&aluno=<?= $linha->matricula_aluno ?>" class="view"><i class="fa fa-eye"></i></a>
+                                                                                        <a href="tarefas-respostas-alunos-cadastros-arquivos.php?resposta=<?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>&aluno=<?= $pk_aluno ?>&tarefa=<?= $pk_tarefa ?>" class="view"><i class="fa fa-eye"></i></a>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
