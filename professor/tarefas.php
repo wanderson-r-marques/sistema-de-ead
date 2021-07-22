@@ -144,6 +144,7 @@
 																  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
 																  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
 																 $where
+																 ORDER BY f.DATA_HORA DESC
 																   ";
 
 																	$smtp = $con->prepare($query);
@@ -187,6 +188,7 @@
 																	  JOIN professor_turmas_disciplinas 	k  ON b.`PK_TURMA` = k.`pk_turma`
 																	  JOIN entidades                    	l  ON k.`pk_entidade` =l.`PK_ENTIDADE`
 																	 $where
+																		ORDER BY f.DATA_HORA DESC
 																		LIMIT $inicio,$maximo";
 																		$smtp = $con->prepare($query);
 																		$smtp->execute();

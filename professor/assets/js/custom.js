@@ -49,6 +49,18 @@ function puxaTurmas(arrayEscolas) {
     })
 }
 
+function puxaResposta(pk) {
+    $.post("tarefas-respostas-alunos-cadastros-arquivos-request.php", {
+        pk: pk
+    }, function (data) {
+        resposta = JSON.parse(data)
+        document.querySelector('[wm-nota]').setAttribute("value", resposta.nota)
+        document.querySelector('.nicEdit-main').innerHTML = resposta.comentario
+
+
+    })
+}
+
 inputsTipo.forEach(input => {
     input.addEventListener("change", (e) => {
 
