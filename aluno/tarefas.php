@@ -177,7 +177,8 @@
 																	 	 l.DATA_HORA_VISTO,
 																	 	 l.DATA_HORA_RESPOSTA,
 																	 	 l.PK_MATERIAIS_TAREFAS_RESPOSTAS,
-																		  l.NOTA
+																		  l.NOTA,
+																		  l.COMENTARIO
 																		 
 																		 
 																		 
@@ -215,6 +216,12 @@
 																							<?php else : ?>
 																								<a href="tarefas-arquivos.php?pkTarefa=<?= $linha->MATERIAL_TAREFA ?>&pkResposta= <?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" class="edit"><i class="fa fa-pen"></i></a>
 																							<?php endif; ?>
+																						<?php endif; ?>
+
+																						<?php if ($linha->COMENTARIO) : ?>
+																							<a data-toggle="modal" wm-pk="<?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" data-target="#comentario" class="delete">
+																								<i data-toggle="modal" wm-pk="<?= $linha->PK_MATERIAIS_TAREFAS_RESPOSTAS ?>" data-target="#comentario" class="fa fa-comment"></i>
+																							</a>
 																						<?php endif; ?>
 																					</div>
 																				</td>
@@ -257,7 +264,19 @@
 
 		<?php include_once 'include/footer.php'; ?>
 
+		<div class="modal fade" id="comentario" tabindex="-1" role="dialog" aria-labelledby="Comentário" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered login-pop-form" role="document">
+				<div class="modal-content" id="sign-up">
+					<span class="mod-close" data-dismiss="modal" aria-hidden="true"><i class="ti-close"></i></span>
+					<div class="modal-body">
+						<h4 wm-titulo class="mb-3"></h4>
+						<div class="login-form" wm-comentario>
 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<a id="back2Top" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
 
@@ -279,6 +298,7 @@
 	<script src="../assets/js/counterup.min.js"></script>
 	<script src="../assets/js/jquery.mask.min.js"></script>
 	<script src="../assets/js/custom.js"></script>
+	<script src="assets/js/custom.js"></script>
 	<!-- ============================================================== -->
 	<!-- This page plugins -->
 	<!-- ============================================================== -->
@@ -310,6 +330,19 @@
 					}
 					// cxEscolas.innerHTML = data
 				})
+			})
+		})
+	</script>
+	<script>
+		const titulo = document.querySelector('[wm-titulo]')
+		const comentario = document.querySelector('[wm-comentario]')
+		document.querySelectorAll('[wm-pk]').forEach((btn) => {
+			btn.addEventListener('click', (e) => {
+				let pk = btn.getAttribute('wm-pk')
+				let tr = e.target.closest('tr')
+				let descricao = tr.children[1].innerText
+				titulo.innerHTML = descricao
+				puxaResposta(pk)
 			})
 		})
 	</script>

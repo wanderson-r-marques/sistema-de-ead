@@ -26,3 +26,12 @@ function clonarArquivo() {
 
     cxArquivo.appendChild(cloneElemento)
 }
+
+function puxaResposta(pk) {
+    $.post("tarefas-requests.php?funcao=resposta", {
+        pk: pk
+    }, function (data) {
+        resposta = JSON.parse(data)
+        document.querySelector('[wm-comentario]').innerHTML = resposta.comentario
+    })
+}
