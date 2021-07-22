@@ -231,7 +231,7 @@ $pk_resposta = $_GET['resposta'];
                                 <input type="hidden" value="<?= $pk_tarefa ?>" name="tarefa">
 
                                 <div class="form-group">
-                                    <input type="number" name="nota" class="form-control" placeholder="Nota">
+                                    <input type="number" wm-nota name="nota" class="form-control" placeholder="Nota">
                                 </div>
 
                                 <div class="form-group nicEdit-panelContain">
@@ -268,6 +268,7 @@ $pk_resposta = $_GET['resposta'];
     <script src="../assets/js/counterup.min.js"></script>
     <script src="../assets/js/jquery.mask.min.js"></script>
     <script src="../assets/js/custom.js"></script>
+    <script src="assets/js/custom.js"></script>
     <script type="text/javascript" src="../assets/js/nicEdit.js"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
@@ -287,6 +288,10 @@ $pk_resposta = $_GET['resposta'];
                 let descricao = tr.children[1].innerText
                 titulo.innerHTML = descricao
                 document.querySelector('[wm-inputPk]').setAttribute("value", pk)
+                puxaResposta(pk)
+
+
+
             })
         })
     </script>
