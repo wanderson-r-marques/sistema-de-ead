@@ -261,7 +261,6 @@
 			</div>
 		</section>
 		<!-- ============================ Dashboard: My Order Start End ================================== -->
-
 		<?php include_once 'include/footer.php'; ?>
 
 		<div class="modal fade" id="comentario" tabindex="-1" role="dialog" aria-labelledby="Comentário" aria-hidden="true">

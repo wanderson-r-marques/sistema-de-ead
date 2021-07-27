@@ -66,9 +66,11 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
                     if ($linha->PK_TIPO_CADASTRO == 2) {
                         header('Location: professor/painel.php');
                     } else if ($linha->PK_TIPO_CADASTRO == 4) {
-                        header('Location: restrito/painel.php');
+                        header('Location: diretor/painel.php');
                     } else if ($linha->PK_TIPO_CADASTRO == 1) {
                         header('Location: aluno/painel.php');
+                    } else if ($linha->PK_TIPO_CADASTRO == 3) {
+                        header('Location: coordenador/painel.php');
                     }
                 } else {
                     session_start();
