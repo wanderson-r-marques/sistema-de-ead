@@ -42,25 +42,25 @@
         <!-- Top header  -->
         <!-- ============================================================== -->
 
+        <form action="entidades-funcao.php?funcao=importar" method="post" enctype="multipart/form-data">
+            <!-- ============================ Dashboard: My Order Start ================================== -->
+            <section class="gray pt-0">
+                <div class="container-fluid">
 
-        <!-- ============================ Dashboard: My Order Start ================================== -->
-        <section class="gray pt-0">
-            <div class="container-fluid">
+                    <!-- Row -->
+                    <div class="row">
 
-                <!-- Row -->
-                <div class="row">
+                        <?php include_once 'include/nav.php' ?>
 
-                    <?php include_once 'include/nav.php' ?>
+                        <div class="col-lg-9 col-md-9 col-sm-12">
 
-                    <div class="col-lg-9 col-md-9 col-sm-12">
-                        <form action="entidades-funcao.php?funcao=cadastrar" method="post">
                             <!-- Row -->
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#">Painel</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Entidades Cadastro
+                                            <li class="breadcrumb-item active" aria-current="page">Importar Entidades
                                             </li>
                                         </ol>
                                     </nav>
@@ -74,83 +74,23 @@
                                     <div class="dashboard_container">
                                         <div class="dashboard_container_header">
                                             <div class="dashboard_fl_1">
-                                                <h4>Cadastrar entidade</h4>
+                                                <h4>Importar entidades</h4>
                                             </div>
                                         </div>
                                         <div class="dashboard_container_body p-4">
-                                            <!-- Basic info -->
+
+
                                             <div class="submit-section">
                                                 <div class="form-row">
 
                                                     <div class="form-group col-md-6">
-                                                        <label>Nome</label>
-                                                        <input type="text" required name="nome" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label>Apelido</label>
-                                                        <input type="text" name="apelido" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>CPF</label>
-                                                        <input type="text" id="validaCPF" required name="cpf"
-                                                            class="form-control cpf">
-                                                        <span id="txtCPF" class="payment_status cancel"
-                                                            style="color: red;">CPF inválido</span>
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>RG</label>
-                                                        <input type="text" required name="rg" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Cód. INEP</label>
-                                                        <input type="text" name="cod" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Data de nascimento</label>
-                                                        <input type="date" required name="edu-start" value=""
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Telefone 1</label>
-                                                        <input type="text" required name="telefone-1"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Telefone 2</label>
-                                                        <input type="text" name="telefone-2" class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>E-mail</label>
-                                                        <input type="email" required name="email"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Tipo</label>
-                                                        <select name="tipo" required class="form-control">
-                                                            <option value="1">Aluno</option>
-                                                            <option value="2">Professor</option>
-                                                            <option value="3">Coordenador</option>
-                                                            <option value="4">Diretor</option>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Senha</label>
-                                                        <input type="password" required name="senha"
-                                                            class="form-control" />
+                                                        <label>Arquivo CSV</label>
+                                                        <input type="file" accept=".csv" required name="entidades"
+                                                            class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- Basic info -->
+
 
                                         </div>
 
@@ -166,16 +106,16 @@
                                     <button class="btn btn-theme" type="submit">Salvar</button>
                                 </div>
                             </div>
-                        </form>
+
+                        </div>
+
                     </div>
+                    <!-- Row -->
 
                 </div>
-                <!-- Row -->
-
-            </div>
-        </section>
-        <!-- ============================ Dashboard: My Order Start End ================================== -->
-
+            </section>
+            <!-- ============================ Dashboard: My Order Start End ================================== -->
+        </form>
 
 
         <?php require_once 'include/footer.php' ?>

@@ -1,4 +1,22 @@
 <?php require_once 'valida.php'; ?>
+<?php
+
+if (isset($_GET['pk']) &&  is_numeric($_GET['pk'])) {
+    $pk = $_GET['pk'];
+    $query = "SELECT c.disciplina pk_disciplina, c.`curriculo`, c.`DESCRICAO`, s.`DESCRICAO` serie, d.`DESCRICAO` disciplina, e.`DESCRICAO` ensino FROM curriculo c
+    JOIN series s ON c.`serie` = s.`PK_SERIES`
+    JOIN disciplinas d ON c.`disciplina` = d.`PK_DISCIPLINAS`
+    JOIN ensinos e ON c.`ensino` = e.`PK_ENSINOS`
+    WHERE c.`curriculo` = :pk";
+    $smtp = $con->prepare($query);
+    $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+    $smtp->execute();
+    $linhaDB = $smtp->fetch(PDO::FETCH_OBJ);
+} else {
+    header('Location: ensinos.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -53,14 +71,14 @@
                     <?php include_once 'include/nav.php' ?>
 
                     <div class="col-lg-9 col-md-9 col-sm-12">
-                        <form action="entidades-funcao.php?funcao=cadastrar" method="post">
+                        <form action="curriculos-funcao.php?funcao=editar&pk=<?= $linhaDB->curriculo ?>" method="post">
                             <!-- Row -->
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 pt-4 pb-4">
                                     <nav aria-label="breadcrumb">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item"><a href="#">Painel</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Entidades Cadastro
+                                            <li class="breadcrumb-item active" aria-current="page">Currículo Editar
                                             </li>
                                         </ol>
                                     </nav>
@@ -74,104 +92,108 @@
                                     <div class="dashboard_container">
                                         <div class="dashboard_container_header">
                                             <div class="dashboard_fl_1">
-                                                <h4>Cadastrar entidade</h4>
+                                                <h4>Editar Currículo</h4>
                                             </div>
                                         </div>
                                         <div class="dashboard_container_body p-4">
+
                                             <!-- Basic info -->
                                             <div class="submit-section">
                                                 <div class="form-row">
 
-                                                    <div class="form-group col-md-6">
-                                                        <label>Nome</label>
-                                                        <input type="text" required name="nome" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label>Apelido</label>
-                                                        <input type="text" name="apelido" class="form-control">
-                                                    </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label>CPF</label>
-                                                        <input type="text" id="validaCPF" required name="cpf"
-                                                            class="form-control cpf">
-                                                        <span id="txtCPF" class="payment_status cancel"
-                                                            style="color: red;">CPF inválido</span>
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>RG</label>
-                                                        <input type="text" required name="rg" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Cód. INEP</label>
-                                                        <input type="text" name="cod" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Data de nascimento</label>
-                                                        <input type="date" required name="edu-start" value=""
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Telefone 1</label>
-                                                        <input type="text" required name="telefone-1"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Telefone 2</label>
-                                                        <input type="text" name="telefone-2" class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>E-mail</label>
-                                                        <input type="email" required name="email"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label>Tipo</label>
-                                                        <select name="tipo" required class="form-control">
-                                                            <option value="1">Aluno</option>
-                                                            <option value="2">Professor</option>
-                                                            <option value="3">Coordenador</option>
-                                                            <option value="4">Diretor</option>
+                                                        <label>Série</label>
+                                                        <?php
+                                                        $query = "SELECT PK_SERIES PK, DESCRICAO FROM series
+															ORDER BY `DESCRICAO` ASC";
+                                                        $smtp = $con->prepare($query);
+                                                        $smtp->execute();
+                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                        ?>
+                                                        <select name="serie" required class="form-control">
+                                                            <?php foreach ($linhas as $linha) : ?>
+                                                            <option
+                                                                <?= ($linhaDB->serie == $linha->PK) ? 'selected' : '' ?>
+                                                                value="<?= $linha->PK ?>"><?= $linha->DESCRICAO ?>
+                                                            </option>
+                                                            <?php endforeach; ?>
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label>Senha</label>
-                                                        <input type="password" required name="senha"
-                                                            class="form-control" />
+                                                        <label>Ensino</label>
+                                                        <?php
+                                                        $query = "SELECT PK_ENSINOS, DESCRICAO FROM ensinos
+															ORDER BY `DESCRICAO` ASC";
+                                                        $smtp = $con->prepare($query);
+                                                        $smtp->execute();
+                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                        ?>
+                                                        <select name="ensino" required class="form-control">
+                                                            <?php foreach ($linhas as $linha) : ?>
+                                                            <option
+                                                                <?= ($linhaDB->ensino == $linha->PK_ENSINOS) ? 'selected' : '' ?>
+                                                                value="<?= $linha->PK_ENSINOS ?>">
+                                                                <?= $linha->DESCRICAO ?>
+                                                            </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
                                                     </div>
+
+                                                    <div class="form-group col-md-4">
+                                                        <label>Currículo</label>
+                                                        <input value="<?= $linhaDB->DESCRICAO ?>" type="text"
+                                                            name="curriculo" required class="form-control col-md-12">
+                                                    </div>
+
+                                                    <!-- <div class="form-group col-md-3">
+                                                        <label>Ordem</label>
+                                                        <input type="text" name="ordem" required
+                                                            class="form-control col-md-12">
+                                                    </div> -->
+
+
+                                                    <div class="form-group col-md-4">
+                                                        <label>Disciplina</label>
+                                                        <?php
+                                                        $query = "SELECT PK_DISCIPLINAS, DESCRICAO FROM disciplinas
+															ORDER BY `DESCRICAO` ASC";
+                                                        $smtp = $con->prepare($query);
+                                                        $smtp->execute();
+                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                        ?>
+                                                        <select name="disciplina" required class="form-control">
+                                                            <?php foreach ($linhas as $linha) : ?>
+                                                            <option
+                                                                <?= ($linhaDB->pk_disciplina == $linha->PK_DISCIPLINAS) ? 'selected' : '' ?>
+                                                                value="<?= $linha->PK_DISCIPLINAS ?>">
+                                                                <?= $linha->DESCRICAO ?>
+                                                            </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                             <!-- Basic info -->
-
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                             <!-- /Row -->
-
-                            <!-- /Row -->
-
                             <div class="row">
                                 <div class="form-group col-lg-12 col-md-12">
                                     <button class="btn btn-theme" type="submit">Salvar</button>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
 
                 </div>
                 <!-- Row -->
-
+                </form>
             </div>
         </section>
         <!-- ============================ Dashboard: My Order Start End ================================== -->
@@ -309,7 +331,6 @@
     <script src="../assets/js/custom.js"></script>
 
     <script src="../assets/js/dropzone.js"></script>
-    <script src="../assets/js/valida.cpf.js"></script>
 
     <!-- Date Booking Script -->
     <script src="../assets/js/moment.min.js"></script>
@@ -318,9 +339,32 @@
     <!-- This page plugins -->
     <!-- ============================================================== -->
     <script src="../assets/js/metisMenu.min.js"></script>
+    <script src="../assets/js/cep.js"></script>
     <script>
     $('#side-menu').metisMenu();
     </script>
+
+    <script>
+    // Course Expire and Start Daterange Script
+    $(function() {
+        $('input[name="edu-expire"]').daterangepicker({
+            singleDatePicker: true,
+        });
+        $('input[name="edu-expire"]').val('');
+        $('input[name="edu-expire"]').attr("placeholder", "Course Expire");
+    });
+    $(function() {
+        $('input[name="edu-start"]').daterangepicker({
+            singleDatePicker: true,
+
+        });
+        $('input[name="start"]').val('');
+        $('input[name="start"]').attr("placeholder", "Course Start");
+    });
+
+    cep()
+    </script>
+
 </body>
 
 <!-- Mirrored from themezhub.net/learnup-demo-2/learnup/add-listing.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Apr 2021 12:05:45 GMT -->

@@ -5,8 +5,8 @@ if ($_GET['funcao'] == 'cadastrar') {
     if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
-        $cod = $_POST['cod']; 
-        $cpf = $_POST['cpf'];        
+        $cod = $_POST['cod'];
+        $cpf = $_POST['cpf'];
         $cpf = str_replace('.', '', $cpf);
         $cpf = str_replace('-', '', $cpf);
         $rg = addslashes($_POST['rg']);
@@ -69,12 +69,12 @@ if ($_GET['funcao'] == 'cadastrar') {
 }
 // Função para editar
 if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
-   
+
     if (isset($_POST['cpf']) && $_POST['cpf'] != null) {
         $nome = addslashes($_POST['nome']);
         $apelido = addslashes($_POST['apelido']);
-        $cpf = $_POST['cpf'];        
-        $cod = $_POST['cod'];        
+        $cpf = $_POST['cpf'];
+        $cod = $_POST['cod'];
         $cpf = str_replace('.', '', $cpf);
         $cpf = str_replace('-', '', $cpf);
         $rg = addslashes($_POST['rg']);
@@ -102,7 +102,7 @@ if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
         WHERE `PK_ENTIDADE` = $pk;
       
       ";
-        $smtp = $con->prepare($query);       
+        $smtp = $con->prepare($query);
         $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
         if ($smtp->execute()) {
             session_start();
@@ -130,4 +130,68 @@ if ($_GET['funcao'] == 'deletar' && is_numeric($_GET['pk'])) {
         $_SESSION['msg'] = "Ocorreu um erro ao deletar a Entidade!#danger";
         header('Location: entidades.php');
     }
+}
+
+// Função para importar entidades
+if ($_GET['funcao'] == 'importar') {
+    $csv = $_FILES['entidades'];
+    $arquivo = $_FILES['entidades']['tmp_name'];
+    $nome_arquivo = $_FILES['entidades']['name'];
+    $explode = explode('.', $nome_arquivo);
+    $ext = $explode[1];
+    $obj = fopen($arquivo, 'r');
+
+    while (($dados = fgetcsv($obj, 1000, ";")) !== FALSE) {
+
+        $NOME           = utf8_encode($dados[0]);
+        $NOME_FANTASIA    = utf8_encode($dados[1]);
+        $CPF    = utf8_encode($dados[2]);
+        $SENHA    = substr($CPF, 0, 3);
+        $RG    = utf8_encode($dados[3]);
+        $DATA_NASCIMENTO    = utf8_encode($dados[4]);
+        $TELEFONE1 = utf8_encode($dados[5]);
+        $TELEFONE2 = utf8_encode($dados[6]);
+        $EMAIL    = utf8_encode($dados[7]);
+        $TIPO    = utf8_encode($dados[8]);
+        $MATRICULA = utf8_encode($dados[9]);
+        $COD_INEP = utf8_encode($dados[10]);
+
+        if ($NOME != 'NOME' && $NOME != 'nome') {
+            $query = "INSERT INTO `entidades` (
+                        `NOME`,
+                        `NOME_FANTASIA`,
+                        `CPF`,
+                        `RG`,
+                        `DATA_NASCIMENTO`,
+                        `TELEFONE1`,
+                        `TELEFONE2`,
+                        `EMAIL`,
+                        `PK_TIPO_CADASTRO`,
+                        `MATRICULA`,
+                        `SENHA`,
+                        `COD_INEP`
+                        )
+                        VALUES
+                        (
+                            '$NOME',
+                            '$NOME_FANTASIA',
+                            '$CPF',
+                            '$RG',
+                            '$DATA_NASCIMENTO',
+                            '$TELEFONE1',
+                            '$TELEFONE2',
+                            '$EMAIL',
+                            '$TIPO',
+                            '$MATRICULA',
+                            '$SENHA',
+                            '$COD_INEP'
+                        )";
+
+            $smtp = $con->prepare($query);
+            $smtp->execute();
+        }
+    }
+    session_start();
+    $_SESSION['msg'] = "Entidades importadas com sucesso!#success";
+    header('Location: entidades.php');
 }

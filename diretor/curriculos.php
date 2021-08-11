@@ -119,45 +119,45 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-																	$where = '';
-																	$busca = $_GET['p'] ?? '';
-																	$where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || c.`DESCRICAO` LIKE ('%" . $busca . "%') || d.`DESCRICAO` LIKE ('%" . $busca . "%')";
+                                                                    $where = '';
+                                                                    $busca = $_GET['p'] ?? '';
+                                                                    $where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || c.`DESCRICAO` LIKE ('%" . $busca . "%') || d.`DESCRICAO` LIKE ('%" . $busca . "%')";
 
-																	$query = "SELECT c.`curriculo`, s.`DESCRICAO` serie, d.`DESCRICAO` disciplina, e.`DESCRICAO` ensino FROM curriculo c
+                                                                    $query = "SELECT c.`curriculo`, s.`DESCRICAO` serie, d.`DESCRICAO` disciplina, e.`DESCRICAO` ensino FROM curriculo c
 																	JOIN series s ON c.`serie` = s.`PK_SERIES`
 																	JOIN disciplinas d ON c.`disciplina` = d.`PK_DISCIPLINAS`
 																	JOIN ensinos e ON c.`ensino` = e.`PK_ENSINOS`
 																	$where
 																	ORDER BY c.ordem";
 
-																	$smtp = $con->prepare($query);
+                                                                    $smtp = $con->prepare($query);
 
-																	if ($smtp->execute()) {
-																		// Pega o total de registros
-																		$total = $smtp->rowCount();
-																		//determina o numero de registros que serão mostrados na tela
-																		$maximo = 10;
-																		//pega o valor da pagina atual
-																		$pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
+                                                                    if ($smtp->execute()) {
+                                                                        // Pega o total de registros
+                                                                        $total = $smtp->rowCount();
+                                                                        //determina o numero de registros que serão mostrados na tela
+                                                                        $maximo = 10;
+                                                                        //pega o valor da pagina atual
+                                                                        $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
 
-																		//subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-																		$inicio = $pagina - 1;
-																		//multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-																		$inicio = $maximo * $inicio;
-																		// Nova query com as limitações
-																		$query = "SELECT c.`curriculo`, c.`DESCRICAO`, s.`DESCRICAO` serie, d.`DESCRICAO` disciplina, e.`DESCRICAO` ensino FROM curriculo c
+                                                                        //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
+                                                                        $inicio = $pagina - 1;
+                                                                        //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
+                                                                        $inicio = $maximo * $inicio;
+                                                                        // Nova query com as limitações
+                                                                        $query = "SELECT c.`curriculo`, c.`DESCRICAO`, s.`DESCRICAO` serie, d.`DESCRICAO` disciplina, e.`DESCRICAO` ensino FROM curriculo c
 																		JOIN series s ON c.`serie` = s.`PK_SERIES`
 																		JOIN disciplinas d ON c.`disciplina` = d.`PK_DISCIPLINAS`
 																		JOIN ensinos e ON c.`ensino` = e.`PK_ENSINOS`
 																		$where
 																		ORDER BY c.ordem
 	LIMIT $inicio,$maximo";
-																		$smtp = $con->prepare($query);
-																		$smtp->execute();
+                                                                        $smtp = $con->prepare($query);
+                                                                        $smtp->execute();
 
-																		$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-																		foreach ($linhas as $linha) {
-																	?>
+                                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                                        foreach ($linhas as $linha) {
+                                                                    ?>
                                                                     <tr>
                                                                         <th scope="row"><?= $linha->DESCRICAO ?></th>
                                                                         <td><?= $linha->serie ?></td>
@@ -165,26 +165,22 @@
                                                                         <td><?= $linha->ensino ?></td>
                                                                         <td>
                                                                             <div class="dash_action_link">
-                                                                                <a href="curriculos-visualizar.php?pk=<?= $linha->PK_TURMA ?>"
-                                                                                    class="view"><i
-                                                                                        class="fa fa-eye"></i></a>
-                                                                                <a href="curriculos-editar.php?pk=<?= $linha->PK_TURMA ?>"
+
+                                                                                <a href="curriculos-editar.php?pk=<?= $linha->curriculo ?>"
                                                                                     class="edit"><i
                                                                                         class="fa fa-pen"></i></a>
-                                                                                <a href="curriculos-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>"
-                                                                                    class="edit"><i
-                                                                                        class="fa fa-users"></i></a>
+
                                                                                 <a onclick="return confirm('Deseja deletar?')"
-                                                                                    href="curriculos-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>"
+                                                                                    href="curriculos-funcao.php?funcao=deletar&pk=<?= $linha->curriculo ?>"
                                                                                     class="cancel"><i
                                                                                         class="fa fa-trash"></i></a>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
                                                                     <?php
-																		}
-																	}
-																	?>
+                                                                        }
+                                                                    }
+                                                                    ?>
                                                                 </tbody>
                                                             </table>
                                                         </div>

@@ -34,43 +34,46 @@ if ($_GET['funcao'] == 'cadastrar') {
 
         if ($bool) {
             session_start();
-            $_SESSION['msg'] = "Turma cadastrada com sucesso!#success";
+            $_SESSION['msg'] = "Currículo cadastrado com sucesso!#success";
             header('Location: curriculos.php');
         } else {
             session_start();
-            $_SESSION['msg'] = "Ocorreu um erro ao cadastrar a Turma!#danger";
+            $_SESSION['msg'] = "Ocorreu um erro ao cadastrar o Currículo!#danger";
             header('Location: curriculos.php');
         }
     }
 }
 // Função para editar
 if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
-    if (isset($_POST['escola']) && $_POST['escola'] != null) {
-        $escola = addslashes($_POST['escola']);
-        $turma = addslashes($_POST['turma']);
-        $serie = addslashes($_POST['serie']);
-        $turno = addslashes($_POST['turno']);
-        $pk = addslashes($_GET['pk']);
-        $query = "UPDATE
-        `turmas`
-        SET
-            `DESCRICAO` = '$turma',
-            `PK_SERIE` = '$serie',
-            `PK_ESCOLA` = '$escola',
-            `PK_TURNO` = '$turno'           
-        WHERE `PK_TURMA` = $pk;
+    if (isset($_POST['disciplina']) && $_POST['disciplina'] != null) {
 
-      ";
+
+        $ensino = addslashes($_POST['ensino']);
+        $curriculo = addslashes($_POST['curriculo']);
+        $serie = addslashes($_POST['serie']);
+        $disciplina = $_POST['disciplina'];
+        $pk = addslashes($_GET['pk']);
+
+        $query = "UPDATE
+            `curriculo`
+            SET
+                `descricao` = '$curriculo',
+                `serie` = '$serie',
+                `disciplina` = '$disciplina',
+                `ensino` = '$ensino'           
+            WHERE `curriculo` = :pk;
+            ";
         $smtp = $con->prepare($query);
         $smtp->bindParam(':pk', $pk, PDO::PARAM_INT);
+
         if ($smtp->execute()) {
             session_start();
-            $_SESSION['msg'] = "Turma editada com sucesso!#success";
-            header('Location: turmas.php');
+            $_SESSION['msg'] = "Currículo editado com sucesso!#success";
+            header('Location: curriculos.php');
         } else {
             session_start();
-            $_SESSION['msg'] = "Ocorreu um erro ao editar a Turma!#danger";
-            header('Location: turmas.php');
+            $_SESSION['msg'] = "Ocorreu um erro ao editar o Currículo!#danger";
+            header('Location: curriculos.php');
         }
     }
 }
