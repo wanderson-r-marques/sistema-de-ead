@@ -1,28 +1,27 @@
 <?php
 require_once 'valida.php';
-$alunos = $_POST['alunos'];
-$pk = $_POST['turma'];
+$professores = $_POST['professores'];
+$pk = $_POST['escola'];
 $atualizado = false;
-if (count($alunos) > 0) {
+if (count($professores) > 0) {
     // Deletar o aluno caso ele tenha saido da turma
-    $query = "SELECT a.PK_ALUNOS_ESCOLAS_TURMAS, a.`PK_ENTIDADE` FROM `alunos_escolas_turmas` a
-    WHERE a.`PK_TURMA` = ?";
+    $query = "SELECT a.escola, a.entidade FROM professor_escola a WHERE a.escola = ?";
     $smtp = $con->prepare($query);
     $smtp->execute([$pk]);
     $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
     foreach ($linhas as $linha) {
-        $alunoExiste = false;
-        foreach ($alunos as $aluno) {
-            if ($aluno == $linha->PK_ENTIDADE) {
-                $alunoExiste = true;
+        $existe = false;
+        foreach ($professores as $professor) {
+            if ($professor == $linha->entidade) {
+                $existe = true;
             }
         }
-        if ($alunoExiste == false) {
+        if ($existe == false) {
             try {
-                $query = "DELETE FROM `alunos_escolas_turmas`
-                WHERE `PK_ALUNOS_ESCOLAS_TURMAS` = ?";
+                $query = "DELETE FROM `professor_escola`
+                WHERE `entidade` = ?";
                 $smtp = $con->prepare($query);
-                $smtp->execute([$linha->PK_ALUNOS_ESCOLAS_TURMAS]);
+                $smtp->execute([$linha->entidade]);
                 $atualizado = true;
             } catch (PDOException $e) {
                 echo $e->getCode() . ': ' . $e->getMessage();
@@ -32,31 +31,30 @@ if (count($alunos) > 0) {
     //  Final da função de deletar
 
     // Insere os novos alunos
-    $query = "SELECT a.PK_ALUNOS_ESCOLAS_TURMAS, a.`PK_ENTIDADE` FROM `alunos_escolas_turmas` a
-    WHERE a.`PK_TURMA` = ?";
+    $query = "SELECT a.escola, a.`entidade` FROM `professor_escola` a
+    WHERE a.`escola` = ?";
     $smtp = $con->prepare($query);
     $smtp->execute([$pk]);
     $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-    foreach ($alunos as $aluno) {
-        $alunoExiste = false;
+    foreach ($professores as $professor) {
+        $existe = false;
         foreach ($linhas as $linha) {
-            if ($aluno == $linha->PK_ENTIDADE) {
-                $alunoExiste = true;
+            if ($professor == $linha->entidade) {
+                $existe = true;
             }
         }
-        if ($alunoExiste == false) {
+        if ($existe == false) {
             try {
-                $query = "INSERT INTO `alunos_escolas_turmas` (PK_ENTIDADE,PK_TURMA) VALUES (?, ?)";
+                $query = "INSERT INTO `professor_escola` (entidade,escola) VALUES (?, ?)";
                 $smtp = $con->prepare($query);
-                $smtp->execute([$aluno, $pk]);
-                $atualizado = true;                
+                $smtp->execute([$professor, $pk]);
+                $atualizado = true;
             } catch (PDOException $e) {
                 echo $e->getCode() . ': ' . $e->getMessage();
             }
-
         }
     }
     //  Final da função de inserir
-    if($atualizado == true)
+    if ($atualizado == true)
         echo '1';
 }
