@@ -63,6 +63,26 @@ if ($_POST['acessar'] == 's' && $_POST['token'] == '8s0dfg7s6grogpsfgsgs-*sgsfg'
                     $_SESSION['cpf'] = $cpf;
                     $_SESSION['entidade'] = $linha->PK_ENTIDADE;
 
+                    // Salva o acesso do usuário
+                    $data_hora = date("Y-m-d H:i:s");
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    $query = "INSERT INTO acessos ( 
+                        `DATA_HORA`,
+                        `ENTIDADE`,
+                        `IP`
+                      )
+                      VALUES
+                        (   
+                          :DATA_HORA,
+                          :ENTIDADE,
+                          :IP
+                        )";
+                    $smtp = $con->prepare($query);
+                    $smtp->bindParam(':DATA_HORA', $data_hora, PDO::PARAM_STR);
+                    $smtp->bindParam(':ENTIDADE', $linha->PK_ENTIDADE, PDO::PARAM_STR);
+                    $smtp->bindParam(':IP', $ip, PDO::PARAM_STR);
+                    $smtp->execute();
+
                     if ($linha->PK_TIPO_CADASTRO == 2) {
                         header('Location: professor/painel.php');
                     } else if ($linha->PK_TIPO_CADASTRO == 4) {

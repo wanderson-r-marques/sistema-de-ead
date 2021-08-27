@@ -61,8 +61,8 @@ if ($_GET['funcao'] == 'cadastrar') {
 // Função para editar
 if ($_GET['funcao'] == 'editar' && is_numeric($_GET['pk'])) {
     if (isset($_POST['escola']) && $_POST['escola'] != null) {
-        $escola = addslashes($_POST['escola']); 
-        $cod = addslashes($_POST['cod']);        
+        $escola = addslashes($_POST['escola']);
+        $cod = addslashes($_POST['cod']);
         $logradouro = addslashes($_POST['logradouro']);
         $numero = addslashes($_POST['numero']);
         $complemento = addslashes($_POST['complemento']);
@@ -113,5 +113,52 @@ if ($_GET['funcao'] == 'deletar' && is_numeric($_GET['pk'])) {
         session_start();
         $_SESSION['msg'] = "Ocorreu um erro ao deletar a Escola!#danger";
         header('Location: escolas.php');
+    }
+}
+
+// Função para cadastrar o professor na turma
+if ($_GET['funcao'] == 'professorTurma') {
+    if (isset($_POST['escola']) && $_POST['escola'] != null) {
+        $escola = addslashes($_POST['escola']);
+        $professor = addslashes($_POST['professor']);
+        $turmas = $_POST['turmas'];
+
+        $disciplina = addslashes($_POST['disciplina']);
+        $anoLetivo = addslashes($_POST['anoLetivo']);
+        foreach ($turmas as $turma) {
+
+            try {
+                $query = "INSERT INTO `professor_turmas_disciplinas` (
+            `pk_turma`,
+            `pk_disciplinas`,
+            `pk_escola`,
+            `pk_entidade`,
+            `ano_letivo`
+          )
+          VALUES
+            (  
+              :pk_turma,
+              :pk_disciplinas,
+              :pk_escola,
+              :pk_entidade,
+              :ano_letivo
+            )";
+                $smtp = $con->prepare($query);
+                $smtp->bindParam(':pk_turma', $turma, PDO::PARAM_INT);
+                $smtp->bindParam(':pk_disciplinas', $disciplina, PDO::PARAM_INT);
+                $smtp->bindParam(':pk_escola', $escola, PDO::PARAM_INT);
+                $smtp->bindParam(':pk_entidade', $professor, PDO::PARAM_INT);
+                $smtp->bindParam(':ano_letivo', $anoLetivo, PDO::PARAM_INT);
+                $smtp->execute();
+            } catch (PDOException $e) {
+                session_start();
+                $_SESSION['msg'] = "Houve algum erro no registro: " . $turma . ": !#danger";
+                header('Location: escolas-adicionar-professor-turma.php?escola=' . $escola . '&professor=' . $professor);
+            }
+        }
+
+        session_start();
+        $_SESSION['msg'] = "Professor associado a turma com sucesso!#success";
+        header('Location: escolas-adicionar-professor-turma.php?escola=' . $escola . '&professor=' . $professor);
     }
 }

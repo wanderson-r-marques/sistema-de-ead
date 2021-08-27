@@ -86,7 +86,7 @@ $pk = $_GET['pk'];
 
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <form action="turmas-adicionar-alunos.php"
+                                                    <form action="escolas-adicionar-professores.php"
                                                         class="form-inline my-2 my-lg-0">
                                                         <input class="form-control" type="hidden"
                                                             value="<?= $_GET['pk'] ?? '' ?>" name="pk">
@@ -114,26 +114,26 @@ $pk = $_GET['pk'];
                                                         <div class="col-lg-6 col-md-6">
                                                             <!-- Total Cart -->
                                                             <div class="cart_totals checkout">
-                                                                <h4>Alunos não matriculados</h4>
+                                                                <h4>Professores sem turma</h4>
                                                                 <div class="cart-wrap">
                                                                     <ul class="cart_list " id="reports_out"
                                                                         ondrop="drop_out(event)"
                                                                         ondragover="allowDrop(event)">
                                                                         <?php
-																		$where = "";
-																		$busca = $_GET['p'] ?? '';
-																		$where = " AND (NOME LIKE ('%" . $busca . "%') || CPF LIKE ('%" . $busca . "%'))";
-																		$query = "SELECT PK_ENTIDADE, NOME, CPF FROM `entidades`
+                                                                        $where = "";
+                                                                        $busca = $_GET['p'] ?? '';
+                                                                        $where = " AND (NOME LIKE ('%" . $busca . "%') || CPF LIKE ('%" . $busca . "%'))";
+                                                                        $query = "SELECT PK_ENTIDADE, NOME, CPF FROM `entidades`
 																		WHERE PK_ENTIDADE NOT IN (SELECT entidade FROM `professor_escola` WHERE escola = $pk)
 																		AND `PK_TIPO_CADASTRO` = 2
 																		$where ORDER BY NOME";
 
-																		$smtp = $con->prepare($query);
-																		$smtp->execute();
+                                                                        $smtp = $con->prepare($query);
+                                                                        $smtp->execute();
 
-																		$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-																		foreach ($linhas as $linha) {
-																		?>
+                                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                                        foreach ($linhas as $linha) {
+                                                                        ?>
                                                                         <li id="<?= $linha->PK_ENTIDADE ?>"
                                                                             ondragstart="drag(event)" draggable="true"
                                                                             class="b1">
@@ -154,18 +154,22 @@ $pk = $_GET['pk'];
                                                                         ondrop="drop_in(event)"
                                                                         ondragover="allowDrop(event)">
                                                                         <?php
-																		$query = "SELECT a.entidade PK_ENTIDADE, e.NOME, e.CPF FROM `professor_escola` a
+                                                                        $query = "SELECT a.entidade PK_ENTIDADE, e.NOME, e.CPF FROM `professor_escola` a
 										JOIN entidades e ON a.`entidade` = e.`PK_ENTIDADE`
 										 WHERE a.`escola` = ?";
-																		$smtp = $con->prepare($query);
-																		$smtp->execute([$_GET['pk']]);
-																		$linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-																		foreach ($linhas as $linha) {
-																		?>
+                                                                        $smtp = $con->prepare($query);
+                                                                        $smtp->execute([$_GET['pk']]);
+                                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                                        foreach ($linhas as $linha) {
+                                                                        ?>
                                                                         <li id="<?= $linha->PK_ENTIDADE ?>"
                                                                             ondragstart="drag(event)" draggable="true"
                                                                             class="b1">
-                                                                            <?= $linha->NOME ?><strong><?= $linha->CPF ?></strong>
+                                                                            <a
+                                                                                href="escolas-adicionar-professor-turma.php?escola=<?= $_GET['pk'] ?>&professor=<?= $linha->PK_ENTIDADE ?>">
+                                                                                <?= $linha->NOME ?><strong><?= $linha->CPF ?>
+                                                                                    <i class="fa fa-book"></i> </strong>
+                                                                            </a>
                                                                         </li>
                                                                         <?php } ?>
                                                                     </ul>
