@@ -84,7 +84,7 @@
 
                                                     <div class="form-group col-md-6">
                                                         <label>Nome</label>
-                                                        <input type="text" required name="nome" class="form-control">
+                                                        <input type="text" name="nome" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-6">
@@ -94,7 +94,7 @@
 
                                                     <div class="form-group col-md-4">
                                                         <label>CPF</label>
-                                                        <input type="text" id="validaCPF" required name="cpf"
+                                                        <input type="text" id="validaCPF" name="cpf"
                                                             class="form-control cpf">
                                                         <span id="txtCPF" class="payment_status cancel"
                                                             style="color: red;">CPF inválido</span>
@@ -102,7 +102,7 @@
 
                                                     <div class="form-group col-md-4">
                                                         <label>RG</label>
-                                                        <input type="text" required name="rg" class="form-control">
+                                                        <input type="text" name="rg" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
@@ -112,14 +112,13 @@
 
                                                     <div class="form-group col-md-4">
                                                         <label>Data de nascimento</label>
-                                                        <input type="date" required name="edu-start" value=""
+                                                        <input type="date" name="edu-start" value=""
                                                             class="form-control" />
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label>Telefone 1</label>
-                                                        <input type="text" required name="telefone-1"
-                                                            class="form-control" />
+                                                        <input type="text" name="telefone-1" class="form-control" />
                                                     </div>
 
                                                     <div class="form-group col-md-4">
@@ -129,13 +128,12 @@
 
                                                     <div class="form-group col-md-4">
                                                         <label>E-mail</label>
-                                                        <input type="email" required name="email"
-                                                            class="form-control" />
+                                                        <input type="email" name="email" class="form-control" />
                                                     </div>
 
                                                     <div class="form-group col-md-4">
                                                         <label>Tipo</label>
-                                                        <select name="tipo" required class="form-control">
+                                                        <select name="tipo" class="form-control">
                                                             <option value="1">Aluno</option>
                                                             <option value="2">Professor</option>
                                                             <option value="3">Coordenador</option>
@@ -145,8 +143,7 @@
 
                                                     <div class="form-group col-md-4">
                                                         <label>Senha</label>
-                                                        <input type="password" required name="senha"
-                                                            class="form-control" />
+                                                        <input type="password" name="senha" class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
