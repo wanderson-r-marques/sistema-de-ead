@@ -8,7 +8,8 @@
     <link rel="icon" href="<?= FAVICON ?>" />
     <meta charset="utf-8" />
     <meta name="author" content="www.frebsite.nl" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Custom CSS -->
     <link href="../assets/css/styles.css" rel="stylesheet">
@@ -16,6 +17,8 @@
     <!-- Custom Color Option -->
     <link href="../assets/css/colors.css" rel="stylesheet">
     <link href="../assets/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/tb1.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/tb2.css" />
 </head>
 
 <body class="red-skin">
@@ -83,8 +86,11 @@
                                                 </li>
                                                 <li class="list-inline-item">
                                                     <form action="turmas.php" class="form-inline my-2 my-lg-0">
-                                                        <input class="form-control" type="search" value="<?= $_GET['p'] ?? '' ?>" name="p" placeholder="Procurar" aria-label="Search">
-                                                        <button class="btn my-2 my-sm-0" type="submit"><i class="ti-search"></i></button>
+                                                        <input class="form-control" type="search"
+                                                            value="<?= $_GET['p'] ?? '' ?>" name="p"
+                                                            placeholder="Procurar" aria-label="Search">
+                                                        <button class="btn my-2 my-sm-0" type="submit"><i
+                                                                class="ti-search"></i></button>
                                                     </form>
                                                 </li>
                                             </ul>
@@ -98,11 +104,12 @@
                                             <div class="col-lg-12 col-md-12 col-sm-12">
                                                 <div class="dashboard_container">
                                                     <div class="form-group col-md-12" style="margin-top:1rem;">
-                                                        <a href="turmas-cadastro.php" class="btn add-items"><i class="fa fa-plus-circle"></i>Adicionar tarefas</a>
+                                                        <a href="turmas-cadastro.php" class="btn add-items"><i
+                                                                class="fa fa-plus-circle"></i>Adicionar tarefas</a>
                                                     </div>
                                                     <div class="dashboard_container_body">
                                                         <div class="table-responsive">
-                                                            <table class="table">
+                                                            <table id="relatorio" class="table">
                                                                 <thead class="thead-dark">
                                                                     <tr>
                                                                         <th scope="col">Escola</th>
@@ -153,20 +160,29 @@ ORDER BY escola, serie, turno, turma";
                                                                         $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
                                                                         foreach ($linhas as $linha) {
                                                                     ?>
-                                                                            <tr>
-                                                                                <th scope="row"><?= $linha->escola ?></th>
-                                                                                <td><?= $linha->serie ?></td>
-                                                                                <td><?= $linha->turma ?></td>
-                                                                                <td><?= $linha->turno ?></td>
-                                                                                <td>
-                                                                                    <div class="dash_action_link">
-                                                                                        <a href="turmas-visualizar.php?pk=<?= $linha->PK_TURMA ?>" class="view"><i class="fa fa-eye"></i></a>
-                                                                                        <a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-pen"></i></a>
-                                                                                        <a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>" class="edit"><i class="fa fa-users"></i></a>
-                                                                                        <a onclick="return confirm('Deseja deletar?')" href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>" class="cancel"><i class="fa fa-trash"></i></a>
-                                                                                    </div>
-                                                                                </td>
-                                                                            </tr>
+                                                                    <tr>
+                                                                        <th scope="row"><?= $linha->escola ?></th>
+                                                                        <td><?= $linha->serie ?></td>
+                                                                        <td><?= $linha->turma ?></td>
+                                                                        <td><?= $linha->turno ?></td>
+                                                                        <td>
+                                                                            <div class="dash_action_link">
+                                                                                <a href="turmas-visualizar.php?pk=<?= $linha->PK_TURMA ?>"
+                                                                                    class="view"><i
+                                                                                        class="fa fa-eye"></i></a>
+                                                                                <a href="turmas-editar.php?pk=<?= $linha->PK_TURMA ?>"
+                                                                                    class="edit"><i
+                                                                                        class="fa fa-pen"></i></a>
+                                                                                <a href="turmas-adicionar-alunos.php?pk=<?= $linha->PK_TURMA ?>"
+                                                                                    class="edit"><i
+                                                                                        class="fa fa-users"></i></a>
+                                                                                <a onclick="return confirm('Deseja deletar?')"
+                                                                                    href="turmas-funcao.php?funcao=deletar&pk=<?= $linha->PK_TURMA ?>"
+                                                                                    class="cancel"><i
+                                                                                        class="fa fa-trash"></i></a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
                                                                     <?php
                                                                         }
                                                                     }
@@ -226,14 +242,36 @@ ORDER BY escola, serie, turno, turma";
     <script src="../assets/js/jquery.counterup.min.js"></script>
     <script src="../assets/js/counterup.min.js"></script>
     <script src="../assets/js/jquery.mask.min.js"></script>
-    <script src="../assets/js/custom.js"></script>
+    <script src="../assets/js/tb1.js"></script>
+    <script src="../assets/js/tb2.js"></script>
+    <script src="../assets/js/tb3.js"></script>
+    <script src="../assets/js/tb4.js"></script>
+
+
+
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#relatorio').DataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                extend: 'excelHtml5',
+                autoFilter: true,
+                sheetName: 'Exported data'
+            }]
+        });
+    });
+    </script>
+
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
     <script src="../assets/js/metisMenu.min.js"></script>
     <script>
-        $('#side-menu').metisMenu();
+    $('#side-menu').metisMenu();
     </script>
+
+
 </body>
 
 </html>

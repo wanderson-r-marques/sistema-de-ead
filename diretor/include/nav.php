@@ -53,6 +53,9 @@
                 <li class="<?= pgActive('curriculos') ?>">
                     <a href="curriculos.php"><i class="ti-book"></i>Currículos</a>
                 </li>
+                <li class="<?= pgActive('curriculos') ?>">
+                    <a href="relatorios.php"><i class="ti-book"></i>Relatórios</a>
+                </li>
 
                 <li><a href="logout.php"><i class="ti-power-off"></i>Sair</a></li>
             </ul>
