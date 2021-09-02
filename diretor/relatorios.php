@@ -26,9 +26,7 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    <div id="preloader">
-        <div class="preloader"><span></span><span></span></div>
-    </div>
+
 
 
     <!-- ============================================================== -->
@@ -108,7 +106,7 @@
                                                                 class="fa fa-plus-circle"></i>Adicionar tarefas</a>
                                                     </div>
                                                     <div class="dashboard_container_body">
-                                                        <div class="table-responsive">
+                                                        <div class="table-responsive p-3">
                                                             <table id="relatorio" class="table">
                                                                 <thead class="thead-dark">
                                                                     <tr>
@@ -125,40 +123,18 @@
                                                                     $busca = $_GET['p'] ?? '';
                                                                     $where = " WHERE e.`DESCRICAO` LIKE ('%" . $busca . "%') || s.`DESCRICAO` LIKE ('%" . $busca . "%') || t.`DESCRICAO` LIKE ('%" . $busca . "%') || tu.`DESCRICAO` LIKE ('%" . $busca . "%')";
 
-                                                                    $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno  FROM turmas t
-JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
-JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
-JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
-$where
-ORDER BY escola, serie, turno, turma";
-
-                                                                    $smtp = $con->prepare($query);
-
-                                                                    if ($smtp->execute()) {
-                                                                        // Pega o total de registros
-                                                                        $total = $smtp->rowCount();
-                                                                        //determina o numero de registros que serão mostrados na tela
-                                                                        $maximo = 10;
-                                                                        //pega o valor da pagina atual
-                                                                        $pagina = isset($_GET['pagina']) ? ($_GET['pagina']) : '1';
-
-                                                                        //subtraimos 1, porque os registros sempre começam do 0 (zero), como num array
-                                                                        $inicio = $pagina - 1;
-                                                                        //multiplicamos a quantidade de registros da pagina pelo valor da pagina atual
-                                                                        $inicio = $maximo * $inicio;
-                                                                        // Nova query com as limitações
-                                                                        $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno, t.PK_TURMA  FROM turmas t
+                                                                    // Nova query com as limitações
+                                                                    $query = "SELECT e.`DESCRICAO` escola, s.`DESCRICAO` serie, t.`DESCRICAO` turma, tu.`DESCRICAO` turno, t.PK_TURMA  FROM turmas t
 	JOIN series s ON t.`PK_SERIE` = s.`PK_SERIES`
 	JOIN escolas e ON t.`PK_ESCOLA` = e.`PK_ESCOLA`
 	JOIN turnos tu ON t.`PK_TURNO` = tu.`PK_TURNO`
 	$where
-	ORDER BY escola, serie, turno, turma
-	LIMIT $inicio,$maximo";
-                                                                        $smtp = $con->prepare($query);
-                                                                        $smtp->execute();
+	ORDER BY escola, serie, turno, turma";
+                                                                    $smtp = $con->prepare($query);
+                                                                    $smtp->execute();
 
-                                                                        $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
-                                                                        foreach ($linhas as $linha) {
+                                                                    $linhas = $smtp->fetchAll(PDO::FETCH_OBJ);
+                                                                    foreach ($linhas as $linha) {
                                                                     ?>
                                                                     <tr>
                                                                         <th scope="row"><?= $linha->escola ?></th>
@@ -184,8 +160,8 @@ ORDER BY escola, serie, turno, turma";
                                                                         </td>
                                                                     </tr>
                                                                     <?php
-                                                                        }
                                                                     }
+
                                                                     ?>
                                                                 </tbody>
                                                             </table>
@@ -196,10 +172,7 @@ ORDER BY escola, serie, turno, turma";
                                         </div>
 
 
-                                        <!-- /Row Início da paginação -->
-                                        <!-- É necessário que exista a variável $pagina e $total no código -->
-                                        <?php include 'include/paginacao.php' ?>
-                                        <!-- /Row Final da paginação -->
+
 
                                         <br>
 
